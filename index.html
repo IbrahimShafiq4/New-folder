@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light" data-lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>BrightPath ✨ مسار مشرق</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&family=Cairo:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">    
+    <!-- GSAP + ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body>
+
+    <!-- READING BAR -->
+    <div class="reading-bar" id="reading-bar">
+        <div class="rb-dot"></div>
+        <span id="rb-txt">Reading page aloud…</span>
+        <button onclick="stopAll()"
+            style="background:rgba(255,255,255,.2);border:none;color:#fff;font-size:.7rem;font-weight:800;padding:2px 9px;border-radius:50px;cursor:pointer;margin-left:8px">✕
+            Stop</button>
+    </div>
+
+    <!-- VOICE OVERLAY (FIXED - stays open) -->
+    <div class="v-over" id="v-over">
+        <div class="v-orb">🎙️</div>
+        <h3 style="color:#fff;font-size:1.5rem;font-weight:900">Listening… / جاري الاستماع</h3>
+        <div class="mic-waves">
+            <div class="mic-wave"></div>
+            <div class="mic-wave"></div>
+            <div class="mic-wave"></div>
+            <div class="mic-wave"></div>
+            <div class="mic-wave"></div>
+            <div class="mic-wave"></div>
+            <div class="mic-wave"></div>
+        </div>
+        <div class="v-result" id="v-result">Waiting for your voice… / في انتظار صوتك</div>
+        <div class="v-cmds">
+            <div class="v-cmd-item">🏠 "Go home" / "الرئيسية"</div>
+            <div class="v-cmd-item">💼 "Show jobs" / "اعرض الوظائف"</div>
+            <div class="v-cmd-item">📄 "Open CV" / "افتح السيرة"</div>
+            <div class="v-cmd-item">🎤 "Start interview" / "ابدأ المقابلة"</div>
+            <div class="v-cmd-item">🔊 "Read page" / "اقرأ الصفحة"</div>
+            <div class="v-cmd-item">🌙 "Dark mode" / "وضع مظلم"</div>
+            <div class="v-cmd-item">🔠 "Bigger text" / "نص أكبر"</div>
+            <div class="v-cmd-item">⏹ "Stop voice" / "توقف"</div>
+        </div>
+        <div style="display:flex;gap:9px">
+            <button class="btn btn-g btn-sm" onclick="openVoiceGuide()"
+                style="color:#fff;border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.1)">📖 Commands
+                Guide</button>
+            <button class="btn btn-g btn-sm" onclick="stopVoiceCmd()"
+                style="color:#fff;border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.1)">✕ Cancel</button>
+        </div>
+    </div>
+
+    <!-- VOICE COMMANDS GUIDE MODAL -->
+    <div class="vcg-modal" id="vcg-modal">
+        <div class="vcg-box">
+            <button class="vcg-close" onclick="closeVoiceGuide()">✕</button>
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+                <div
+                    style="width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--violet),var(--sky));display:flex;align-items:center;justify-content:center;font-size:1.5rem">
+                    🎙️</div>
+                <div>
+                    <h2 style="font-family:var(--fd);font-weight:900;font-size:1.3rem">Voice Commands Guide</h2>
+                    <p style="font-family:var(--fa);font-size:.85rem;color:var(--txt2)">دليل الأوامر الصوتية</p>
+                </div>
+            </div>
+            <p style="font-size:.86rem;color:var(--txt2);margin-bottom:16px;line-height:1.6">Click the microphone button
+                🎙️ and say any of these commands. Speak clearly in English or Arabic!</p>
+            <h4
+                style="font-size:.8rem;font-weight:900;color:var(--sun);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">
+                🧭 Navigation</h4>
+            <div class="vcg-grid">
+                <div class="vcg-item"><span class="ico">🏠</span>
+                    <div>
+                        <div class="cmd">"Go home" / "الرئيسية"</div>
+                        <div class="desc">Go to home page</div>
+                    </div>
+                </div>
+                <div class="vcg-item"><span class="ico">📋</span>
+                    <div>
+                        <div class="cmd">"Start test" / "اختبار"</div>
+                        <div class="desc">Open job assessment</div>
+                    </div>
+                </div>
+                <div class="vcg-item"><span class="ico">📄</span>
+                    <div>
+                        <div class="cmd">"Open CV" / "افتح السيرة"</div>
+                        <div class="desc">Open CV builder</div>
+                    </div>
+                </div>
+                <div class="vcg-item"><span class="ico">💼</span>
+                    <div>
+                        <div class="cmd">"Show jobs" / "اعرض الوظائف"</div>
+                        <div class="desc">Open job listings</div>
+                    </div>
+                </div>
+                <div class="vcg-item"><span class="ico">🎤</span>
+                    <div>
+                        <div class="cmd">"Start interview" / "ابدأ المقابلة"</div>
+                        <div class="desc">Open interview practice</div>
+                    </div>
+                </div>
+                <div class="vcg-item"><span class="ico">🧩</span>
+                    <div>
+                        <div class="cmd">"Open games" / "افتح الألعاب"</div>
+                        <div class="desc">Open skill games</div>
+                    </div>
+                </div>
+                <div class="vcg-item"><span class="ico">📚</span>
+                    <div>
+                        <div class="cmd">"Learn" / "تعلم"</div>
+                        <div class="desc">Open learning topics</div>
+                    </div>
+                </div>
+                <div class="vcg-item"><span class="ico">📊</span>
+                    <div>
+                        <div class="cmd">"Dashboard" / "لوحة"</div>
+                        <div class="desc">Open your progress</div>
+                    </div>
+                </div>
+            </div>
+            <h4
+                style="font-size:.8rem;font-weight:900;color:var(--sky);text-transform:uppercase;letter-spacing:.8px;margin:16px 0 10px">
+                ♿ Accessibility</h4>
+            <div class="vcg-grid">
+                <div class="vcg-item"><span class="ico">🔊</span>
+                    <div>
+                        <div class="cmd">"Read page" / "اقرأ الصفحة"</div>
+                        <div class="desc">Read this page aloud</div>
+                    </div>
+                </div>
+                <div class="vcg-item"><span class="ico">⏹</span>
+                    <div>
+                        <div class="cmd">"Stop voice" / "توقف"</div>
+                        <div class="desc">Stop all reading</div>
+                    </div>
+                </div>
+                <div class="vcg-item"><span class="ico">🌙</span>
+                    <div>
+                        <div class="cmd">"Dark mode" / "وضع مظلم"</div>
+                        <div class="desc">Switch dark/light theme</div>
+                    </div>
+                </div>
+                <div class="vcg-item"><span class="ico">◑</span>
+                    <div>
+                        <div class="cmd">"High contrast" / "تباين"</div>
+                        <div class="desc">High contrast mode</div>
+                    </div>
+                </div>
+                <div class="vcg-item"><span class="ico">🔠</span>
+                    <div>
+                        <div class="cmd">"Bigger text" / "نص أكبر"</div>
+                        <div class="desc">Increase font size</div>
+                    </div>
+                </div>
+                <div class="vcg-item"><span class="ico">🔡</span>
+                    <div>
+                        <div class="cmd">"Smaller text" / "نص أصغر"</div>
+                        <div class="desc">Decrease font size</div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top:20px;text-align:center">
+                <button class="btn btn-o btn-sm" onclick="startVoiceCmd();closeVoiceGuide()">🎙️ Start Voice
+                    Commands</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOASTS -->
+    <div class="toast" id="toast"></div>
+    <div class="notif" id="notif"></div>
+
+    <!-- LESSON MODAL -->
+    <div class="modal-bg" id="modal-bg">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <div id="modal-inner"></div>
+        </div>
+    </div>
+
+    <!-- ACCESSIBILITY TOOLBAR -->
+    <div class="a11y-bar" id="a11y-bar" aria-label="Accessibility controls">
+        <button class="a11y-btn" onclick="changeFontSize(1)" aria-label="Increase text size"
+            title="Bigger text">A+</button>
+        <button class="a11y-btn" onclick="changeFontSize(-1)" aria-label="Decrease text size" title="Smaller text"
+            style="font-size:.8rem">A−</button>
+        <button class="a11y-btn" onclick="toggleTheme()" aria-label="Dark mode" title="Dark mode"
+            id="theme-icon">🌙</button>
+        <button class="a11y-btn" onclick="toggleContrast()" aria-label="High contrast" title="High contrast">◑</button>
+        <button class="a11y-btn" onclick="readPage()" aria-label="Read page aloud" title="Read aloud">🔊</button>
+        <button class="a11y-btn" onclick="stopAll()" aria-label="Stop reading" title="Stop voice">⏹</button>
+        <button class="a11y-btn" onclick="openVoiceGuide()" aria-label="Voice guide" title="Voice guide">📖</button>
+    </div>
+
+    <!-- NAV -->
+    <nav class="nav" id="main-nav">
+        <div class="nav-logo" onclick="showPage('home')">
+            <div class="nav-logo-icon">🌟</div>
+            <div>
+                <div class="nav-logo-text">BrightPath</div>
+                <span class="nav-logo-ar">مسار مشرق</span>
+            </div>
+        </div>
+        <ul class="nav-links" id="nav-links" style="list-style:none">
+            <li><a href="#" id="nl-home" class="act" onclick="showPage('home');return false">🏠 Home</a></li>
+            <li><a href="#" id="nl-assess" onclick="showPage('assess');return false">📋 Assessment</a></li>
+            <li><a href="#" id="nl-cvlearn" onclick="showPage('cvlearn');return false">📖 CV Guide</a></li>
+            <li><a href="#" id="nl-cvbuild" onclick="showPage('cvbuild');return false">📄 Build CV</a></li>
+            <li><a href="#" id="nl-games" onclick="showPage('games');return false">🧩 Games</a></li>
+            <li><a href="#" id="nl-learn" onclick="showPage('learn');return false">📚 Learn</a></li>
+            <li><a href="#" id="nl-jobs" onclick="showPage('jobs');return false">💼 Jobs</a></li>
+            <li><a href="#" id="nl-interview" onclick="showPage('interview');return false">🎤 Interview</a></li>
+            <li><a href="#" id="nl-dashboard" onclick="showPage('dashboard');return false">📊 Progress</a></li>
+            <li><a href="#" id="nl-about" onclick="showPage('about');return false">👥 About</a></li>
+        </ul>
+        <div class="nav-right">
+            <button class="stopbtn" id="stop-btn" onclick="stopAll()">⏹ Stop</button>
+            <button class="nb" onclick="startVoiceCmd()" title="Voice Commands">🎙️</button>
+            <button class="nb" onclick="readPage()" title="Read page">🔊</button>
+            <button class="langbtn" id="lang-btn" onclick="toggleLang()">🌐 AR</button>
+            <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+                <div class="hb-line"></div>
+                <div class="hb-line"></div>
+                <div class="hb-line"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="#" onclick="showPage('home');closeMenu();return false">🏠 Home / الرئيسية</a>
+        <a href="#" onclick="showPage('assess');closeMenu();return false">📋 Assessment / الاختبار</a>
+        <a href="#" onclick="showPage('cvlearn');closeMenu();return false">📖 CV Guide / دليل السيرة</a>
+        <a href="#" onclick="showPage('cvbuild');closeMenu();return false">📄 Build CV / ابنِ السيرة</a>
+        <a href="#" onclick="showPage('games');closeMenu();return false">🧩 Games / الألعاب</a>
+        <a href="#" onclick="showPage('learn');closeMenu();return false">📚 Learn / تعلم</a>
+        <a href="#" onclick="showPage('jobs');closeMenu();return false">💼 Jobs / وظائف</a>
+        <a href="#" onclick="showPage('interview');closeMenu();return false">🎤 Interview / مقابلة</a>
+        <a href="#" onclick="showPage('dashboard');closeMenu();return false">📊 Progress / لوحة</a>
+        <a href="#" onclick="showPage('about');closeMenu();return false">👥 About / عن المنصة</a>
+        <div style="display:flex;gap:9px;padding-top:6px;flex-wrap:wrap">
+            <button class="btn btn-o btn-sm" onclick="toggleLang();closeMenu()">🌐 AR/EN</button>
+            <button class="btn btn-g btn-sm" onclick="toggleTheme();closeMenu()">🌙 Theme</button>
+            <button class="btn btn-t btn-sm" onclick="readPage();closeMenu()">🔊 Read Page</button>
+            <button class="btn btn-g btn-sm" onclick="openVoiceGuide();closeMenu()">📖 Voice Guide</button>
+        </div>
+    </div>
+
+    <!-- FLOATING VOICE GUIDE BUTTON -->
+    <button class="vcg-float" onclick="openVoiceGuide()" title="Voice Commands Guide"
+        aria-label="Open voice commands guide">📖</button>
+
+    <!-- ════════ APP PAGES ════════ -->
+    <div id="app">
+
+        <!-- HOME PAGE -->
+        <div class="page act" id="page-home">
+            <section
+                style="position:relative;background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);overflow:hidden">
+                <canvas id="hero-canvas"
+                    style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.55"></canvas>
+                <div class="hero" style="position:relative;z-index:1">
+                    <div>
+                        <div class="hero-badge">✨ AI-Powered Career Platform</div>
+                        <h1><span class="gtext">Your Journey to</span><br>Work Starts Here! 🚀</h1>
+                        <p>BrightPath guides you step by step — from discovering your best job, to building your CV, to
+                            acing your interview. With friendly AI voice support every step of the way!</p>
+                        <div class="hero-btns">
+                            <button class="btn btn-o" onclick="showPage('assess')">📋 Start Assessment</button>
+                            <button class="btn btn-g" onclick="startVoiceCmd()">🎙️ Use Voice</button>
+                            <button class="btn btn-t btn-sm" onclick="openVoiceGuide()">📖 Voice Guide</button>
+                        </div>
+                        <div class="hero-stats">
+                            <div>
+                                <div class="stn" id="c1">0</div>
+                                <div class="stl">Users Helped</div>
+                            </div>
+                            <div>
+                                <div class="stn" id="c2">0</div>
+                                <div class="stl">CVs Built</div>
+                            </div>
+                            <div>
+                                <div class="stn" id="c3">0</div>
+                                <div class="stl">Jobs Found</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div
+                            style="background:var(--surf);border:2px solid var(--bdr);border-radius:var(--rlg);padding:26px;box-shadow:var(--shd)">
+                            <h3 style="font-family:var(--fd);font-weight:900;margin-bottom:18px;font-size:.98rem">🗺️
+                                Your 5-Step Career Journey</h3>
+                            <div class="jcards">
+                                <div class="jcard" onclick="showPage('assess')">
+                                    <div class="jcard-ico" style="background:rgba(255,107,53,.1)">📋</div>
+                                    <div>
+                                        <h4>1. Job Assessment</h4>
+                                        <p>Find your perfect job match</p>
+                                    </div>
+                                    <div class="jcard-arr">→</div>
+                                </div>
+                                <div class="jcard" onclick="showPage('cvlearn')">
+                                    <div class="jcard-ico" style="background:rgba(29,185,168,.1)">📖</div>
+                                    <div>
+                                        <h4>2. Learn CV Building</h4>
+                                        <p>Watch the ATS CV video guide</p>
+                                    </div>
+                                    <div class="jcard-arr">→</div>
+                                </div>
+                                <div class="jcard" onclick="showPage('cvbuild')">
+                                    <div class="jcard-ico" style="background:rgba(255,184,48,.1)">📄</div>
+                                    <div>
+                                        <h4>3. Build Your CV</h4>
+                                        <p>Create your professional resume</p>
+                                    </div>
+                                    <div class="jcard-arr">→</div>
+                                </div>
+                                <div class="jcard" onclick="showPage('games')">
+                                    <div class="jcard-ico" style="background:rgba(124,58,237,.1)">🧩</div>
+                                    <div>
+                                        <h4>4. Play & Learn Games</h4>
+                                        <p>Fun games that build real skills</p>
+                                    </div>
+                                    <div class="jcard-arr">→</div>
+                                </div>
+                                <div class="jcard" onclick="showPage('interview')">
+                                    <div class="jcard-ico" style="background:rgba(16,185,129,.1)">🎤</div>
+                                    <div>
+                                        <h4>5. Practice Interview</h4>
+                                        <p>AI coach with voice support</p>
+                                    </div>
+                                    <div class="jcard-arr">→</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CAREER TOOLKIT -->
+            <section class="sec-alt sec" style="max-width:100%">
+                <div style="max-width:1160px;margin:0 auto">
+                    <div class="center" style="margin-bottom:48px">
+                        <div class="stag">Everything You Need</div>
+                        <h2 class="stitle">Your Complete Career Toolkit 🎯</h2>
+                        <p class="ssub">Six powerful tools designed just for you. Each step is guided and encouraging.
+                        </p>
+                    </div>
+                    <div class="feat-grid">
+                        <div class="feat-card card" style="--ca:#FF6B35" onclick="showPage('assess')">
+                            <div class="feat-icon" style="background:rgba(255,107,53,.1)">📋</div>
+                            <h3>Job Assessment</h3>
+                            <p>Answer simple questions and our AI finds your perfect job match from 5 options.</p>
+                            <button class="feat-go">Start Test →</button>
+                        </div>
+                        <div class="feat-card card" style="--ca:#1DB9A8" onclick="showPage('cvbuild')">
+                            <div class="feat-icon" style="background:rgba(29,185,168,.1)">📄</div>
+                            <h3>ATS CV Builder</h3>
+                            <p>Fill in your details with voice support and download a professional ATS-ready CV.</p>
+                            <button class="feat-go">Build Now →</button>
+                        </div>
+                        <div class="feat-card card" style="--ca:#FFB830" onclick="showPage('games')">
+                            <div class="feat-icon" style="background:rgba(255,184,48,.1)">🧩</div>
+                            <h3>Skill Games</h3>
+                            <p>5 fun interactive games — memory, patterns, maths, sorting, and focus!</p><button
+                                class="feat-go">Play →</button>
+                        </div>
+                        <div class="feat-card card" style="--ca:#7C3AED" onclick="showPage('learn')">
+                            <div class="feat-icon" style="background:rgba(124,58,237,.1)">📚</div>
+                            <h3>Learning Topics</h3>
+                            <p>Short lessons on workplace skills, communication, time management and more!</p><button
+                                class="feat-go">Learn →</button>
+                        </div>
+                        <div class="feat-card card" style="--ca:#10B981" onclick="showPage('jobs')">
+                            <div class="feat-icon" style="background:rgba(16,185,129,.1)">💼</div>
+                            <h3>Job Search</h3>
+                            <p>Browse inclusive job listings with filters. Express interest and save favourites!</p>
+                            <button class="feat-go">Find Jobs →</button>
+                        </div>
+                        <div class="feat-card card" style="--ca:#3B82F6" onclick="showPage('interview')">
+                            <div class="feat-icon" style="background:rgba(59,130,246,.1)">🎤</div>
+                            <h3>AI Interview</h3>
+                            <p>Practice real interview questions with our AI coach. Speak or type your answers!</p>
+                            <button class="feat-go">Practice →</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- HOW IT WORKS -->
+            <section class="sec">
+                <div class="center" style="margin-bottom:48px">
+                    <div class="stag">Simple Steps</div>
+                    <h2 class="stitle">How It Works ✨</h2>
+                    <p class="ssub">Just three easy steps to start your amazing career journey!</p>
+                </div>
+                <div class="how-grid">
+                    <div class="how-step">
+                        <div class="how-num">1</div>
+                        <h3 style="font-size:1rem;font-weight:800;margin-bottom:10px">Create Your Profile</h3>
+                        <p style="font-size:.83rem;color:var(--txt2);line-height:1.65">Answer friendly questions and
+                            build your personal profile. Tell us your amazing skills!</p>
+                    </div>
+                    <div class="how-step">
+                        <div class="how-num">2</div>
+                        <h3 style="font-size:1rem;font-weight:800;margin-bottom:10px">Play & Practice</h3>
+                        <p style="font-size:.83rem;color:var(--txt2);line-height:1.65">Play skill games and practice
+                            interview questions. Our AI learns what you're great at!</p>
+                    </div>
+                    <div class="how-step">
+                        <div class="how-num">3</div>
+                        <h3 style="font-size:1rem;font-weight:800;margin-bottom:10px">Get Your Dream Job</h3>
+                        <p style="font-size:.83rem;color:var(--txt2);line-height:1.65">Our AI recommends perfect jobs
+                            and helps you connect with inclusive employers!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ACCESSIBILITY -->
+            <section class="sec-alt sec" style="max-width:100%;margin-top:0">
+                <div style="max-width:1160px;margin:0 auto">
+                    <div class="center" style="margin-bottom:46px">
+                        <div class="stag">Accessibility First</div>
+                        <h2 class="stitle">Designed for Everyone 💙</h2>
+                        <p class="ssub">Every part of BrightPath is built with cognitive accessibility in mind. Simple,
+                            safe, and supportive.</p>
+                    </div>
+                    <div class="a11y-grid">
+                        <div class="a11y-card"><span class="a11y-ico">🎙️</span>
+                            <h3 style="font-size:.9rem;font-weight:800;margin-bottom:6px">Voice Navigation</h3>
+                            <p style="font-size:.78rem;color:var(--txt2)">Navigate the whole site with your voice in
+                                English or Arabic</p>
+                        </div>
+                        <div class="a11y-card"><span class="a11y-ico">🔊</span>
+                            <h3 style="font-size:.9rem;font-weight:800;margin-bottom:6px">Page Reading</h3>
+                            <p style="font-size:.78rem;color:var(--txt2)">Every question and instruction read aloud
+                                automatically</p>
+                        </div>
+                        <div class="a11y-card"><span class="a11y-ico">🔠</span>
+                            <h3 style="font-size:.9rem;font-weight:800;margin-bottom:6px">Adjustable Text</h3>
+                            <p style="font-size:.78rem;color:var(--txt2)">Increase or decrease font size with one click
+                                or voice command</p>
+                        </div>
+                        <div class="a11y-card"><span class="a11y-ico">🌙</span>
+                            <h3 style="font-size:.9rem;font-weight:800;margin-bottom:6px">Dark & High Contrast</h3>
+                            <p style="font-size:.78rem;color:var(--txt2)">Multiple colour modes for every visual need
+                            </p>
+                        </div>
+                        <div class="a11y-card"><span class="a11y-ico">🌐</span>
+                            <h3 style="font-size:.9rem;font-weight:800;margin-bottom:6px">Arabic & English</h3>
+                            <p style="font-size:.78rem;color:var(--txt2)">Full bilingual support with proper RTL layout
+                                for Arabic</p>
+                        </div>
+                        <div class="a11y-card"><span class="a11y-ico">⌨️</span>
+                            <h3 style="font-size:.9rem;font-weight:800;margin-bottom:6px">Keyboard Friendly</h3>
+                            <p style="font-size:.78rem;color:var(--txt2)">Every button and link works perfectly with
+                                keyboard navigation</p>
+                        </div>
+                        <div class="a11y-card"><span class="a11y-ico">🖱️</span>
+                            <h3 style="font-size:.9rem;font-weight:800;margin-bottom:6px">Big Buttons</h3>
+                            <p style="font-size:.78rem;color:var(--txt2)">All buttons are large, labelled, and easy to
+                                tap or click</p>
+                        </div>
+                        <div class="a11y-card"><span class="a11y-ico">💡</span>
+                            <h3 style="font-size:.9rem;font-weight:800;margin-bottom:6px">Step-by-Step</h3>
+                            <p style="font-size:.78rem;color:var(--txt2)">Each task broken into tiny manageable steps —
+                                never overwhelming!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TESTIMONIALS -->
+            <section class="sec">
+                <div class="center" style="margin-bottom:38px">
+                    <div class="stag">Success Stories</div>
+                    <h2 class="stitle">What People Are Saying 💬</h2>
+                </div>
+                <div class="testi-wrap">
+                    <div class="testi-track" id="ttrack">
+                        <div class="tcard">
+                            <div class="tq">"</div>
+                            <div class="tstars">⭐⭐⭐⭐⭐</div>
+                            <p class="ttext">BrightPath helped me create my first CV! The AI suggestions were amazing.
+                                Now I work at the local supermarket and I love every day!</p>
+                            <div class="tauth">
+                                <div class="tava" style="background:rgba(255,107,53,.15)">😊</div>
+                                <div>
+                                    <div class="tname">Ahmed, 24</div>
+                                    <div class="trole">Store Assistant</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tcard">
+                            <div class="tq">"</div>
+                            <div class="tstars">⭐⭐⭐⭐⭐</div>
+                            <p class="ttext">My daughter used BrightPath for 3 months. The interview practice gave her
+                                so much confidence. She got her first job last month!</p>
+                            <div class="tauth">
+                                <div class="tava" style="background:rgba(29,185,168,.15)">👩</div>
+                                <div>
+                                    <div class="tname">Sara's Mum</div>
+                                    <div class="trole">Parent</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tcard">
+                            <div class="tq">"</div>
+                            <div class="tstars">⭐⭐⭐⭐⭐</div>
+                            <p class="ttext">The skill games are so fun! I play them every day. My memory improved and I
+                                learned to count money for my café job!</p>
+                            <div class="tauth">
+                                <div class="tava" style="background:rgba(124,58,237,.15)">😄</div>
+                                <div>
+                                    <div class="tname">Omar, 21</div>
+                                    <div class="trole">Café Helper</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tcard">
+                            <div class="tq">"</div>
+                            <div class="tstars">⭐⭐⭐⭐⭐</div>
+                            <p class="ttext">The voice assistant makes everything easy. I talk to Max and he helps me
+                                find jobs and practice my answers.</p>
+                            <div class="tauth">
+                                <div class="tava" style="background:rgba(16,185,129,.15)">😃</div>
+                                <div>
+                                    <div class="tname">Layla, 19</div>
+                                    <div class="trole">Office Helper</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tcard">
+                            <div class="tq">"</div>
+                            <div class="tstars">⭐⭐⭐⭐⭐</div>
+                            <p class="ttext">As a teacher, I recommend BrightPath to all my students. The step-by-step
+                                approach makes a huge difference in building confidence.</p>
+                            <div class="tauth">
+                                <div class="tava" style="background:rgba(59,130,246,.15)">👨‍🏫</div>
+                                <div>
+                                    <div class="tname">Mr. Hassan</div>
+                                    <div class="trole">Special Education Teacher</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tcontrols">
+                    <button class="tarr" onclick="testiPrev()">←</button>
+                    <div class="tdots" id="tdots"></div>
+                    <button class="tarr" onclick="testiNext()">→</button>
+                </div>
+            </section>
+
+            <!-- CTA -->
+            <div class="cta-sec">
+                <div class="stag" style="background:rgba(255,255,255,.25);color:#fff">Start Today</div>
+                <h2>Ready to Begin Your Journey? 🌟</h2>
+                <p>Join thousands of people building their careers with BrightPath. It's free, friendly, and designed
+                    just for you!</p>
+                <div class="cta-btns">
+                    <button class="btn" onclick="showPage('assess')"
+                        style="background:rgba(255,255,255,.22);color:#fff;border:2.5px solid rgba(255,255,255,.4)">📋
+                        Start Assessment</button>
+                    <button class="btn" onclick="showPage('cvbuild')"
+                        style="background:#fff;color:var(--sun);border:none">📄 Build My CV</button>
+                </div>
+                <div style="display:flex;justify-content:center;gap:11px;flex-wrap:wrap">
+                    <div class="cta-badge">🆓 Completely Free</div>
+                    <div class="cta-badge">🔒 Safe & Private</div>
+                    <div class="cta-badge">🌐 Arabic & English</div>
+                    <div class="cta-badge">♿ Fully Accessible</div>
+                </div>
+            </div>
+
+            <footer style="background:var(--surf);border-top:2px solid var(--bdr);padding:36px;text-align:center">
+                <div style="display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:10px">
+                    <div class="nav-logo-icon">🌟</div>
+                    <div>
+                        <div class="nav-logo-text" style="font-size:1.4rem">BrightPath</div>
+                        <div class="nav-logo-ar">مسار مشرق</div>
+                    </div>
+                </div>
+                <p style="font-size:.8rem;color:var(--txt2);margin-bottom:12px">© 2025 BrightPath. Made with ❤️ for
+                    inclusive employment.</p>
+                <div style="display:flex;justify-content:center;gap:20px">
+                    <a href="#" onclick="showPage('about');return false"
+                        style="font-size:.8rem;color:var(--txt2);font-weight:700">About Team</a>
+                    <a href="#" onclick="showPage('dashboard');return false"
+                        style="font-size:.8rem;color:var(--txt2);font-weight:700">Dashboard</a>
+                </div>
+            </footer>
+        </div>
+
+        <!-- OTHER PAGES (built by JS) -->
+        <div class="page" id="page-assess"></div>
+        <div class="page" id="page-cvlearn"></div>
+        <div class="page" id="page-cvbuild"></div>
+        <div class="page" id="page-games"></div>
+        <div class="page" id="page-learn"></div>
+        <div class="page" id="page-jobs"></div>
+        <div class="page" id="page-interview"></div>
+        <div class="page" id="page-dashboard"></div>
+        <div class="page" id="page-about"></div>
+
+    </div><!-- /app -->
+
+    <!-- AI COACH -->
+    <div class="coach">
+        <div class="coach-bub on" id="coach-bub">
+            <strong>👋 Hi! I'm Max!</strong><br>
+            <span style="font-size:.8rem">I'm your guide! Click 🔊 to hear this page, 🎙️ for voice commands, or 📖 for
+                the voice guide.</span>
+            <br><button onclick="document.getElementById('coach-bub').classList.remove('on')"
+                style="margin-top:9px;padding:4px 12px;border-radius:16px;background:var(--sun);color:#fff;font-size:.72rem;font-weight:700;border:none;cursor:pointer">Got
+                it! 👍</button>
+        </div>
+        <button class="coach-btn" onclick="document.getElementById('coach-bub').classList.toggle('on')">🤖</button>
+    </div>
+
+    <script src="./main.js"></script>
+</body>
+
+</html>
