@@ -9,30 +9,29 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&family=Cairo:wght@400;600;700;800;900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="./style.css">    
-    <!-- GSAP + ScrollTrigger -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <!-- Three.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="./style.css">
+    <!-- GSAP (deferred) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <!-- Three.js (deferred – only used for desktop hero) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
 </head>
 
 <body>
 
     <!-- READING BAR -->
-    <div class="reading-bar" id="reading-bar">
+    <div class="reading-bar" id="reading-bar" role="status" aria-live="polite">
         <div class="rb-dot"></div>
         <span id="rb-txt">Reading page aloud…</span>
         <button onclick="stopAll()"
-            style="background:rgba(255,255,255,.2);border:none;color:#fff;font-size:.7rem;font-weight:800;padding:2px 9px;border-radius:50px;cursor:pointer;margin-left:8px">✕
-            Stop</button>
+            style="background:rgba(255,255,255,.2);border:none;color:#fff;font-size:.7rem;font-weight:800;padding:2px 9px;border-radius:50px;cursor:pointer;margin-left:8px"
+            aria-label="Stop reading">✕ Stop</button>
     </div>
 
-    <!-- VOICE OVERLAY (FIXED - stays open) -->
-    <div class="v-over" id="v-over">
-        <div class="v-orb">🎙️</div>
+    <!-- VOICE OVERLAY -->
+    <div class="v-over" id="v-over" role="dialog" aria-label="Voice Commands" aria-modal="true">
+        <div class="v-orb" aria-hidden="true">🎙️</div>
         <h3 style="color:#fff;font-size:1.5rem;font-weight:900">Listening… / جاري الاستماع</h3>
-        <div class="mic-waves">
+        <div class="mic-waves" aria-hidden="true">
             <div class="mic-wave"></div>
             <div class="mic-wave"></div>
             <div class="mic-wave"></div>
@@ -41,8 +40,8 @@
             <div class="mic-wave"></div>
             <div class="mic-wave"></div>
         </div>
-        <div class="v-result" id="v-result">Waiting for your voice… / في انتظار صوتك</div>
-        <div class="v-cmds">
+        <div class="v-result" id="v-result" aria-live="polite">Waiting for your voice… / في انتظار صوتك</div>
+        <div class="v-cmds" aria-label="Available commands">
             <div class="v-cmd-item">🏠 "Go home" / "الرئيسية"</div>
             <div class="v-cmd-item">💼 "Show jobs" / "اعرض الوظائف"</div>
             <div class="v-cmd-item">📄 "Open CV" / "افتح السيرة"</div>
@@ -61,14 +60,13 @@
         </div>
     </div>
 
-    <!-- VOICE COMMANDS GUIDE MODAL -->
-    <div class="vcg-modal" id="vcg-modal">
+    <!-- VOICE GUIDE MODAL -->
+    <div class="vcg-modal" id="vcg-modal" role="dialog" aria-label="Voice Commands Guide" aria-modal="true">
         <div class="vcg-box">
-            <button class="vcg-close" onclick="closeVoiceGuide()">✕</button>
+            <button class="vcg-close" onclick="closeVoiceGuide()" aria-label="Close">✕</button>
             <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
-                <div
-                    style="width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--violet),var(--sky));display:flex;align-items:center;justify-content:center;font-size:1.5rem">
-                    🎙️</div>
+                <div style="width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--violet),var(--sky));display:flex;align-items:center;justify-content:center;font-size:1.5rem"
+                    aria-hidden="true">🎙️</div>
                 <div>
                     <h2 style="font-family:var(--fd);font-weight:900;font-size:1.3rem">Voice Commands Guide</h2>
                     <p style="font-family:var(--fa);font-size:.85rem;color:var(--txt2)">دليل الأوامر الصوتية</p>
@@ -82,50 +80,50 @@
             <div class="vcg-grid">
                 <div class="vcg-item"><span class="ico">🏠</span>
                     <div>
-                        <div class="cmd">"Go home" / "الرئيسية"</div>
+                        <div class="cmd">"Go home"</div>
                         <div class="desc">Go to home page</div>
                     </div>
                 </div>
                 <div class="vcg-item"><span class="ico">📋</span>
                     <div>
-                        <div class="cmd">"Start test" / "اختبار"</div>
+                        <div class="cmd">"Start test"</div>
                         <div class="desc">Open job assessment</div>
+                    </div>
+                </div>
+                <div class="vcg-item"><span class="ico">🏋️</span>
+                    <div>
+                        <div class="cmd">"Training"</div>
+                        <div class="desc">Job training quiz</div>
                     </div>
                 </div>
                 <div class="vcg-item"><span class="ico">📄</span>
                     <div>
-                        <div class="cmd">"Open CV" / "افتح السيرة"</div>
+                        <div class="cmd">"Open CV"</div>
                         <div class="desc">Open CV builder</div>
                     </div>
                 </div>
                 <div class="vcg-item"><span class="ico">💼</span>
                     <div>
-                        <div class="cmd">"Show jobs" / "اعرض الوظائف"</div>
+                        <div class="cmd">"Show jobs"</div>
                         <div class="desc">Open job listings</div>
                     </div>
                 </div>
                 <div class="vcg-item"><span class="ico">🎤</span>
                     <div>
-                        <div class="cmd">"Start interview" / "ابدأ المقابلة"</div>
-                        <div class="desc">Open interview practice</div>
+                        <div class="cmd">"Start interview"</div>
+                        <div class="desc">Interview practice</div>
                     </div>
                 </div>
                 <div class="vcg-item"><span class="ico">🧩</span>
                     <div>
-                        <div class="cmd">"Open games" / "افتح الألعاب"</div>
+                        <div class="cmd">"Open games"</div>
                         <div class="desc">Open skill games</div>
                     </div>
                 </div>
                 <div class="vcg-item"><span class="ico">📚</span>
                     <div>
-                        <div class="cmd">"Learn" / "تعلم"</div>
-                        <div class="desc">Open learning topics</div>
-                    </div>
-                </div>
-                <div class="vcg-item"><span class="ico">📊</span>
-                    <div>
-                        <div class="cmd">"Dashboard" / "لوحة"</div>
-                        <div class="desc">Open your progress</div>
+                        <div class="cmd">"Learn"</div>
+                        <div class="desc">Learning topics</div>
                     </div>
                 </div>
             </div>
@@ -135,37 +133,37 @@
             <div class="vcg-grid">
                 <div class="vcg-item"><span class="ico">🔊</span>
                     <div>
-                        <div class="cmd">"Read page" / "اقرأ الصفحة"</div>
+                        <div class="cmd">"Read page"</div>
                         <div class="desc">Read this page aloud</div>
                     </div>
                 </div>
                 <div class="vcg-item"><span class="ico">⏹</span>
                     <div>
-                        <div class="cmd">"Stop voice" / "توقف"</div>
+                        <div class="cmd">"Stop voice"</div>
                         <div class="desc">Stop all reading</div>
                     </div>
                 </div>
                 <div class="vcg-item"><span class="ico">🌙</span>
                     <div>
-                        <div class="cmd">"Dark mode" / "وضع مظلم"</div>
-                        <div class="desc">Switch dark/light theme</div>
+                        <div class="cmd">"Dark mode"</div>
+                        <div class="desc">Switch dark/light</div>
                     </div>
                 </div>
                 <div class="vcg-item"><span class="ico">◑</span>
                     <div>
-                        <div class="cmd">"High contrast" / "تباين"</div>
+                        <div class="cmd">"High contrast"</div>
                         <div class="desc">High contrast mode</div>
                     </div>
                 </div>
                 <div class="vcg-item"><span class="ico">🔠</span>
                     <div>
-                        <div class="cmd">"Bigger text" / "نص أكبر"</div>
+                        <div class="cmd">"Bigger text"</div>
                         <div class="desc">Increase font size</div>
                     </div>
                 </div>
                 <div class="vcg-item"><span class="ico">🔡</span>
                     <div>
-                        <div class="cmd">"Smaller text" / "نص أصغر"</div>
+                        <div class="cmd">"Smaller text"</div>
                         <div class="desc">Decrease font size</div>
                     </div>
                 </div>
@@ -178,24 +176,24 @@
     </div>
 
     <!-- TOASTS -->
-    <div class="toast" id="toast"></div>
-    <div class="notif" id="notif"></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="notif" id="notif" role="alert" aria-live="assertive"></div>
 
     <!-- LESSON MODAL -->
-    <div class="modal-bg" id="modal-bg">
+    <div class="modal-bg" id="modal-bg" role="dialog" aria-modal="true" aria-label="Lesson">
         <div class="modal-box">
-            <button class="modal-close" onclick="closeModal()">✕</button>
+            <button class="modal-close" onclick="closeModal()" aria-label="Close lesson">✕</button>
             <div id="modal-inner"></div>
         </div>
     </div>
 
     <!-- ACCESSIBILITY TOOLBAR -->
-    <div class="a11y-bar" id="a11y-bar" aria-label="Accessibility controls">
+    <div class="a11y-bar" id="a11y-bar" aria-label="Accessibility controls" role="toolbar">
         <button class="a11y-btn" onclick="changeFontSize(1)" aria-label="Increase text size"
             title="Bigger text">A+</button>
         <button class="a11y-btn" onclick="changeFontSize(-1)" aria-label="Decrease text size" title="Smaller text"
             style="font-size:.8rem">A−</button>
-        <button class="a11y-btn" onclick="toggleTheme()" aria-label="Dark mode" title="Dark mode"
+        <button class="a11y-btn" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Dark mode"
             id="theme-icon">🌙</button>
         <button class="a11y-btn" onclick="toggleContrast()" aria-label="High contrast" title="High contrast">◑</button>
         <button class="a11y-btn" onclick="readPage()" aria-label="Read page aloud" title="Read aloud">🔊</button>
@@ -204,43 +202,57 @@
     </div>
 
     <!-- NAV -->
-    <nav class="nav" id="main-nav">
-        <div class="nav-logo" onclick="showPage('home')">
-            <div class="nav-logo-icon">🌟</div>
+    <nav class="nav" id="main-nav" aria-label="Main navigation">
+        <div class="nav-logo" onclick="showPage('home')" role="button" tabindex="0" aria-label="BrightPath Home">
+            <div class="nav-logo-icon" aria-hidden="true">🌟</div>
             <div>
-                <div class="nav-logo-text">BrightPath</div>
-                <span class="nav-logo-ar">مسار مشرق</span>
+                <div class="nav-logo-text">BrightPath</div><span class="nav-logo-ar">مسار مشرق</span>
             </div>
         </div>
-        <ul class="nav-links" id="nav-links" style="list-style:none">
-            <li><a href="#" id="nl-home" class="act" onclick="showPage('home');return false">🏠 Home</a></li>
-            <li><a href="#" id="nl-assess" onclick="showPage('assess');return false">📋 Assessment</a></li>
-            <li><a href="#" id="nl-cvlearn" onclick="showPage('cvlearn');return false">📖 CV Guide</a></li>
-            <li><a href="#" id="nl-cvbuild" onclick="showPage('cvbuild');return false">📄 Build CV</a></li>
-            <li><a href="#" id="nl-games" onclick="showPage('games');return false">🧩 Games</a></li>
-            <li><a href="#" id="nl-learn" onclick="showPage('learn');return false">📚 Learn</a></li>
-            <li><a href="#" id="nl-jobs" onclick="showPage('jobs');return false">💼 Jobs</a></li>
-            <li><a href="#" id="nl-interview" onclick="showPage('interview');return false">🎤 Interview</a></li>
-            <li><a href="#" id="nl-dashboard" onclick="showPage('dashboard');return false">📊 Progress</a></li>
-            <li><a href="#" id="nl-about" onclick="showPage('about');return false">👥 About</a></li>
+        <ul class="nav-links" id="nav-links" style="list-style:none" role="menubar">
+            <li role="none"><a href="#" id="nl-home" class="act" onclick="showPage('home');return false"
+                    role="menuitem">🏠 Home</a></li>
+            <li role="none"><a href="#" id="nl-assess" onclick="showPage('assess');return false" role="menuitem">📋
+                    Assessment</a></li>
+            <li role="none"><a href="#" id="nl-training" onclick="showPage('training');return false" role="menuitem">🏋️
+                    Training</a></li>
+            <li role="none"><a href="#" id="nl-cvlearn" onclick="showPage('cvlearn');return false" role="menuitem">📖 CV
+                    Guide</a></li>
+            <li role="none"><a href="#" id="nl-cvbuild" onclick="showPage('cvbuild');return false" role="menuitem">📄
+                    Build CV</a></li>
+            <li role="none"><a href="#" id="nl-games" onclick="showPage('games');return false" role="menuitem">🧩
+                    Games</a></li>
+            <li role="none"><a href="#" id="nl-learn" onclick="showPage('learn');return false" role="menuitem">📚
+                    Learn</a></li>
+            <li role="none"><a href="#" id="nl-jobs" onclick="showPage('jobs');return false" role="menuitem">💼 Jobs</a>
+            </li>
+            <li role="none"><a href="#" id="nl-interview" onclick="showPage('interview');return false"
+                    role="menuitem">🎤 Interview</a></li>
+            <li role="none"><a href="#" id="nl-dashboard" onclick="showPage('dashboard');return false"
+                    role="menuitem">📊 Progress</a></li>
+            <li role="none"><a href="#" id="nl-about" onclick="showPage('about');return false" role="menuitem">👥
+                    About</a></li>
         </ul>
         <div class="nav-right">
-            <button class="stopbtn" id="stop-btn" onclick="stopAll()">⏹ Stop</button>
-            <button class="nb" onclick="startVoiceCmd()" title="Voice Commands">🎙️</button>
-            <button class="nb" onclick="readPage()" title="Read page">🔊</button>
-            <button class="langbtn" id="lang-btn" onclick="toggleLang()">🌐 AR</button>
-            <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+            <button class="stopbtn" id="stop-btn" onclick="stopAll()" aria-label="Stop voice">⏹ Stop</button>
+            <button class="nb" onclick="startVoiceCmd()" title="Voice Commands"
+                aria-label="Start voice commands">🎙️</button>
+            <button class="nb" onclick="readPage()" title="Read page" aria-label="Read page aloud">🔊</button>
+            <button class="langbtn" id="lang-btn" onclick="toggleLang()" aria-label="Switch language">🌐 AR</button>
+            <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu"
+                aria-expanded="false">
                 <div class="hb-line"></div>
                 <div class="hb-line"></div>
                 <div class="hb-line"></div>
-            </div>
+            </button>
         </div>
     </nav>
 
     <!-- MOBILE MENU -->
-    <div class="mobile-menu" id="mobile-menu">
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
         <a href="#" onclick="showPage('home');closeMenu();return false">🏠 Home / الرئيسية</a>
         <a href="#" onclick="showPage('assess');closeMenu();return false">📋 Assessment / الاختبار</a>
+        <a href="#" onclick="showPage('training');closeMenu();return false">🏋️ Training / تدريب</a>
         <a href="#" onclick="showPage('cvlearn');closeMenu();return false">📖 CV Guide / دليل السيرة</a>
         <a href="#" onclick="showPage('cvbuild');closeMenu();return false">📄 Build CV / ابنِ السيرة</a>
         <a href="#" onclick="showPage('games');closeMenu();return false">🧩 Games / الألعاب</a>
@@ -255,9 +267,9 @@
             <button class="btn btn-t btn-sm" onclick="readPage();closeMenu()">🔊 Read Page</button>
             <button class="btn btn-g btn-sm" onclick="openVoiceGuide();closeMenu()">📖 Voice Guide</button>
         </div>
-    </div>
+    </nav>
 
-    <!-- FLOATING VOICE GUIDE BUTTON -->
+    <!-- FLOATING VOICE GUIDE -->
     <button class="vcg-float" onclick="openVoiceGuide()" title="Voice Commands Guide"
         aria-label="Open voice commands guide">📖</button>
 
@@ -269,7 +281,8 @@
             <section
                 style="position:relative;background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);overflow:hidden">
                 <canvas id="hero-canvas"
-                    style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.55"></canvas>
+                    style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.55"
+                    aria-hidden="true"></canvas>
                 <div class="hero" style="position:relative;z-index:1">
                     <div>
                         <div class="hero-badge">✨ AI-Powered Career Platform</div>
@@ -302,7 +315,7 @@
                             <h3 style="font-family:var(--fd);font-weight:900;margin-bottom:18px;font-size:.98rem">🗺️
                                 Your 5-Step Career Journey</h3>
                             <div class="jcards">
-                                <div class="jcard" onclick="showPage('assess')">
+                                <div class="jcard" onclick="showPage('assess')" role="button" tabindex="0">
                                     <div class="jcard-ico" style="background:rgba(255,107,53,.1)">📋</div>
                                     <div>
                                         <h4>1. Job Assessment</h4>
@@ -310,32 +323,32 @@
                                     </div>
                                     <div class="jcard-arr">→</div>
                                 </div>
-                                <div class="jcard" onclick="showPage('cvlearn')">
+                                <div class="jcard" onclick="showPage('training')" role="button" tabindex="0">
+                                    <div class="jcard-ico" style="background:rgba(16,185,129,.1)">🏋️</div>
+                                    <div>
+                                        <h4>2. Job Training</h4>
+                                        <p>True/False job training quiz</p>
+                                    </div>
+                                    <div class="jcard-arr">→</div>
+                                </div>
+                                <div class="jcard" onclick="showPage('cvlearn')" role="button" tabindex="0">
                                     <div class="jcard-ico" style="background:rgba(29,185,168,.1)">📖</div>
                                     <div>
-                                        <h4>2. Learn CV Building</h4>
+                                        <h4>3. Learn CV Building</h4>
                                         <p>Watch the ATS CV video guide</p>
                                     </div>
                                     <div class="jcard-arr">→</div>
                                 </div>
-                                <div class="jcard" onclick="showPage('cvbuild')">
+                                <div class="jcard" onclick="showPage('cvbuild')" role="button" tabindex="0">
                                     <div class="jcard-ico" style="background:rgba(255,184,48,.1)">📄</div>
                                     <div>
-                                        <h4>3. Build Your CV</h4>
+                                        <h4>4. Build Your CV</h4>
                                         <p>Create your professional resume</p>
                                     </div>
                                     <div class="jcard-arr">→</div>
                                 </div>
-                                <div class="jcard" onclick="showPage('games')">
-                                    <div class="jcard-ico" style="background:rgba(124,58,237,.1)">🧩</div>
-                                    <div>
-                                        <h4>4. Play & Learn Games</h4>
-                                        <p>Fun games that build real skills</p>
-                                    </div>
-                                    <div class="jcard-arr">→</div>
-                                </div>
-                                <div class="jcard" onclick="showPage('interview')">
-                                    <div class="jcard-ico" style="background:rgba(16,185,129,.1)">🎤</div>
+                                <div class="jcard" onclick="showPage('interview')" role="button" tabindex="0">
+                                    <div class="jcard-ico" style="background:rgba(124,58,237,.1)">🎤</div>
                                     <div>
                                         <h4>5. Practice Interview</h4>
                                         <p>AI coach with voice support</p>
@@ -354,41 +367,47 @@
                     <div class="center" style="margin-bottom:48px">
                         <div class="stag">Everything You Need</div>
                         <h2 class="stitle">Your Complete Career Toolkit 🎯</h2>
-                        <p class="ssub">Six powerful tools designed just for you. Each step is guided and encouraging.
+                        <p class="ssub">Seven powerful tools designed just for you. Each step is guided and encouraging.
                         </p>
                     </div>
                     <div class="feat-grid">
-                        <div class="feat-card card" style="--ca:#FF6B35" onclick="showPage('assess')">
+                        <div class="feat-card card" style="--ca:#FF6B35" onclick="showPage('assess')" role="button"
+                            tabindex="0">
                             <div class="feat-icon" style="background:rgba(255,107,53,.1)">📋</div>
                             <h3>Job Assessment</h3>
-                            <p>Answer simple questions and our AI finds your perfect job match from 5 options.</p>
+                            <p>Answer simple questions and our AI finds your perfect job match.</p>
                             <button class="feat-go">Start Test →</button>
                         </div>
-                        <div class="feat-card card" style="--ca:#1DB9A8" onclick="showPage('cvbuild')">
+                        <div class="feat-card card" style="--ca:#10B981" onclick="showPage('training')" role="button"
+                            tabindex="0">
+                            <div class="feat-icon" style="background:rgba(16,185,129,.1)">🏋️</div>
+                            <h3>Job Training</h3>
+                            <p>Learn about 7 jobs through fun True/False questions in Arabic & English.</p>
+                            <button class="feat-go">Start Training →</button>
+                        </div>
+                        <div class="feat-card card" style="--ca:#1DB9A8" onclick="showPage('cvbuild')" role="button"
+                            tabindex="0">
                             <div class="feat-icon" style="background:rgba(29,185,168,.1)">📄</div>
                             <h3>ATS CV Builder</h3>
                             <p>Fill in your details with voice support and download a professional ATS-ready CV.</p>
                             <button class="feat-go">Build Now →</button>
                         </div>
-                        <div class="feat-card card" style="--ca:#FFB830" onclick="showPage('games')">
+                        <div class="feat-card card" style="--ca:#FFB830" onclick="showPage('games')" role="button"
+                            tabindex="0">
                             <div class="feat-icon" style="background:rgba(255,184,48,.1)">🧩</div>
                             <h3>Skill Games</h3>
-                            <p>5 fun interactive games — memory, patterns, maths, sorting, and focus!</p><button
-                                class="feat-go">Play →</button>
+                            <p>5 fun interactive games — memory, patterns, maths, sorting, and focus!</p>
+                            <button class="feat-go">Play →</button>
                         </div>
-                        <div class="feat-card card" style="--ca:#7C3AED" onclick="showPage('learn')">
+                        <div class="feat-card card" style="--ca:#7C3AED" onclick="showPage('learn')" role="button"
+                            tabindex="0">
                             <div class="feat-icon" style="background:rgba(124,58,237,.1)">📚</div>
                             <h3>Learning Topics</h3>
-                            <p>Short lessons on workplace skills, communication, time management and more!</p><button
-                                class="feat-go">Learn →</button>
+                            <p>Short lessons on workplace skills, communication, time management and more!</p>
+                            <button class="feat-go">Learn →</button>
                         </div>
-                        <div class="feat-card card" style="--ca:#10B981" onclick="showPage('jobs')">
-                            <div class="feat-icon" style="background:rgba(16,185,129,.1)">💼</div>
-                            <h3>Job Search</h3>
-                            <p>Browse inclusive job listings with filters. Express interest and save favourites!</p>
-                            <button class="feat-go">Find Jobs →</button>
-                        </div>
-                        <div class="feat-card card" style="--ca:#3B82F6" onclick="showPage('interview')">
+                        <div class="feat-card card" style="--ca:#3B82F6" onclick="showPage('interview')" role="button"
+                            tabindex="0">
                             <div class="feat-icon" style="background:rgba(59,130,246,.1)">🎤</div>
                             <h3>AI Interview</h3>
                             <p>Practice real interview questions with our AI coach. Speak or type your answers!</p>
@@ -487,7 +506,7 @@
                     <div class="stag">Success Stories</div>
                     <h2 class="stitle">What People Are Saying 💬</h2>
                 </div>
-                <div class="testi-wrap">
+                <div class="testi-wrap" aria-label="Testimonials">
                     <div class="testi-track" id="ttrack">
                         <div class="tcard">
                             <div class="tq">"</div>
@@ -531,7 +550,7 @@
                         <div class="tcard">
                             <div class="tq">"</div>
                             <div class="tstars">⭐⭐⭐⭐⭐</div>
-                            <p class="ttext">The voice assistant makes everything easy. I talk to Max and he helps me
+                            <p class="ttext">The voice assistant makes everything easy. I talk to it and it helps me
                                 find jobs and practice my answers.</p>
                             <div class="tauth">
                                 <div class="tava" style="background:rgba(16,185,129,.15)">😃</div>
@@ -557,9 +576,9 @@
                     </div>
                 </div>
                 <div class="tcontrols">
-                    <button class="tarr" onclick="testiPrev()">←</button>
-                    <div class="tdots" id="tdots"></div>
-                    <button class="tarr" onclick="testiNext()">→</button>
+                    <button class="tarr" onclick="testiPrev()" aria-label="Previous testimonial">←</button>
+                    <div class="tdots" id="tdots" aria-label="Testimonial navigation"></div>
+                    <button class="tarr" onclick="testiNext()" aria-label="Next testimonial">→</button>
                 </div>
             </section>
 
@@ -573,6 +592,9 @@
                     <button class="btn" onclick="showPage('assess')"
                         style="background:rgba(255,255,255,.22);color:#fff;border:2.5px solid rgba(255,255,255,.4)">📋
                         Start Assessment</button>
+                    <button class="btn" onclick="showPage('training')"
+                        style="background:rgba(255,255,255,.22);color:#fff;border:2.5px solid rgba(255,255,255,.4)">🏋️
+                        Job Training</button>
                     <button class="btn" onclick="showPage('cvbuild')"
                         style="background:#fff;color:var(--sun);border:none">📄 Build My CV</button>
                 </div>
@@ -584,7 +606,8 @@
                 </div>
             </div>
 
-            <footer style="background:var(--surf);border-top:2px solid var(--bdr);padding:36px;text-align:center">
+            <footer style="background:var(--surf);border-top:2px solid var(--bdr);padding:36px;text-align:center"
+                role="contentinfo">
                 <div style="display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:10px">
                     <div class="nav-logo-icon">🌟</div>
                     <div>
@@ -601,34 +624,37 @@
                         style="font-size:.8rem;color:var(--txt2);font-weight:700">Dashboard</a>
                 </div>
             </footer>
-        </div>
+        </div><!-- /page-home -->
 
-        <!-- OTHER PAGES (built by JS) -->
-        <div class="page" id="page-assess"></div>
-        <div class="page" id="page-cvlearn"></div>
-        <div class="page" id="page-cvbuild"></div>
-        <div class="page" id="page-games"></div>
-        <div class="page" id="page-learn"></div>
-        <div class="page" id="page-jobs"></div>
-        <div class="page" id="page-interview"></div>
-        <div class="page" id="page-dashboard"></div>
-        <div class="page" id="page-about"></div>
+        <!-- DYNAMICALLY BUILT PAGES -->
+        <div class="page" id="page-assess" aria-label="Job Assessment"></div>
+        <div class="page" id="page-training" aria-label="Job Training"></div>
+        <div class="page" id="page-cvlearn" aria-label="CV Guide"></div>
+        <div class="page" id="page-cvbuild" aria-label="Build CV"></div>
+        <div class="page" id="page-games" aria-label="Skill Games"></div>
+        <div class="page" id="page-learn" aria-label="Learning Topics"></div>
+        <div class="page" id="page-jobs" aria-label="Job Search"></div>
+        <div class="page" id="page-interview" aria-label="Interview Practice"></div>
+        <div class="page" id="page-dashboard" aria-label="Progress Dashboard"></div>
+        <div class="page" id="page-about" aria-label="About BrightPath"></div>
 
     </div><!-- /app -->
 
     <!-- AI COACH -->
-    <div class="coach">
+    <div class="coach" role="complementary" aria-label="AI Coach Max">
         <div class="coach-bub on" id="coach-bub">
             <strong>👋 Hi! I'm Max!</strong><br>
             <span style="font-size:.8rem">I'm your guide! Click 🔊 to hear this page, 🎙️ for voice commands, or 📖 for
                 the voice guide.</span>
             <br><button onclick="document.getElementById('coach-bub').classList.remove('on')"
-                style="margin-top:9px;padding:4px 12px;border-radius:16px;background:var(--sun);color:#fff;font-size:.72rem;font-weight:700;border:none;cursor:pointer">Got
-                it! 👍</button>
+                style="margin-top:9px;padding:4px 12px;border-radius:16px;background:var(--sun);color:#fff;font-size:.72rem;font-weight:700;border:none;cursor:pointer"
+                aria-label="Dismiss tip">Got it! 👍</button>
         </div>
-        <button class="coach-btn" onclick="document.getElementById('coach-bub').classList.toggle('on')">🤖</button>
+        <button class="coach-btn" onclick="document.getElementById('coach-bub').classList.toggle('on')"
+            aria-label="Toggle AI Coach" aria-expanded="false">🤖</button>
     </div>
 
+    <!-- Main script last — all functions defined before any inline onclick calls -->
     <script src="./main.js"></script>
 </body>
 

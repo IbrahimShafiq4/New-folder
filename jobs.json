@@ -1,0 +1,485 @@
+[
+    {
+        "id": "packaging-worker",
+        "titleAr": "عامل تبئة وتغليف",
+        "titleEn": "Packaging Worker",
+        "descriptionAr": "يقوم الموظف فى هذة المهنة بتجهيز المنتجات ووضعها داخل العبوات المخصصة لها بشكل منظم. يتطلب العمل الدقة فى وضع الملصقات واغلاق الصناديق باحكام باستخدام الشريط اللاصق والتاكد من نظافة المنتج قبل تقديمه للعملاء هى مهنة ممتعة تساعد على تنمية مهارات التركيز والنظام.",
+        "descriptionEn": "In this job, the worker prepares products and places them neatly inside their designated packages. The work requires accuracy in placing labels and closing boxes tightly with tape, and ensuring the product is clean before giving it to customers. It is a fun job that helps develop focus and organization skills.",
+        "questions": [
+            {
+                "id": 1,
+                "questionAr": "يجب غسل اليدين جيدا قبل البدء فى لمس المنتجات.",
+                "questionEn": "You must wash your hands well before touching the products.",
+                "answer": true
+            },
+            {
+                "id": 2,
+                "questionAr": "اذا وجدنا صندوقا ممزقا نضع فيه المنتج ونغلقه.",
+                "questionEn": "If we find a torn box, we put the product in it and close it.",
+                "answer": false
+            },
+            {
+                "id": 3,
+                "questionAr": "نضع المنتجات داخل الصناديق بنظام وترتيب.",
+                "questionEn": "We put products inside boxes in an organized and orderly way.",
+                "answer": true
+            },
+            {
+                "id": 4,
+                "questionAr": "اذا سقط منتج على الارض يجب تنظيفه اولا قبل وضعه ف الكيس.",
+                "questionEn": "If a product falls on the floor, we must clean it first before putting it in the bag.",
+                "answer": true
+            },
+            {
+                "id": 5,
+                "questionAr": "نستخدم الشريط اللاصق لاغلاق الصناديق باحكام.",
+                "questionEn": "We use tape to close boxes tightly.",
+                "answer": true
+            },
+            {
+                "id": 6,
+                "questionAr": "اذا شعرت بالتعب اخبر المشرف المسؤول اننى احتاج للراحة.",
+                "questionEn": "If I feel tired, I tell the supervisor that I need to rest.",
+                "answer": true
+            },
+            {
+                "id": 7,
+                "questionAr": "اذا طلب منى المدير وضع قطعتين فقط اضع عشر قطع.",
+                "questionEn": "If the manager asks me to put only two pieces, I put ten pieces.",
+                "answer": false
+            },
+            {
+                "id": 8,
+                "questionAr": "اساعد زميلى فى العمل اذا كان يحتاج للعمل.",
+                "questionEn": "I help my coworker if they need help with work.",
+                "answer": true
+            },
+            {
+                "id": 9,
+                "questionAr": "اترك الصناديق فى وسط الممر ليتعثر بها الناس.",
+                "questionEn": "I leave boxes in the middle of the aisle so people trip over them.",
+                "answer": false
+            },
+            {
+                "id": 10,
+                "questionAr": "التزم بمواعيد العمل واسمع تعليمات المشرف.",
+                "questionEn": "I stick to work hours and listen to the supervisor's instructions.",
+                "answer": true
+            }
+        ]
+    },
+    {
+        "id": "gardening-worker",
+        "titleAr": "عامل زراعة وحدائق",
+        "titleEn": "Gardening Worker",
+        "descriptionAr": "تعتبر مهنة الزراعة والحدائق من اجمل المهن لانها تجعلنا نهتم بالطبيعة والنباتات. يقوم العامل فى هذه الوظيفة بسقى الزرع بالماء وتنظيف الحديقة من الاوراق اليابسة وزراعة الزهور الملونة لتصبح الحديقة مكانا جميلا هى وظيفة ممتعة تجعلنا نقضى وقتا فى الهواء الطلق ونتعلم حب الارض.",
+        "descriptionEn": "Farming and gardening is one of the most beautiful professions because it makes us care about nature and plants. The worker in this job waters the plants, cleans the garden of dry leaves, and plants colorful flowers to make the garden a beautiful place. It is a fun job that lets us spend time outdoors and learn to love the earth.",
+        "questions": [
+            {
+                "id": 1,
+                "questionAr": "يجب سقى النباتات بالماء بانتظام لكى تعيش.",
+                "questionEn": "Plants must be watered regularly so they can live.",
+                "answer": true
+            },
+            {
+                "id": 2,
+                "questionAr": "يمكننا شد الزهور بقوة وقطعها من مكانها.",
+                "questionEn": "We can pull flowers hard and cut them from their place.",
+                "answer": false
+            },
+            {
+                "id": 3,
+                "questionAr": "نجمع الاوراق اليابسة من الارض ونضعها فى سلة المهملات.",
+                "questionEn": "We collect dry leaves from the ground and put them in the trash bin.",
+                "answer": true
+            },
+            {
+                "id": 4,
+                "questionAr": "نستخدم المرش المخصص لسقى النباتات الصغيرة برفق.",
+                "questionEn": "We use the sprayer to water small plants gently.",
+                "answer": true
+            },
+            {
+                "id": 5,
+                "questionAr": "يجب المشى فوق الزهور الصغيرة لكى تنمو بسرعة.",
+                "questionEn": "We must walk on small flowers so they grow fast.",
+                "answer": false
+            },
+            {
+                "id": 6,
+                "questionAr": "اذا رايت حشرة ضارة على النبات اخبر المشرف المسؤول.",
+                "questionEn": "If I see a harmful insect on a plant, I tell the supervisor.",
+                "answer": true
+            },
+            {
+                "id": 7,
+                "questionAr": "نرتدى القفازات فى ايدينا لحمايتها اثناء العمل فى الطين.",
+                "questionEn": "We wear gloves on our hands to protect them while working in the mud.",
+                "answer": true
+            },
+            {
+                "id": 8,
+                "questionAr": "نترك ادوات الزراعة فى وسط الطريق بعد الانتهاء.",
+                "questionEn": "We leave gardening tools in the middle of the path after finishing.",
+                "answer": false
+            },
+            {
+                "id": 9,
+                "questionAr": "نزرع البذور فى التربة ونغطيها بالرمل برفق.",
+                "questionEn": "We plant seeds in the soil and cover them gently with sand.",
+                "answer": true
+            },
+            {
+                "id": 10,
+                "questionAr": "التزم بمواعيد العمل واحافظ على نظافة الحديقة.",
+                "questionEn": "I stick to work hours and keep the garden clean.",
+                "answer": true
+            }
+        ]
+    },
+    {
+        "id": "supermarket-assistant",
+        "titleAr": "مساعد فى سوبر ماركت",
+        "titleEn": "Supermarket Assistant",
+        "descriptionAr": "مساعد السوبر ماركت يساعد فى ترتيب المنتجات على الرفوف داخل المتجر. كما يساعد الزبائن فى ايجاد الاشياء التى يريدونها ويحافظ على نظافة المكان وترتيبه.",
+        "descriptionEn": "The supermarket assistant helps arrange products on the shelves inside the store. They also help customers find the things they want and keep the place clean and tidy.",
+        "questions": [
+            {
+                "id": 1,
+                "questionAr": "مساعد السوبر ماركت يعمل داخل متجر.",
+                "questionEn": "The supermarket assistant works inside a store.",
+                "answer": true
+            },
+            {
+                "id": 2,
+                "questionAr": "وظيفة مساعد السوبر ماركت هى ترتيب المنتجات.",
+                "questionEn": "The job of the supermarket assistant is to arrange products.",
+                "answer": true
+            },
+            {
+                "id": 3,
+                "questionAr": "مساعد السوبر ماركت لا يساعد الزبائن.",
+                "questionEn": "The supermarket assistant does not help customers.",
+                "answer": false
+            },
+            {
+                "id": 4,
+                "questionAr": "من عمل مساعد السوبر ماركت تنظيف المكان.",
+                "questionEn": "Cleaning the place is part of the supermarket assistant's work.",
+                "answer": true
+            },
+            {
+                "id": 5,
+                "questionAr": "المنتجات توضع على الرفوف.",
+                "questionEn": "Products are placed on shelves.",
+                "answer": true
+            },
+            {
+                "id": 6,
+                "questionAr": "مساعد السوبر ماركت يعمل فى المطار.",
+                "questionEn": "The supermarket assistant works at the airport.",
+                "answer": false
+            },
+            {
+                "id": 7,
+                "questionAr": "من عمله تعبئة المشتريات فى الاكياس.",
+                "questionEn": "Packing purchases into bags is part of their work.",
+                "answer": true
+            },
+            {
+                "id": 8,
+                "questionAr": "يجب ان يكون المكان مرتبا ونظيفا.",
+                "questionEn": "The place must be tidy and clean.",
+                "answer": true
+            },
+            {
+                "id": 9,
+                "questionAr": "الزبائن ياتون لشراء المنتجات.",
+                "questionEn": "Customers come to buy products.",
+                "answer": true
+            },
+            {
+                "id": 10,
+                "questionAr": "مساعد السوبر ماركت لا يهتم بالمنتجات.",
+                "questionEn": "The supermarket assistant does not care about the products.",
+                "answer": false
+            }
+        ]
+    },
+    {
+        "id": "cafe-assistant",
+        "titleAr": "مساعد فى كافيه",
+        "titleEn": "Cafe Assistant",
+        "descriptionAr": "مساعد الكافيه يعمل فى تقديم الطلبات للزبائن ويساعد فى ترتيب الطاولات والكراسى كما يمكنه تحضير مشروبات بسيطة مثل القهوة او الشاى.",
+        "descriptionEn": "The cafe assistant works on serving orders to customers, helps arrange tables and chairs, and can prepare simple drinks like coffee or tea.",
+        "questions": [
+            {
+                "id": 1,
+                "questionAr": "مساعد الكافيه يعمل فى كافيه.",
+                "questionEn": "The cafe assistant works in a cafe.",
+                "answer": true
+            },
+            {
+                "id": 2,
+                "questionAr": "من عمله تقديم الطلبات للزبائن.",
+                "questionEn": "Serving orders to customers is part of their job.",
+                "answer": true
+            },
+            {
+                "id": 3,
+                "questionAr": "مساعد الكافيه لا يرتب الطاولات.",
+                "questionEn": "The cafe assistant does not arrange tables.",
+                "answer": false
+            },
+            {
+                "id": 4,
+                "questionAr": "يمكنه تحضير مشروبات بسيطة.",
+                "questionEn": "They can prepare simple drinks.",
+                "answer": true
+            },
+            {
+                "id": 5,
+                "questionAr": "الزبائن ياتون الى الكافيه لتناول الطعام او الشراب.",
+                "questionEn": "Customers come to the cafe to eat or drink.",
+                "answer": true
+            },
+            {
+                "id": 6,
+                "questionAr": "الكافيه مكان لبيع الملابس.",
+                "questionEn": "The cafe is a place to sell clothes.",
+                "answer": false
+            },
+            {
+                "id": 7,
+                "questionAr": "من عمله احضار الاكواب والاطباق.",
+                "questionEn": "Bringing cups and plates is part of their job.",
+                "answer": true
+            },
+            {
+                "id": 8,
+                "questionAr": "يجب ان تكون الطاولات مرتبة.",
+                "questionEn": "The tables must be tidy.",
+                "answer": true
+            },
+            {
+                "id": 9,
+                "questionAr": "مساعد الكافيه يعمل فى المستشفى.",
+                "questionEn": "The cafe assistant works in a hospital.",
+                "answer": false
+            },
+            {
+                "id": 10,
+                "questionAr": "الابتسامة مهمة عند التعامل مع الزبائن.",
+                "questionEn": "Smiling is important when dealing with customers.",
+                "answer": true
+            }
+        ]
+    },
+    {
+        "id": "office-assistant",
+        "titleAr": "مساعد مكتبى",
+        "titleEn": "Office Assistant",
+        "descriptionAr": "يعمل داخل المكتب ويساعد فى ترتيب الملفات والاوراق كما يساعد قى تنظيم المكتب وتوزيع الاوراق.",
+        "descriptionEn": "He works inside the office and helps arrange files and papers, and also helps organize the office and distribute papers.",
+        "questions": [
+            {
+                "id": 1,
+                "questionAr": "المساعد المكتبى يعمل فى مكتب.",
+                "questionEn": "The office assistant works in an office.",
+                "answer": true
+            },
+            {
+                "id": 2,
+                "questionAr": "من عمله ترتيب الملفات.",
+                "questionEn": "Arranging files is part of his job.",
+                "answer": true
+            },
+            {
+                "id": 3,
+                "questionAr": "المساعد المكتبى يعمل فى البحر.",
+                "questionEn": "The office assistant works at sea.",
+                "answer": false
+            },
+            {
+                "id": 4,
+                "questionAr": "من عمله توزيع الاوراق.",
+                "questionEn": "Distributing papers is part of his job.",
+                "answer": true
+            },
+            {
+                "id": 5,
+                "questionAr": "المكتب يجب ان يكون مرتبا.",
+                "questionEn": "The office must be tidy.",
+                "answer": true
+            },
+            {
+                "id": 6,
+                "questionAr": "المساعد المكتبى لا يهتم بالاوراق.",
+                "questionEn": "The office assistant does not care about papers.",
+                "answer": false
+            },
+            {
+                "id": 7,
+                "questionAr": "من عمله تنظيم المكتب.",
+                "questionEn": "Organizing the office is part of his job.",
+                "answer": true
+            },
+            {
+                "id": 8,
+                "questionAr": "الملفات تحتفظ داخل المكتب.",
+                "questionEn": "Files are kept inside the office.",
+                "answer": true
+            },
+            {
+                "id": 9,
+                "questionAr": "المساعد المكتبى يعمل فى مزرعة.",
+                "questionEn": "The office assistant works on a farm.",
+                "answer": false
+            },
+            {
+                "id": 10,
+                "questionAr": "ترتيب الملفات يساعد على سهولة العمل.",
+                "questionEn": "Arranging files helps make work easier.",
+                "answer": true
+            }
+        ]
+    },
+    {
+        "id": "hotel-assistant",
+        "titleAr": "مساعد فى فندق",
+        "titleEn": "Hotel Assistant",
+        "descriptionAr": "مساعد الفندق يعمل على مساعدة الضيوف ويساعد فى الترحيب بالناس وتنظيم المكان كما يساعد الموظفين فى بعض الاعمال البسيطة.",
+        "descriptionEn": "The hotel assistant helps guests, helps welcome people and organize the place, and also assists staff with some simple tasks.",
+        "questions": [
+            {
+                "id": 1,
+                "questionAr": "مساعد الفندق يعمل فى فندق.",
+                "questionEn": "The hotel assistant works in a hotel.",
+                "answer": true
+            },
+            {
+                "id": 2,
+                "questionAr": "من عمله الترحيب بالضيوف.",
+                "questionEn": "Welcoming guests is part of his job.",
+                "answer": true
+            },
+            {
+                "id": 3,
+                "questionAr": "الضيوف ياتون الى الفندق للاقامة.",
+                "questionEn": "Guests come to the hotel to stay.",
+                "answer": true
+            },
+            {
+                "id": 4,
+                "questionAr": "مساعد الفندق لا يساعد الموظفين.",
+                "questionEn": "The hotel assistant does not help staff.",
+                "answer": false
+            },
+            {
+                "id": 5,
+                "questionAr": "الفندق مكان لاستقبال الزوار.",
+                "questionEn": "The hotel is a place to receive visitors.",
+                "answer": true
+            },
+            {
+                "id": 6,
+                "questionAr": "من عمله المساعدة فى ترتيب المكان.",
+                "questionEn": "Helping to arrange the place is part of his job.",
+                "answer": true
+            },
+            {
+                "id": 7,
+                "questionAr": "الفندق مكان لبيع الطعام فقط.",
+                "questionEn": "The hotel is a place to sell food only.",
+                "answer": false
+            },
+            {
+                "id": 8,
+                "questionAr": "يجب ان يكون المكان نظيفا.",
+                "questionEn": "The place must be clean.",
+                "answer": true
+            },
+            {
+                "id": 9,
+                "questionAr": "الضيوف يحبون المعاملة الجيدة.",
+                "questionEn": "Guests like good treatment.",
+                "answer": true
+            },
+            {
+                "id": 10,
+                "questionAr": "مساعد الفندق يعمل فى مصنع.",
+                "questionEn": "The hotel assistant works in a factory.",
+                "answer": false
+            }
+        ]
+    },
+    {
+        "id": "nursery-assistant",
+        "titleAr": "مساعد فى حضانة اطفال",
+        "titleEn": "Nursery Assistant",
+        "descriptionAr": "يقوم المساعد فى هذه الوظيفة بتقديم الرعاية واللطف للاطفال الصغار داخل الحضانة. يتضمن العمل المساعدة فى ترتيب الالعاب ومساعدة الاطفال اثناء وقت الطعام واللعب معهم برفق والتاكد من ان المكان نظيف وامن من اجلهم هى وظيفة مليئة بالحب والبهجة.",
+        "descriptionEn": "The assistant in this job provides care and kindness to young children in the nursery. The work includes helping to arrange toys, assisting children during meal times, playing gently with them, and making sure the place is clean and safe for them. It is a job full of love and joy.",
+        "questions": [
+            {
+                "id": 1,
+                "questionAr": "يجب ان ابتسم فى وجه الاطفال واتعامل معهم بلطف.",
+                "questionEn": "I must smile at the children and treat them kindly.",
+                "answer": true
+            },
+            {
+                "id": 2,
+                "questionAr": "يمكننى ترك الالعاب مبعثرة على الارض بعد انتهاء وقت اللعب.",
+                "questionEn": "I can leave the toys scattered on the floor after playtime.",
+                "answer": false
+            },
+            {
+                "id": 3,
+                "questionAr": "اساعد الاطفال فى غسل ايديهم قبل تناول الطعام.",
+                "questionEn": "I help the children wash their hands before eating.",
+                "answer": true
+            },
+            {
+                "id": 4,
+                "questionAr": "اذا بكى طفل صغير احاول تهدئته او انادى المعلمة المسؤولة.",
+                "questionEn": "If a young child cries, I try to calm them or call the teacher in charge.",
+                "answer": true
+            },
+            {
+                "id": 5,
+                "questionAr": "يمكننى الصراخ بصوت عالى جدا بجانب الاطفال.",
+                "questionEn": "I can shout very loudly near the children.",
+                "answer": false
+            },
+            {
+                "id": 6,
+                "questionAr": "اتاكد من اعادة كل لعبة الى مكانها الصحيح بعد الاستخدام.",
+                "questionEn": "I make sure to put each toy back in its correct place after use.",
+                "answer": true
+            },
+            {
+                "id": 7,
+                "questionAr": "يجب ان اكون صبورا وهادئا اثناء التعامل مع الاطفال.",
+                "questionEn": "I must be patient and calm when dealing with children.",
+                "answer": true
+            },
+            {
+                "id": 8,
+                "questionAr": "اذا رايت طفلا يركض نحو الباب بمفرده يجب ان انتبه له فورا.",
+                "questionEn": "If I see a child running towards the door alone, I must pay attention immediately.",
+                "answer": true
+            },
+            {
+                "id": 9,
+                "questionAr": "يمكننى اكل طعام الاطفال المخصص لهم.",
+                "questionEn": "I can eat the children's food that is meant for them.",
+                "answer": false
+            },
+            {
+                "id": 10,
+                "questionAr": "احافظ على نظافة المكان واسمع تعليمات مديرة الحضانة.",
+                "questionEn": "I keep the place clean and listen to the nursery director's instructions.",
+                "answer": true
+            }
+        ]
+    }
+]

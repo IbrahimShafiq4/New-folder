@@ -2892,3 +2892,100 @@ svg {
         transform: translateY(-12px)
     }
 }
+
+/* ══════════════════════════════════════════════════════
+   TRAINING PAGE — Job True/False Training Sections
+   ══════════════════════════════════════════════════════ */
+
+/* Job cards grid on training page */
+.training-jobs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 18px;
+    margin-bottom: 10px;
+}
+
+.training-job-card {
+    padding: 28px 18px;
+    text-align: center;
+    cursor: pointer;
+    transition: all .25s;
+    border-radius: var(--r);
+}
+
+.training-job-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shd);
+    border-color: var(--sun);
+}
+
+/* True / False answer buttons */
+.training-tf-btn {
+    flex: 1;
+    padding: 18px 24px;
+    border-radius: var(--r);
+    font-size: 1.1rem;
+    font-weight: 900;
+    font-family: var(--fn);
+    cursor: pointer;
+    transition: all .22s;
+    border: 3px solid transparent;
+    min-width: 130px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.training-true-btn {
+    background: rgba(16, 185, 129, .12);
+    border-color: var(--jade);
+    color: var(--jade);
+}
+
+.training-true-btn:hover:not(:disabled) {
+    background: var(--jade);
+    color: #fff;
+    transform: scale(1.05);
+}
+
+.training-false-btn {
+    background: rgba(244, 63, 94, .1);
+    border-color: var(--rose);
+    color: var(--rose);
+}
+
+.training-false-btn:hover:not(:disabled) {
+    background: var(--rose);
+    color: #fff;
+    transform: scale(1.05);
+}
+
+/* ══════════════════════════════════════════════════════
+   PERFORMANCE — Remove unnecessary animations in
+   reduced-motion mode, keep layout clean
+   ══════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}
+
+/* ══════════════════════════════════════════════════════
+   RESPONSIVE — Training grid on mobile
+   ══════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+    .training-jobs-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .training-tf-btn {
+        padding: 14px 16px;
+        font-size: .95rem;
+    }
+}
