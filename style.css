@@ -1,14 +1,14 @@
 /* ── VARIABLES ─────────────────────────────── */
 :root {
-    --sun: #FF6B35;
+    --sun: #3562ff;
     --sky: #1DB9A8;
-    --gold: #FFB830;
-    --violet: #7C3AED;
+    --gold: #f66c64b8;
+    --violet: #7c3aed4d;
     --jade: #10B981;
-    --rose: #F43F5E;
+    --rose: #f65671;
     --blue: #3B82F6;
-    --bg: #FEF9F4;
-    --bg2: #F5EDE3;
+    --bg: #d5f9fb;
+    --bg2: #cecece;
     --surf: #FFFFFF;
     --surf2: #FDF7F0;
     --txt: #1C1917;
@@ -155,17 +155,62 @@ svg {
     align-items: center;
     justify-content: center;
     font-size: 1.3rem;
-    box-shadow: 0 4px 14px rgba(255, 107, 53, .3)
+    box-shadow: 0 4px 14px rgba(255, 107, 53, .3);
+    overflow: hidden;
+}
+
+.ablex-logo {
+    width: 100px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+    }
 }
 
 .nav-logo-text {
-    font-family: var(--fd);
+    /* font-family: var(--fd); */
     font-weight: 900;
     font-size: 1.25rem;
     background: linear-gradient(135deg, var(--sun), var(--gold));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text
+    background-clip: text;
+    /* fill: none;
+    stroke: #000;
+    stroke-dasharray: 20 10;
+    stroke-dashoffset: 100;
+    animation: animateStroke 10s linear infinite; */
+}
+
+@keyframes animateStroke {
+
+    0%,
+    100% {
+        stroke-dashoffset: 100;
+    }
+
+    20% {
+        stroke-dashoffset: 20;
+    }
+
+    40% {
+        stroke-dashoffset: 40;
+    }
+
+    60% {
+        stroke-dashoffset: 60;
+    }
+
+    80% {
+        stroke-dashoffset: 80;
+    }
 }
 
 .nav-logo-ar {
@@ -1070,11 +1115,13 @@ svg {
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
+    height: 100%;
     background: var(--ca);
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform .3s
+    transition: transform .3s;
+    z-index: -1;
+    opacity: 0.525;
 }
 
 .feat-card:hover::before {
@@ -1095,14 +1142,16 @@ svg {
 .feat-card h3 {
     font-size: .98rem;
     font-weight: 800;
-    margin-bottom: 7px
+    margin-bottom: 7px;
+    mix-blend-mode: multiply;
 }
 
 .feat-card p {
     font-size: .82rem;
     color: var(--txt2);
     line-height: 1.6;
-    margin-bottom: 18px
+    margin-bottom: 18px;
+    mix-blend-mode: multiply;
 }
 
 .feat-go {
@@ -1114,7 +1163,8 @@ svg {
     border: none;
     cursor: pointer;
     background: var(--ca);
-    transition: all .2s
+    transition: all .2s;
+    mix-blend-mode: multiply;
 }
 
 .feat-go:hover {
@@ -1957,7 +2007,10 @@ svg {
 
 .job-icon {
     font-size: 1.9rem;
-    margin-bottom: 12px
+
+    @media (max-width: 767px) {
+        margin-bottom: 12px;
+    }
 }
 
 .job-card h3 {
@@ -2638,7 +2691,14 @@ svg {
     justify-content: center;
     font-size: 2.3rem;
     background: linear-gradient(135deg, rgba(255, 107, 53, .12), rgba(255, 184, 48, .12));
-    border: 3px solid rgba(255, 107, 53, .18)
+    border: 3px solid rgba(255, 107, 53, .18);
+
+    img {
+        border-radius: 50%;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+    }
 }
 
 .tm-name {
@@ -2913,10 +2973,18 @@ svg {
     border-radius: var(--r);
 }
 
+.training-job-img {
+    width: 100px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border: 3px dashed var(--job-clr);
+    border-radius: 50%;
+}
+
 .training-job-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shd);
-    border-color: var(--sun);
+    border-color: var(--job-clr);
 }
 
 /* True / False answer buttons */
@@ -2988,4 +3056,12 @@ svg {
         padding: 14px 16px;
         font-size: .95rem;
     }
+}
+
+video {
+    width: 100%;
+    aspect-ratio: 2 / 1;
+    object-fit: contain;
+    border-radius: 10px;
+    border: 2px dashed var(--job-clr);
 }

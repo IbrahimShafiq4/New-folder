@@ -1,5 +1,5 @@
 // ╔══════════════════════════════════════════════════════════════════
-// BrightPath · main.js  –  All features + fixes
+// Ablex · main.js  –  All features + fixes
 // ╚══════════════════════════════════════════════════════════════════
 
 // ── Global timer/state vars (declared at top to avoid ReferenceErrors) ──
@@ -65,7 +65,7 @@ var STRINGS = {
         reading_bar: 'Reading page aloud…',
         hero_badge: '✨ AI-Powered Career Platform',
         hero_h1_1: 'Your Journey to', hero_h1_2: 'Work Starts Here! 🚀',
-        hero_p: 'BrightPath guides you step by step — from discovering your best job, to building your CV, to acing your interview. With friendly AI voice support every step of the way!',
+        hero_p: 'Ablex guides you step by step — from discovering your best job, to building your CV, to acing your interview. With friendly AI voice support every step of the way!',
         btn_start_assess: '📋 Start Assessment', btn_voice: '🎙️ Use Voice', btn_voice_guide: '📖 Voice Guide',
         journey_title: '🗺️ Your 5-Step Career Journey',
         true_btn: '✅ True', false_btn: '❌ False',
@@ -88,7 +88,7 @@ var STRINGS = {
         reading_bar: 'جاري قراءة الصفحة…',
         hero_badge: '✨ منصة مهنية بالذكاء الاصطناعي',
         hero_h1_1: 'رحلتك نحو', hero_h1_2: 'العمل تبدأ هنا! 🚀',
-        hero_p: 'مسار مشرق يرشدك خطوة بخطوة — من اكتشاف وظيفتك المثالية إلى بناء سيرتك الذاتية حتى إجراء المقابلة. مع دعم صوتي ودود في كل خطوة!',
+        hero_p: 'ابليكس يرشدك خطوة بخطوة — من اكتشاف وظيفتك المثالية إلى بناء سيرتك الذاتية حتى إجراء المقابلة. مع دعم صوتي ودود في كل خطوة!',
         btn_start_assess: '📋 ابدأ الاختبار', btn_voice: '🎙️ استخدم صوتك', btn_voice_guide: '📖 دليل الأوامر',
         journey_title: '🗺️ رحلتك المهنية في 5 خطوات',
         true_btn: '✅ صح', false_btn: '❌ خطأ',
@@ -113,7 +113,7 @@ function t(key) {
 var TRAINING_JOBS = [
     {
         id: 'packaging-worker',
-        icon: './images/بائع فى سوبر ماركت.jpeg',
+        icon: './images/مساعد فى حديقة.jpeg',
         color: '#FF6B35',
         titleAr: 'عامل تبئة وتغليف',
         titleEn: 'Packaging Worker',
@@ -130,7 +130,8 @@ var TRAINING_JOBS = [
             { questionAr: 'اساعد زميلى فى العمل اذا كان يحتاج للعمل.', questionEn: 'I help my coworker if they need help with work.', answer: true },
             { questionAr: 'اترك الصناديق فى وسط الممر ليتعثر بها الناس.', questionEn: 'I leave boxes in the middle of the aisle so people trip over them.', answer: false },
             { questionAr: 'التزم بمواعيد العمل واسمع تعليمات المشرف.', questionEn: 'I stick to work hours and listen to the supervisor\'s instructions.', answer: true }
-        ]
+        ],
+        trainVideo: './images/مساعد تغليف.mp4'
     },
     {
         id: 'gardening-worker',
@@ -151,7 +152,8 @@ var TRAINING_JOBS = [
             { questionAr: 'نترك ادوات الزراعة فى وسط الطريق بعد الانتهاء.', questionEn: 'We leave gardening tools in the middle of the path after finishing.', answer: false },
             { questionAr: 'نزرع البذور فى التربة ونغطيها بالرمل برفق.', questionEn: 'We plant seeds in the soil and cover them gently with sand.', answer: true },
             { questionAr: 'التزم بمواعيد العمل واحافظ على نظافة الحديقة.', questionEn: 'I stick to work hours and keep the garden clean.', answer: true }
-        ]
+        ],
+        trainVideo: './images/مساعد حديقة.mp4'
     },
     {
         id: 'supermarket-assistant',
@@ -172,11 +174,12 @@ var TRAINING_JOBS = [
             { questionAr: 'يجب ان يكون المكان مرتبا ونظيفا.', questionEn: 'The place must be tidy and clean.', answer: true },
             { questionAr: 'الزبائن ياتون لشراء المنتجات.', questionEn: 'Customers come to buy products.', answer: true },
             { questionAr: 'مساعد السوبر ماركت لا يهتم بالمنتجات.', questionEn: 'The supermarket assistant does not care about the products.', answer: false }
-        ]
+        ],
+        trainVideo: './images/مساعد فى سوبر ماركت.mp4'
     },
     {
         id: 'cafe-assistant',
-        icon: './images/',
+        icon: './images/مساعد فى مطعم.jpeg',
         color: '#1DB9A8',
         titleAr: 'مساعد فى كافيه',
         titleEn: 'Cafe Assistant',
@@ -193,11 +196,12 @@ var TRAINING_JOBS = [
             { questionAr: 'يجب ان تكون الطاولات مرتبة.', questionEn: 'The tables must be tidy.', answer: true },
             { questionAr: 'مساعد الكافيه يعمل فى المستشفى.', questionEn: 'The cafe assistant works in a hospital.', answer: false },
             { questionAr: 'الابتسامة مهمة عند التعامل مع الزبائن.', questionEn: 'Smiling is important when dealing with customers.', answer: true }
-        ]
+        ],
+        trainVideo: './images/مساعد فى مطعم.mp4'
     },
     {
         id: 'office-assistant',
-        icon: '🏢',
+        icon: './images/ريسيبشانيست.jpeg',
         color: '#7C3AED',
         titleAr: 'مساعد مكتبى',
         titleEn: 'Office Assistant',
@@ -214,11 +218,12 @@ var TRAINING_JOBS = [
             { questionAr: 'الملفات تحتفظ داخل المكتب.', questionEn: 'Files are kept inside the office.', answer: true },
             { questionAr: 'المساعد المكتبى يعمل فى مزرعة.', questionEn: 'The office assistant works on a farm.', answer: false },
             { questionAr: 'ترتيب الملفات يساعد على سهولة العمل.', questionEn: 'Arranging files helps make work easier.', answer: true }
-        ]
+        ],
+        trainVideo: './images/عامل فى مكتبة.mp4'
     },
     {
         id: 'hotel-assistant',
-        icon: '🏨',
+        icon: './images/ريسيبشانيست.jpeg',
         color: '#FFB830',
         titleAr: 'مساعد فى فندق',
         titleEn: 'Hotel Assistant',
@@ -235,11 +240,12 @@ var TRAINING_JOBS = [
             { questionAr: 'يجب ان يكون المكان نظيفا.', questionEn: 'The place must be clean.', answer: true },
             { questionAr: 'الضيوف يحبون المعاملة الجيدة.', questionEn: 'Guests like good treatment.', answer: true },
             { questionAr: 'مساعد الفندق يعمل فى مصنع.', questionEn: 'The hotel assistant works in a factory.', answer: false }
-        ]
+        ],
+        trainVideo: './images/ريسيبشانيست.mp4'
     },
     {
         id: 'nursery-assistant',
-        icon: '👶',
+        icon: './images/مساعد فى حضانة.jpeg',
         color: '#F43F5E',
         titleAr: 'مساعد فى حضانة اطفال',
         titleEn: 'Nursery Assistant',
@@ -256,7 +262,8 @@ var TRAINING_JOBS = [
             { questionAr: 'اذا رايت طفلا يركض نحو الباب بمفرده يجب ان انتبه له فورا.', questionEn: 'If I see a child running towards the door alone, I must pay attention immediately.', answer: true },
             { questionAr: 'يمكننى اكل طعام الاطفال المخصص لهم.', questionEn: 'I can eat the children\'s food that is meant for them.', answer: false },
             { questionAr: 'احافظ على نظافة المكان واسمع تعليمات مديرة الحضانة.', questionEn: 'I keep the place clean and listen to the nursery director\'s instructions.', answer: true }
-        ]
+        ],
+        trainVideo: './images/مساعد فى حضانة.mp4'
     }
 ];
 
@@ -454,16 +461,23 @@ var IV_FB = [
 ];
 
 var TEAM = [
-    { e: '👨‍💻', n: 'Ahmad Yasser', r: 'Frontend Developer – Angular', desc: 'Led the development of BrightPath, building all Angular components and ensuring the platform is fast and accessible.' },
-    { e: '👩‍💼', n: 'Amany Ibrahim', r: 'Project Manager', desc: 'Coordinated the team and kept the project on track, ensuring every feature met user needs.' },
-    { e: '👨‍🎨', n: 'Bessan Ahmad', r: 'UI/UX Designer', desc: 'Designed the visual language of BrightPath, creating a warm, clear, and accessible interface.' },
-    { e: '👩‍🔬', n: 'Habiba Elsayed', r: 'Content Specialist', desc: 'Wrote all platform content in English and Arabic, ensuring clarity and inclusivity throughout.' },
-    { e: '👩‍💻', n: 'Nourhan Ahmad', r: 'Backend Developer', desc: 'Built the data systems and APIs that power the CV builder and job matching features.' },
-    { e: '👩‍🎤', n: 'Nourhan Ayman', r: 'Voice & Audio Lead', desc: 'Designed and implemented the voice navigation system and text-to-speech features.' },
-    { e: '👩‍🎨', n: 'Nera Ayman', r: 'Graphic Designer', desc: 'Created all icons, illustrations, and visual assets used throughout the platform.' },
-    { e: '👩‍🏫', n: 'Mariam Ehab', r: 'Education Specialist', desc: 'Designed the learning curriculum and quiz systems to build real workplace skills.' },
-    { e: '👩‍💼', n: 'Nourhan Salah', r: 'Quality Assurance', desc: 'Tested every feature thoroughly to ensure a smooth, bug-free experience for all users.' },
-    { e: '👩‍🔬', n: 'Rawan Nader', r: 'Accessibility Researcher', desc: 'Researched and implemented cognitive accessibility best practices for users with Down Syndrome.' }
+    { e: './images/about/ahmad_yasser.jpeg', n: 'Ahmad Yasser', r: 'Frontend Developer – Angular', 
+        desc: 'Led the development of Ablex, building all Angular components and ensuring the platform is fast and accessible.', 
+        PLink: 'https://www.instagram.com/1_0ahmedd1_0?igsh=ZG1vdGg4OHk5a3A2' },
+    { e: './images/about/amany_ibrahim.jpeg', n: 'Amany Ibrahim', r: 'Graphic Designer', desc: 'Created all icons, illustrations, and visual assets used throughout the platform.' },
+    { e: './images/about/baisan_mohamed.jpeg', n: 'baisan mohamed',r: 'Graphic Designer', desc: 'Created all icons, illustrations, and visual assets used throughout the platform.', 
+        PLink: 'https://www.facebook.com/share/1CuBmZjSE2/' },
+    { e: './images/about/habiba_elsayed.jpeg', n: 'Habiba Elsayed', r: 'Content Specialist', desc: 'Wrote all platform content in English and Arabic, ensuring clarity and inclusivity throughout.', 
+        PLink: 'https://www.facebook.com/share/1FXRhTAT2y' },
+    { e: './images/about/nourhan_ahamed.jpeg', n: 'Nourhan Ahmad', r: 'Content Researcher', desc: 'Created all icons, illustrations, and visual assets used throughout the platform.', 
+        PLink: 'https://www.instagram.com/norhan_salah27?igsh=MWQ3NWd1MDZzdmlqcA==' },
+    { e: './images/about/nourhan_ayman.jpeg', n: 'Nourhan Ayman', r: 'Voice & Audio Lead', desc: 'Designed and implemented the voice navigation system and text-to-speech features.' },
+    { e: './images/about/naira.jpeg', n: 'Naira Ayman', r: 'Graphic Designer', desc: 'Created all icons, illustrations, and visual assets used throughout the platform.' },
+    { e: './images/about/maryem_ehab.jpeg', n: 'Mariam Ehab', r: 'Education Specialist', desc: 'Designed the learning curriculum and quiz systems to build real workplace skills.' },
+    { e: './images/about/nourhan_salah.jpeg', n: 'Nourhan Salah', r: 'Quality Assurance', desc: 'Tested every feature thoroughly to ensure a smooth, bug-free experience for all users.' },
+    { e: './images/about/rawan_nader.jpeg', n: 'Rawan Nader', r: 'Accessibility Researcher', desc: 'Researched and implemented cognitive accessibility best practices for users with Down Syndrome.' },
+    { e: './images/about/sama_hamada.jpeg', n: 'Sama Hamada', r: 'Accessibility Researcher', desc: 'Researched and implemented cognitive accessibility best practices for users with Down Syndrome.', 
+        PLink: 'https://www.instagram.com/sama_hamada_782005?utm_source=qr&igsh=OGEzbTdxbHgxbXlo' }
 ];
 
 var GAMES = [
@@ -762,8 +776,8 @@ function buildTrainingPage() {
         '</div>' +
         '<div class="training-jobs-grid" id="training-jobs-grid">' +
         TRAINING_JOBS.map(function (job) {
-            return '<div class="training-job-card card" onclick="selectTrainingJob(\'' + job.id + '\')" role="button" tabindex="0" aria-label="' + job.titleEn + '">' +
-                `<img src="${job.icon}">` +
+            return '<div class="training-job-card card" onclick="selectTrainingJob(\'' + job.id + '\')" role="button" tabindex="0" aria-label="' + job.titleEn + '" style="--job-clr:' + job.color + '">' +
+                `<img src="${job.icon}" class="training-job-img" style="--job-clr: ${job.color}">` +
                 '<div style="font-size:.95rem;font-weight:900;margin-bottom:4px;color:var(--txt)">' + (isAR ? job.titleAr : job.titleEn) + '</div>' +
                 '<div style="font-size:.8rem;color:var(--txt2);font-family:var(--fa)">' + (isAR ? job.titleEn : job.titleAr) + '</div>' +
                 '<div style="margin-top:10px;padding:4px 12px;border-radius:50px;background:' + job.color + '22;color:' + job.color + ';font-size:.72rem;font-weight:800;display:inline-block">' +
@@ -800,7 +814,14 @@ function renderTrainingJob(job) {
         '<div style="margin-top:32px;background:var(--surf);border:2px solid var(--bdr);border-radius:var(--rlg);overflow:hidden;animation:slideUp .4s ease-out">' +
         // Job header
         '<div style="background:linear-gradient(135deg,' + job.color + ',' + job.color + 'cc);padding:28px 32px;color:#fff;display:flex;align-items:center;gap:18px">' +
-        '<div style="font-size:3.5rem">' + job.icon + '</div>' +
+        `
+        <div class="job-icon">
+            <img src="${job.icon}" 
+                class="training-job-img" 
+                style="--job-clr:${job.color}" 
+                alt="job icon">
+        </div>
+        ` +
         '<div style="flex:1">' +
         '<div style="font-family:var(--fd);font-size:1.4rem;font-weight:900;margin-bottom:4px">' + title + '</div>' +
         '<div style="font-family:var(--fa);font-size:.85rem;opacity:.85">' + (isAR ? job.titleEn : job.titleAr) + '</div>' +
@@ -906,7 +927,18 @@ function showTrainingResult(job) {
 
     area.innerHTML =
         '<div style="margin-top:32px;background:var(--surf);border:2px solid var(--bdr);border-radius:var(--rlg);padding:48px;text-align:center;animation:slideUp .5s ease-out">' +
-        '<div style="font-size:5rem;margin-bottom:16px">' + job.icon + '</div>' +
+        // `<div class="job-icon">
+        //     <img src="${job.icon}" 
+        //         class="training-job-img" 
+        //         style="--job-clr:${job.color}" 
+        //         alt="job icon" />
+        // </div>` +
+        `<div class="job-icon">
+            <video autoplay controls autoplay src="${job.trainVideo}" 
+                class="training-job-video" 
+                style="--job-clr:${job.color}" 
+                alt="job icon"></video>
+        </div>` +
         '<div style="width:110px;height:110px;border-radius:50%;border:7px solid var(--bg2);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:2rem;font-weight:900;color:' + job.color + ';margin:0 auto 24px;background:conic-gradient(' + job.color + ' ' + deg + 'deg,var(--bg2) ' + deg + 'deg)">' + pct + '%</div>' +
         '<h2 style="font-family:var(--fd);font-size:1.9rem;font-weight:900;margin-bottom:10px">🎉 ' + title + '</h2>' +
         '<p style="color:var(--txt2);font-size:1rem;margin-bottom:8px">' +
@@ -1124,7 +1156,7 @@ function exportCV(type) {
         ];
         var blob = new Blob([lines.join('\n')], { type: 'text/plain' });
         var a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-        a.download = (d.name || 'MyCV').replace(/\s+/g, '_') + '_BrightPath_ATS.txt'; a.click();
+        a.download = (d.name || 'MyCV').replace(/\s+/g, '_') + '_Ablex_ATS.txt'; a.click();
         showToast('📝 ATS text downloaded!');
     } else if (type === 'docx') {
         exportCVDocx(d);
@@ -1156,7 +1188,7 @@ function exportCV(type) {
             if (d.cert) sec('Certifications', d.cert);
             if (d.skills && d.skills.length) sec('Skills', d.skills.join(' • '));
             sec('Hobbies & Interests', d.hobbies);
-            doc.save((d.name || 'MyCV').replace(/\s+/g, '_') + '_BrightPath.pdf');
+            doc.save((d.name || 'MyCV').replace(/\s+/g, '_') + '_Ablex.pdf');
             showToast('📥 PDF downloaded!');
         });
     }
@@ -1246,9 +1278,9 @@ function exportCVDocx(d) {
             }
 
             var doc2 = new docx.Document({
-                creator: 'BrightPath',
+                creator: 'Ablex',
                 title: name + ' - CV',
-                description: 'ATS-friendly CV generated by BrightPath',
+                description: 'ATS-friendly CV generated by Ablex',
                 styles: {
                     default: {
                         document: { run: { font: 'Calibri', size: 22 } }
@@ -1261,7 +1293,7 @@ function exportCVDocx(d) {
                 var url = URL.createObjectURL(blob);
                 var a = document.createElement('a');
                 a.href = url;
-                a.download = (name).replace(/\s+/g, '_') + '_BrightPath_CV.docx';
+                a.download = (name).replace(/\s+/g, '_') + '_Ablex_CV.docx';
                 a.click();
                 URL.revokeObjectURL(url);
                 showToast('📝 DOCX CV downloaded!');
@@ -1739,14 +1771,14 @@ function addAct(ico, name, detail, pts) { actLog.unshift({ ico: ico, name: name,
 
 function buildDashPage() {
     try { dStats = JSON.parse(localStorage.getItem('bp_stats') || '{}'); } catch (e) { }
-    var dpName = 'BrightPath User';
+    var dpName = 'Ablex User';
     try { var cv2 = JSON.parse(localStorage.getItem('bp_cv') || '{}'); if (cv2.name) dpName = cv2.name; } catch (e) { }
     var pg = document.getElementById('page-dashboard');
     pg.innerHTML =
         '<div class="phdr"><button class="backbtn" onclick="showPage(\'home\')" aria-label="Back">←</button><h2>📊 ' + (isAR ? 'لوحة التقدم' : 'Progress Dashboard · لوحة التقدم') + '</h2></div>' +
         '<div class="dashwrap"><div class="dashgrid">' +
         '<div style="display:flex;flex-direction:column;gap:16px">' +
-        '<div class="card dp-card"><div class="dp-ava">😊</div><div class="dp-name">' + dpName + '</div><div class="dp-tag">BrightPath Member ⭐</div>' +
+        '<div class="card dp-card"><div class="dp-ava">😊</div><div class="dp-name">' + dpName + '</div><div class="dp-tag">Ablex Member ⭐</div>' +
         '<div class="badges" style="margin-top:12px"><div class="bdg" style="background:rgba(255,107,53,.15)">🏆</div><div class="bdg" style="background:rgba(29,185,168,.15)">📄</div><div class="bdg" style="background:rgba(16,185,129,.15)">🎤</div><div class="bdg" style="background:rgba(124,58,237,.15)">🧩</div><div class="bdg" style="background:rgba(255,184,48,.15)">📚</div></div></div>' +
         '<div class="card" style="padding:18px"><div style="font-size:.82rem;font-weight:900;margin-bottom:10px">🗺️ ' + (isAR ? 'تقدم الرحلة' : 'Journey Progress') + '</div>' +
         [['Assessment', 'tests'], ['CV Built', 'cvs'], ['Interview', 'ivs']].map(function (s) { return '<div style="display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--bdr);font-size:.79rem;font-weight:700"><span>' + (dStats[s[1]] > 0 ? '✅' : '⭕') + '</span><span>' + s[0] + '</span></div>'; }).join('') + '</div></div>' +
@@ -1767,25 +1799,25 @@ function buildDashPage() {
 function buildAboutPage() {
     var pg = document.getElementById('page-about');
     pg.innerHTML =
-        '<div class="phdr"><button class="backbtn" onclick="showPage(\'home\')" aria-label="Back">←</button><h2>👥 ' + (isAR ? 'عن مسار مشرق' : 'About BrightPath · عن مسار مشرق') + '</h2></div>' +
+        '<div class="phdr"><button class="backbtn" onclick="showPage(\'home\')" aria-label="Back">←</button><h2>👥 ' + (isAR ? 'عن ابليكس' : 'About Ablex · عن ابليكس') + '</h2></div>' +
         '<div style="padding:32px;max-width:1100px;margin:0 auto">' +
         '<div style="background:linear-gradient(135deg,var(--sun),var(--gold));border-radius:var(--rlg);padding:44px;text-align:center;color:#fff;margin-bottom:40px">' +
         '<div style="font-size:3.5rem;margin-bottom:12px">🌟</div>' +
-        '<div style="font-family:var(--fd);font-size:2.6rem;font-weight:900;margin-bottom:5px">BrightPath</div>' +
+        '<div style="font-family:var(--fd);font-size:2.6rem;font-weight:900;margin-bottom:5px">Ablex</div>' +
         '<p style="opacity:.9;max-width:500px;margin:0 auto;line-height:1.7;font-size:.9rem">' + (isAR ? 'منصة مهنية بالذكاء الاصطناعي مصممة بحب لأشخاص متلازمة داون. تمكين كل شخص من إيجاد مساره المهني المثالي.' : 'An AI-powered career platform designed with love for people with Down Syndrome. Empowering every person to find their perfect career path.') + '</p></div>' +
         '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:44px">' +
         [['📋', 'Take the Test', 'Answer 5 questions to find your perfect job!'], ['📄', 'Build Your CV', 'Use voice or typing to create your professional CV.'], ['🧩', 'Play Games', 'Fun games that build memory, focus, and maths skills!'], ['🎤', 'Practice Interview', 'Talk to our AI coach and get feedback on your answers!']].map(function (item) {
             return '<div style="background:var(--surf);border:2px solid var(--bdr);border-radius:var(--r);padding:26px 18px;text-align:center"><div style="font-size:2rem;margin-bottom:10px">' + item[0] + '</div><h3 style="font-size:.88rem;font-weight:800;margin-bottom:7px">' + item[1] + '</h3><p style="font-size:.76rem;color:var(--txt2);line-height:1.5">' + item[2] + '</p></div>';
         }).join('') + '</div>' +
         '<div class="stag">' + (isAR ? 'فريقنا' : 'Our Team · فريقنا') + '</div>' +
-        '<h2 class="stitle" style="margin-bottom:24px">' + (isAR ? 'الفريق خلف مسار مشرق 💛' : 'The People Behind BrightPath 💛') + '</h2>' +
+        '<h2 class="stitle" style="margin-bottom:24px">' + (isAR ? 'الفريق خلف ابليكس 💛' : 'The People Behind Ablex 💛') + '</h2>' +
         '<div class="team-grid">' + TEAM.map(function (tm) {
             return '<div class="card tmc">' +
-                '<div class="tm-ava">' + tm.e + '</div>' +
+                '<div class="tm-ava">' + `<img src="${tm.e}" />` + '</div>' +
                 '<div class="tm-name">' + tm.n + '</div>' +
                 '<div class="tm-role">' + tm.r + '</div>' +
                 '<div class="tm-desc">' + tm.desc + '</div>' +
-                '<div class="tm-socials"><span class="tm-soc">🔗</span><span class="tm-soc">💼</span><span class="tm-soc">✉️</span></div></div>';
+                '<div class="tm-socials">' + '<a class="tm-soc" href="' + (tm.PLink ?? "") + '" target="_blank">🔗</a>' + ' <span class="tm-soc">💼</span><span class="tm-soc">✉️</span></div></div>';
         }).join('') + '</div></div>';
 }
 
@@ -1945,19 +1977,18 @@ function initHeroThree() {
     camera.position.z = 45;
     // Fewer particles for performance
     var geo = new THREE.BufferGeometry();
-    var count = 80; // Reduced from 140
+    var count = 40; // Reduced from 140
     var pos = new Float32Array(count * 3);
     var vel = new Float32Array(count * 3);
     for (var i = 0; i < count * 3; i += 3) {
         pos[i] = (Math.random() - .5) * 80; pos[i + 1] = (Math.random() - .5) * 50; pos[i + 2] = (Math.random() - .5) * 30;
-        vel[i] = (Math.random() - .5) * 0.015; vel[i + 1] = (Math.random() - .5) * 0.015; vel[i + 2] = 0;
+        vel[i] = (Math.random() - .5) * 0.1; vel[i + 1] = (Math.random() - .5) * 0.06; vel[i + 2] = 0;
     }
     geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-    var mat = new THREE.PointsMaterial({ color: 0xFF6B35, size: 1.2, transparent: true, opacity: 0.6 });
+    var mat = new THREE.PointsMaterial({ color: 0x003049, size: 1.2, transparent: true, opacity: 1 });
     var particles = new THREE.Points(geo, mat);
     scene.add(particles);
     var clock = new THREE.Clock();
-    var animId;
     var frameCount = 0;
     function animate() {
         animId = requestAnimationFrame(animate);
