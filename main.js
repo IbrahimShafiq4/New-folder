@@ -461,23 +461,53 @@ var IV_FB = [
 ];
 
 var TEAM = [
-    { e: './images/about/ahmad_yasser.jpeg', n: 'Ahmad Yasser', r: 'Frontend Developer – Angular', 
-        desc: 'Led the development of Ablex, building all Angular components and ensuring the platform is fast and accessible.', 
-        PLink: 'https://www.instagram.com/1_0ahmedd1_0?igsh=ZG1vdGg4OHk5a3A2' },
-    { e: './images/about/amany_ibrahim.jpeg', n: 'Amany Ibrahim', r: 'Graphic Designer', desc: 'Created all icons, illustrations, and visual assets used throughout the platform.' },
-    { e: './images/about/baisan_mohamed.jpeg', n: 'baisan mohamed',r: 'Graphic Designer', desc: 'Created all icons, illustrations, and visual assets used throughout the platform.', 
-        PLink: 'https://www.facebook.com/share/1CuBmZjSE2/' },
-    { e: './images/about/habiba_elsayed.jpeg', n: 'Habiba Elsayed', r: 'Content Specialist', desc: 'Wrote all platform content in English and Arabic, ensuring clarity and inclusivity throughout.', 
-        PLink: 'https://www.facebook.com/share/1FXRhTAT2y' },
-    { e: './images/about/nourhan_ahamed.jpeg', n: 'Nourhan Ahmad', r: 'Content Researcher', desc: 'Created all icons, illustrations, and visual assets used throughout the platform.', 
-        PLink: 'https://www.instagram.com/norhan_salah27?igsh=MWQ3NWd1MDZzdmlqcA==' },
-    { e: './images/about/nourhan_ayman.jpeg', n: 'Nourhan Ayman', r: 'Voice & Audio Lead', desc: 'Designed and implemented the voice navigation system and text-to-speech features.' },
-    { e: './images/about/naira.jpeg', n: 'Naira Ayman', r: 'Graphic Designer', desc: 'Created all icons, illustrations, and visual assets used throughout the platform.' },
-    { e: './images/about/maryem_ehab.jpeg', n: 'Mariam Ehab', r: 'Education Specialist', desc: 'Designed the learning curriculum and quiz systems to build real workplace skills.' },
-    { e: './images/about/nourhan_salah.jpeg', n: 'Nourhan Salah', r: 'Quality Assurance', desc: 'Tested every feature thoroughly to ensure a smooth, bug-free experience for all users.' },
-    { e: './images/about/rawan_nader.jpeg', n: 'Rawan Nader', r: 'Accessibility Researcher', desc: 'Researched and implemented cognitive accessibility best practices for users with Down Syndrome.' },
-    { e: './images/about/sama_hamada.jpeg', n: 'Sama Hamada', r: 'Accessibility Researcher', desc: 'Researched and implemented cognitive accessibility best practices for users with Down Syndrome.', 
-        PLink: 'https://www.instagram.com/sama_hamada_782005?utm_source=qr&igsh=OGEzbTdxbHgxbXlo' }
+    {
+        e: './images/about/ahmad_yasser.jpeg', n: 'Ahmad Yasser', r: 'Frontend Developer – Angular',
+        desc: 'Led the development of Ablex, building all Angular components and ensuring the platform is fast and accessible.',
+        PLink: 'https://www.instagram.com/1_0ahmedd1_0?igsh=ZG1vdGg4OHk5a3A2'
+    },
+    { 
+        e: './images/about/amany_ibrahim.jpeg', n: 'Amany Ibrahim', r: 'Graphic Designer', 
+        desc: 'Created all icons, illustrations, and visual assets used throughout the platform.',
+        PLink: 'https://www.instagram.com/_mony_105?utm_source=qr&igsh=MWtqZG5jMWt6emNuYw=='
+    },
+    {
+        e: './images/about/baisan_mohamed.jpeg', n: 'baisan mohamed', r: 'Graphic Designer', 
+        desc: 'Created all icons, illustrations, and visual assets used throughout the platform.',
+        PLink: 'https://www.facebook.com/share/1CuBmZjSE2/'
+    },
+    {
+        e: './images/about/habiba_elsayed.jpeg', n: 'Habiba Elsayed', r: 'Content Specialist', 
+        desc: 'Wrote all platform content in English and Arabic, ensuring clarity and inclusivity throughout.',
+        PLink: 'https://www.facebook.com/share/1FXRhTAT2y'
+    },
+    {
+        e: './images/about/nourhan_ahamed.jpeg', n: 'Nourhan Ahmad', r: 'Content Researcher', 
+        desc: 'Created all icons, illustrations, and visual assets used throughout the platform.',
+        PLink: 'https://www.instagram.com/nourrhan.ahmeed?igsh=dG1kaDZxanZ0dnJi'
+    },
+    { 
+        e: './images/about/nourhan_ayman.jpeg', n: 'Nourhan Ayman', r: 'Voice & Audio Lead', 
+        desc: 'Designed and implemented the voice navigation system and text-to-speech features.' },
+    { 
+        e: './images/about/naira.jpeg', n: 'Naira Ayman', r: 'Graphic Designer', 
+        desc: 'Created all icons, illustrations, and visual assets used throughout the platform.', 
+        PLink: 'https://www.instagram.com/no0rr_rr?igsh=Mjd6dHNraTUweDA=' },
+    { 
+        e: './images/about/maryem_ehab.jpeg', n: 'Mariam Ehab', r: 'Education Specialist', 
+        desc: 'Designed the learning curriculum and quiz systems to build real workplace skills.' },
+    { 
+        e: './images/about/nourhan_salah.jpeg', n: 'Nourhan Salah', r: 'Quality Assurance', 
+        desc: 'Tested every feature thoroughly to ensure a smooth, bug-free experience for all users.', 
+        PLink: 'https://www.instagram.com/norhan_salah27' },
+    { 
+        e: './images/about/rawan_nader.jpeg', n: 'Rawan Nader', r: 'Accessibility Researcher', 
+        desc: 'Researched and implemented cognitive accessibility best practices for users with Down Syndrome.' },
+    {
+        e: './images/about/sama_hamada.jpeg', n: 'Sama Hamada', r: 'Accessibility Researcher', 
+        desc: 'Researched and implemented cognitive accessibility best practices for users with Down Syndrome.',
+        PLink: 'https://www.instagram.com/sama_hamada_782005?utm_source=qr&igsh=OGEzbTdxbHgxbXlo'
+    }
 ];
 
 var GAMES = [
