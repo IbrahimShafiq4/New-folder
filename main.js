@@ -466,45 +466,51 @@ var TEAM = [
         desc: 'Led the development of Ablex, building all Angular components and ensuring the platform is fast and accessible.',
         PLink: 'https://www.instagram.com/1_0ahmedd1_0?igsh=ZG1vdGg4OHk5a3A2'
     },
-    { 
-        e: './images/about/amany_ibrahim.jpeg', n: 'Amany Ibrahim', r: 'Graphic Designer', 
+    {
+        e: './images/about/amany_ibrahim.jpeg', n: 'Amany Ibrahim', r: 'Graphic Designer',
         desc: 'Created all icons, illustrations, and visual assets used throughout the platform.',
         PLink: 'https://www.instagram.com/_mony_105?utm_source=qr&igsh=MWtqZG5jMWt6emNuYw=='
     },
     {
-        e: './images/about/baisan_mohamed.jpeg', n: 'baisan mohamed', r: 'Graphic Designer', 
+        e: './images/about/baisan_mohamed.jpeg', n: 'baisan mohamed', r: 'Graphic Designer',
         desc: 'Created all icons, illustrations, and visual assets used throughout the platform.',
         PLink: 'https://www.facebook.com/share/1CuBmZjSE2/'
     },
     {
-        e: './images/about/habiba_elsayed.jpeg', n: 'Habiba Elsayed', r: 'Content Specialist', 
+        e: './images/about/habiba_elsayed.jpeg', n: 'Habiba Elsayed', r: 'Content Specialist',
         desc: 'Wrote all platform content in English and Arabic, ensuring clarity and inclusivity throughout.',
         PLink: 'https://www.facebook.com/share/1FXRhTAT2y'
     },
     {
-        e: './images/about/nourhan_ahamed.jpeg', n: 'Nourhan Ahmad', r: 'Content Researcher', 
+        e: './images/about/nourhan_ahamed.jpeg', n: 'Nourhan Ahmad', r: 'Content Researcher',
         desc: 'Created all icons, illustrations, and visual assets used throughout the platform.',
         PLink: 'https://www.instagram.com/nourrhan.ahmeed?igsh=dG1kaDZxanZ0dnJi'
     },
-    { 
-        e: './images/about/nourhan_ayman.jpeg', n: 'Nourhan Ayman', r: 'Voice & Audio Lead', 
-        desc: 'Designed and implemented the voice navigation system and text-to-speech features.' },
-    { 
-        e: './images/about/naira.jpeg', n: 'Naira Ayman', r: 'Graphic Designer', 
-        desc: 'Created all icons, illustrations, and visual assets used throughout the platform.', 
-        PLink: 'https://www.instagram.com/no0rr_rr?igsh=Mjd6dHNraTUweDA=' },
-    { 
-        e: './images/about/maryem_ehab.jpeg', n: 'Mariam Ehab', r: 'Education Specialist', 
-        desc: 'Designed the learning curriculum and quiz systems to build real workplace skills.' },
-    { 
-        e: './images/about/nourhan_salah.jpeg', n: 'Nourhan Salah', r: 'Quality Assurance', 
-        desc: 'Tested every feature thoroughly to ensure a smooth, bug-free experience for all users.', 
-        PLink: 'https://www.instagram.com/norhan_salah27' },
-    { 
-        e: './images/about/rawan_nader.jpeg', n: 'Rawan Nader', r: 'Accessibility Researcher', 
-        desc: 'Researched and implemented cognitive accessibility best practices for users with Down Syndrome.' },
     {
-        e: './images/about/sama_hamada.jpeg', n: 'Sama Hamada', r: 'Accessibility Researcher', 
+        e: './images/about/nourhan_ayman.jpeg', n: 'Nourhan Ayman', r: 'Voice & Audio Lead',
+        desc: 'Designed and implemented the voice navigation system and text-to-speech features.',
+        pLink: 'https://www.instagram.com/nour.sawan.1238?igsh=MXAxNGJwdHhjbDZqdg=='
+    },
+    {
+        e: './images/about/naira.jpeg', n: 'Naira Ayman', r: 'Graphic Designer',
+        desc: 'Created all icons, illustrations, and visual assets used throughout the platform.',
+        PLink: 'https://www.instagram.com/no0rr_rr?igsh=Mjd6dHNraTUweDA='
+    },
+    {
+        e: './images/about/maryem_ehab.jpeg', n: 'Mariam Ehab', r: 'Education Specialist',
+        desc: 'Designed the learning curriculum and quiz systems to build real workplace skills.'
+    },
+    {
+        e: './images/about/nourhan_salah.jpeg', n: 'Nourhan Salah', r: 'Quality Assurance',
+        desc: 'Tested every feature thoroughly to ensure a smooth, bug-free experience for all users.',
+        PLink: 'https://www.instagram.com/norhan_salah27'
+    },
+    {
+        e: './images/about/rawan_nader.jpeg', n: 'Rawan Nader', r: 'Accessibility Researcher',
+        desc: 'Researched and implemented cognitive accessibility best practices for users with Down Syndrome.'
+    },
+    {
+        e: './images/about/sama_hamada.jpeg', n: 'Sama Hamada', r: 'Accessibility Researcher',
         desc: 'Researched and implemented cognitive accessibility best practices for users with Down Syndrome.',
         PLink: 'https://www.instagram.com/sama_hamada_782005?utm_source=qr&igsh=OGEzbTdxbHgxbXlo'
     }
@@ -1835,7 +1841,7 @@ function buildAboutPage() {
         '<div style="font-size:3.5rem;margin-bottom:12px">🌟</div>' +
         '<div style="font-family:var(--fd);font-size:2.6rem;font-weight:900;margin-bottom:5px">Ablex</div>' +
         '<p style="opacity:.9;max-width:500px;margin:0 auto;line-height:1.7;font-size:.9rem">' + (isAR ? 'منصة مهنية بالذكاء الاصطناعي مصممة بحب لأشخاص متلازمة داون. تمكين كل شخص من إيجاد مساره المهني المثالي.' : 'An AI-powered career platform designed with love for people with Down Syndrome. Empowering every person to find their perfect career path.') + '</p></div>' +
-        '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:44px">' +
+        '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:18px;margin-bottom:44px">' +
         [['📋', 'Take the Test', 'Answer 5 questions to find your perfect job!'], ['📄', 'Build Your CV', 'Use voice or typing to create your professional CV.'], ['🧩', 'Play Games', 'Fun games that build memory, focus, and maths skills!'], ['🎤', 'Practice Interview', 'Talk to our AI coach and get feedback on your answers!']].map(function (item) {
             return '<div style="background:var(--surf);border:2px solid var(--bdr);border-radius:var(--r);padding:26px 18px;text-align:center"><div style="font-size:2rem;margin-bottom:10px">' + item[0] + '</div><h3 style="font-size:.88rem;font-weight:800;margin-bottom:7px">' + item[1] + '</h3><p style="font-size:.76rem;color:var(--txt2);line-height:1.5">' + item[2] + '</p></div>';
         }).join('') + '</div>' +
@@ -1847,8 +1853,10 @@ function buildAboutPage() {
                 '<div class="tm-name">' + tm.n + '</div>' +
                 '<div class="tm-role">' + tm.r + '</div>' +
                 '<div class="tm-desc">' + tm.desc + '</div>' +
-                '<div class="tm-socials">' + '<a class="tm-soc" href="' + (tm.PLink ?? "") + '" target="_blank">🔗</a>' + ' <span class="tm-soc">💼</span><span class="tm-soc">✉️</span></div></div>';
+                '<div class="tm-socials">' + '<a class="tm-soc" href="' + (tm.PLink ?? "") + '" target="_blank">🔗</a>' + ' <span class="tm-soc tm-img">📷</span><span class="tm-soc">✉️</span></div></div>';
         }).join('') + '</div></div>';
+
+    tmImgClicked();
 }
 
 // ── LANGUAGE TOGGLE ───────────────────────────────────────────────────
@@ -2098,4 +2106,48 @@ document.addEventListener('DOMContentLoaded', function () {
             closeVoiceGuide(); closeModal(); stopVoiceCmd();
         }
     });
+});
+
+function tmImgClicked() {
+
+    let tmImg = document.querySelectorAll('.tm-img');
+
+    tmImg.forEach((tm) => {
+
+        tm.addEventListener('click', (e) => {
+
+            let card = e.target.closest('.tmc');
+
+            let image = card.querySelector('.tm-ava img').src;
+            let name = card.querySelector('.tm-name').textContent;
+            let role = card.querySelector('.tm-role').textContent;
+            let desc = card.querySelector('.tm-desc').textContent;
+
+            tmImagePreview(image, name, role, desc);
+
+        });
+
+    });
+
+}
+
+function tmImagePreview(image, name, title, description) {
+
+    let layout = document.getElementById('imgLayout');
+
+    document.getElementById('previewImg').src = image;
+    document.getElementById('previewName').textContent = name;
+    document.getElementById('previewRole').textContent = title;
+    document.getElementById('previewDesc').textContent = description;
+
+    layout.style.display = 'flex';
+
+}
+
+document.addEventListener("click", function (e) {
+
+    if (e.target.classList.contains("close-preview") || e.target.id === "imgLayout") {
+        document.getElementById("imgLayout").style.display = "none";
+    }
+
 });
