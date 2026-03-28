@@ -1003,11 +1003,8 @@ function buildCVLearnPage() {
         '<div class="phdr"><button class="backbtn" onclick="showPage(\'home\')" aria-label="Back">←</button><h2>📖 ' + (isAR ? 'تعلم بناء السيرة الذاتية' : 'Learn to Build an ATS CV') + '</h2><span class="step-badge" style="background:var(--jade)">Step 2 of 5</span></div>' +
         '<div style="padding:32px;max-width:960px;margin:0 auto">' +
         '<div style="background:linear-gradient(135deg,#1A1A2E,#0F3460);border-radius:var(--rlg);overflow:hidden;margin-bottom:28px;aspect-ratio:16/9;position:relative;" id="cv-vid-wrap">' +
-        '<video id="cv-video" src="./images/cv.mp4" style="width:100%;height:100%;object-fit:contain;display:block" preload="metadata"></video>' +
-        '<div style="position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;gap:11px;padding:14px 22px;background:rgba(0,0,0,.45)">' +
-        '<button class="vc-btn-play" id="cv-play-btn" onclick="toggleCVVideo()" style="padding:8px 20px;border-radius:50px;background:var(--sun);border:none;color:#fff;font-size:.8rem;font-weight:800;cursor:pointer" aria-label="Play video">▶ Play</button>' +
-        '<div style="flex:1;height:5px;background:rgba(255,255,255,.2);border-radius:50px;overflow:hidden"><div id="cv-prog" style="height:100%;background:var(--sun);border-radius:50px;width:0%;transition:width .3s"></div></div>' +
-        '<button onclick="restartCVVid()" style="padding:8px 18px;border-radius:50px;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.2);color:#fff;font-size:.78rem;font-weight:800;cursor:pointer" aria-label="Restart">↩ Restart</button></div></div>' +
+        '<video id="cv-video" src="./images/cv.mp4" autoplay loop controls style="width:100%;height:100%;object-fit:contain;display:block" preload="metadata"></video>' +
+        '</div>' +
         '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:32px">' +
         [['👤', '1. Contact Info', 'Name, email, phone, location at the top'], ['✍️', '2. Summary', '2-3 sentences about your strengths'], ['💼', '3. Experience', 'Any job, volunteering or school activity'], ['🎓', '4. Education', 'School name and graduation year'], ['🏆', '5. Certifications', 'Courses, awards, training'], ['🧩', '6. Skills', 'Teamwork, computer basics, communication']].map(function (item) {
             return '<div style="background:var(--surf);border:2px solid var(--bdr);border-radius:var(--r);padding:24px 20px;transition:all .25s">' +
@@ -1016,21 +1013,21 @@ function buildCVLearnPage() {
         }).join('') + '</div>' +
         '<div style="text-align:center"><button class="btn btn-o" onclick="showPage(\'cvbuild\')">' + t('cv_guide_btn') + '</button></div></div>';
 
-    cvVidIdx = 0; cvVidPlaying = false;
+    // cvVidIdx = 0; cvVidPlaying = false;
 
-    var video = document.getElementById('cv-video');
-    document.getElementById('cv-vid-wrap').onclick = toggleCVVideo;
+    // var video = document.getElementById('cv-video');
+    // document.getElementById('cv-vid-wrap').onclick = toggleCVVideo;
 
-    video.addEventListener('timeupdate', function () {
-        if (video.duration) {
-            document.getElementById('cv-prog').style.width = (video.currentTime / video.duration * 100) + '%';
-        }
-    });
+    // video.addEventListener('timeupdate', function () {
+    //     if (video.duration) {
+    //         document.getElementById('cv-prog').style.width = (video.currentTime / video.duration * 100) + '%';
+    //     }
+    // });
 
-    video.addEventListener('ended', function () {
-        document.getElementById('cv-play-btn').textContent = '▶ Play';
-        cvVidPlaying = false;
-    });
+    // video.addEventListener('ended', function () {
+    //     document.getElementById('cv-play-btn').textContent = '▶ Play';
+    //     cvVidPlaying = false;
+    // });
 }
 
 function toggleCVVideo() {
