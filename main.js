@@ -1002,15 +1002,8 @@ function buildCVLearnPage() {
     pg.innerHTML =
         '<div class="phdr"><button class="backbtn" onclick="showPage(\'home\')" aria-label="Back">←</button><h2>📖 ' + (isAR ? 'تعلم بناء السيرة الذاتية' : 'Learn to Build an ATS CV') + '</h2><span class="step-badge" style="background:var(--jade)">Step 2 of 5</span></div>' +
         '<div style="padding:32px;max-width:960px;margin:0 auto">' +
-        '<div style="background:linear-gradient(135deg,#1A1A2E,#0F3460);border-radius:var(--rlg);overflow:hidden;margin-bottom:28px;aspect-ratio:16/9;position:relative;cursor:pointer" id="cv-vid-wrap">' +
-        '<div id="cv-scene-0" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:40px">' +
-        '<div style="font-size:5rem">🎬</div>' +
-        '<div style="background:rgba(0,0,0,.6);backdrop-filter:blur(8px);padding:13px 26px;border-radius:50px;color:#fff;font-size:1rem;font-weight:700;border:1px solid rgba(255,255,255,.15)">' + (isAR ? '▶️ اضغط لبدء الفيديو!' : '▶️ Click to Start the CV Guide Video!') + '</div>' +
-        '<div style="background:rgba(29,185,168,.2);padding:9px 22px;border-radius:50px;color:var(--sky);font-size:.85rem;font-weight:700;font-family:var(--fa)">' + (isAR ? '▶️ Click to Start the CV Guide Video!' : 'اضغط لمشاهدة فيديو دليل السيرة الذاتية') + '</div></div>' +
-        '<div id="cv-scene-1" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:40px;opacity:0;pointer-events:none;transition:opacity .5s">' +
-        '<div id="cv-char" style="font-size:5rem">📄</div>' +
-        '<div id="cv-cap" style="background:rgba(0,0,0,.65);backdrop-filter:blur(10px);padding:13px 26px;border-radius:50px;color:#fff;font-size:.95rem;font-weight:700;text-align:center;max-width:500px;line-height:1.5;border:1px solid rgba(255,255,255,.12)">What is an ATS CV?</div>' +
-        '<div id="cv-cap-ar" style="background:rgba(29,185,168,.22);padding:9px 22px;border-radius:50px;color:var(--sky);font-size:.84rem;font-weight:700;font-family:var(--fa)">ما هي السيرة الذاتية المتوافقة؟</div></div>' +
+        '<div style="background:linear-gradient(135deg,#1A1A2E,#0F3460);border-radius:var(--rlg);overflow:hidden;margin-bottom:28px;aspect-ratio:16/9;position:relative;" id="cv-vid-wrap">' +
+        '<video id="cv-video" src="./images/cv.mp4" style="width:100%;height:100%;object-fit:contain;display:block" preload="metadata"></video>' +
         '<div style="position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;gap:11px;padding:14px 22px;background:rgba(0,0,0,.45)">' +
         '<button class="vc-btn-play" id="cv-play-btn" onclick="toggleCVVideo()" style="padding:8px 20px;border-radius:50px;background:var(--sun);border:none;color:#fff;font-size:.8rem;font-weight:800;cursor:pointer" aria-label="Play video">▶ Play</button>' +
         '<div style="flex:1;height:5px;background:rgba(255,255,255,.2);border-radius:50px;overflow:hidden"><div id="cv-prog" style="height:100%;background:var(--sun);border-radius:50px;width:0%;transition:width .3s"></div></div>' +
@@ -1022,24 +1015,47 @@ function buildCVLearnPage() {
                 '<p style="font-size:.78rem;color:var(--txt2);line-height:1.5">' + item[2] + '</p></div>';
         }).join('') + '</div>' +
         '<div style="text-align:center"><button class="btn btn-o" onclick="showPage(\'cvbuild\')">' + t('cv_guide_btn') + '</button></div></div>';
+
     cvVidIdx = 0; cvVidPlaying = false;
+
+    var video = document.getElementById('cv-video');
     document.getElementById('cv-vid-wrap').onclick = toggleCVVideo;
+
+    video.addEventListener('timeupdate', function () {
+        if (video.duration) {
+            document.getElementById('cv-prog').style.width = (video.currentTime / video.duration * 100) + '%';
+        }
+    });
+
+    video.addEventListener('ended', function () {
+        document.getElementById('cv-play-btn').textContent = '▶ Play';
+        cvVidPlaying = false;
+    });
 }
 
 function toggleCVVideo() {
-    if (cvVidPlaying) {
+    var video = document.getElementById('cv-video');
+    var btn = document.getElementById('cv-play-btn');
+    if (!video) return;
+    if (video.paused) {
+        video.play();
+        btn.textContent = '⏸ Pause';
+        cvVidPlaying = true;
+    } else {
+        video.pause();
+        btn.textContent = '▶ Play';
         cvVidPlaying = false;
-        if (cvVidTimer) { clearTimeout(cvVidTimer); cvVidTimer = null; }
-        stopAll();
-        var b = document.getElementById('cv-play-btn'); if (b) b.textContent = '▶ Resume';
-        return;
     }
+}
+
+function restartCVVid() {
+    var video = document.getElementById('cv-video');
+    var btn = document.getElementById('cv-play-btn');
+    if (!video) return;
+    video.currentTime = 0;
+    video.play();
+    btn.textContent = '⏸ Pause';
     cvVidPlaying = true;
-    var s0 = document.getElementById('cv-scene-0'); var s1 = document.getElementById('cv-scene-1');
-    if (s0) { s0.style.opacity = '0'; s0.style.pointerEvents = 'none'; }
-    if (s1) { s1.style.opacity = '1'; s1.style.pointerEvents = 'auto'; }
-    var b = document.getElementById('cv-play-btn'); if (b) b.textContent = '⏸ Pause';
-    playCVSlide();
 }
 
 function playCVSlide() {
@@ -1053,14 +1069,6 @@ function playCVSlide() {
     speak(isAR ? s.ar : s.en, function () {
         if (cvVidPlaying) { cvVidIdx++; cvVidTimer = setTimeout(playCVSlide, 500); }
     });
-}
-
-function restartCVVid() {
-    cvVidIdx = 0; cvVidPlaying = false;
-    if (cvVidTimer) { clearTimeout(cvVidTimer); cvVidTimer = null; }
-    stopAll();
-    var p = document.getElementById('cv-prog'); if (p) p.style.width = '0%';
-    var b = document.getElementById('cv-play-btn'); if (b) b.textContent = '▶ Play';
 }
 
 // ── CV BUILD ──────────────────────────────────────────────────────────
