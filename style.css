@@ -72,8 +72,18 @@ body {
 }
 
 [data-lang=ar] {
-    font-family: var(--fa);
+    font-family: var(--fa) !important;
     direction: rtl
+}
+
+[data-lang=ar] body,
+[data-lang=ar] button,
+[data-lang=ar] input,
+[data-lang=ar] textarea,
+[data-lang=ar] select,
+[data-lang=ar] .btn,
+[data-lang=ar] .nav-links a {
+    font-family: var(--fa) !important
 }
 
 [data-lang=ar] h1,

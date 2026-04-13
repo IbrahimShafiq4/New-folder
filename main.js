@@ -13,6 +13,7 @@ var isSpeaking = false;
 var isReading = false;
 var fontStep = 0;
 var toastTimer = null;
+var currentLang = 'en';
 var isAR = false;
 var vcRec = null;
 var vcActive = false;
@@ -62,22 +63,130 @@ var STRINGS = {
         nav_jobs: '💼 Jobs', nav_interview: '🎤 Interview', nav_dashboard: '📊 Progress',
         nav_about: '👥 About', nav_training: '🏋️ Training',
         lang_btn: '🌐 AR', stop_btn: '⏹ Stop',
-        reading_bar: 'Reading page aloud…',
+        reading_bar_txt: 'Reading page aloud…',
+        rb_stop: '✕ Stop',
+        vo_title: 'Listening…',
+        vo_result: 'Waiting for your voice…',
+        vo_guide_btn: '📖 Commands Guide',
+        vo_cancel_btn: '✕ Cancel',
+        vcg_title: 'Voice Commands Guide',
+        vcg_subtitle: 'دليل الأوامر الصوتية',
+        vcg_desc: 'Click the microphone button 🎙️ and say any of these commands. Speak clearly in English or Arabic!',
+        vcg_h_nav: '🧭 Navigation',
+        vcg_h_a11y: '♿ Accessibility',
+        vcg_start_btn: '🎙️ Start Voice Commands',
         hero_badge: '✨ AI-Powered Career Platform',
-        hero_h1_1: 'Your Journey to', hero_h1_2: 'Work Starts Here! 🚀',
-        hero_p: 'Ablex guides you step by step — from discovering your best job, to building your CV, to acing your interview. With friendly AI voice support every step of the way!',
-        btn_start_assess: '📋 Start Assessment', btn_voice: '🎙️ Use Voice', btn_voice_guide: '📖 Voice Guide',
+        hero_title: '<span class="gtext">Your Journey to</span><br>Work Starts Here! 🚀',
+        hero_desc: 'Ablex guides you step by step — from discovering your best job, to building your CV, to acing your interview. With friendly AI voice support every step of the way!',
+        h_btn_assess: '📋 Start Assessment',
+        h_btn_voice: '🎙️ Use Voice',
+        h_btn_guide: '📖 Voice Guide',
+        s_users: 'Users Helped',
+        s_cvs: 'CVs Built',
+        s_jobs: 'Jobs Found',
         journey_title: '🗺️ Your 5-Step Career Journey',
-        true_btn: '✅ True', false_btn: '❌ False',
-        correct_msg: '✅ Correct! Well done!', wrong_msg: '❌ Not quite. The answer was',
-        training_title: '🏋️ Job Training · تدريب على الوظائف',
-        training_subtitle: 'Pick a job to start True/False training!',
-        training_sub_ar: 'اختر وظيفة لتبدأ التدريب!',
-        q_of: 'of', score_label: 'Score',
-        next_q: 'Next Question →', restart: '🔄 Restart',
-        finish_msg: '🎉 Great job! You finished the training!',
-        cv_guide_btn: '📄 Now Build My CV →',
-        reading_bar_txt: 'Reading page aloud…'
+        tk_stag: 'Everything You Need',
+        tk_title: 'Your Complete Career Toolkit 🎯',
+        tk_desc: 'Seven powerful tools designed just for you. Each step is guided and encouraging.',
+        hw_stag: 'Simple Steps',
+        hw_title: 'How It Works ✨',
+        hw_desc: 'Just three easy steps to start your amazing career journey!',
+        a11y_stag: 'Accessibility First',
+        a11y_title: 'Designed for Everyone 💙',
+        a11y_desc: 'Every part of Ablex is built with cognitive accessibility in mind. Simple, safe, and supportive.',
+        testi_stag: 'Success Stories',
+        testi_title: 'What People Are Saying 💬',
+        cta_stag: 'Start Today',
+        cta_title: 'Ready to Begin Your Journey? 🌟',
+        cta_desc: 'Join thousands of people building their careers with Ablex. It\'s free, friendly, and designed just for you!',
+        cta_btn_assess: '📋 Start Assessment',
+        cta_btn_training: '🏋️ Job Training',
+        cta_btn_cv: '📄 Build My CV',
+        footer_copy: '© 2025 Ablex. Made with ❤️ for inclusive employment.',
+        f_about: 'About Team',
+        f_dashboard: 'Dashboard',
+        coach_hi: '👋 Hi! I\'m Max!',
+        coach_txt: 'I\'m your guide! Click 🔊 to hear this page, 🎙️ for voice commands, or 📖 for the voice guide.',
+        coach_btn_ok: 'Got it! 👍',
+        // Journey Steps
+        j_step_1_t: '1. Job Assessment', j_step_1_p: 'Find your perfect job match',
+        j_step_2_t: '2. Job Training', j_step_2_p: 'True/False job training quiz',
+        j_step_3_t: '3. Learn CV Building', j_step_3_p: 'Watch the ATS CV video guide',
+        j_step_4_t: '4. Build Your CV', j_step_4_p: 'Create your professional resume',
+        j_step_5_t: '5. Practice Interview', j_step_5_p: 'AI coach with voice support',
+        // Toolkit Features
+        tk_feat_1_t: 'Job Assessment', tk_feat_1_p: 'Answer simple questions and our AI finds your perfect job match.', tk_feat_1_b: 'Start Test →',
+        tk_feat_2_t: 'Job Training', tk_feat_2_p: 'Learn about 7 jobs through fun True/False questions in Arabic & English.', tk_feat_2_b: 'Start Training →',
+        tk_feat_3_t: 'ATS CV Builder', tk_feat_3_p: 'Fill in your details with voice support and download a professional ATS-ready CV.', tk_feat_3_b: 'Build Now →',
+        tk_feat_4_t: 'Skill Games', tk_feat_4_p: '5 fun interactive games — memory, patterns, maths, sorting, and focus!', tk_feat_4_b: 'Play →',
+        tk_feat_5_t: 'Learning Topics', tk_feat_5_p: 'Short lessons on workplace skills, communication, time management and more!', tk_feat_5_b: 'Learn →',
+        tk_feat_6_t: 'AI Interview', tk_feat_6_p: 'Practice real interview questions with our AI coach. Speak or type your answers!', tk_feat_6_b: 'Practice →',
+        // How it works steps
+        hw_step_1_t: 'Create Your Profile', hw_step_1_p: 'Answer friendly questions and build your personal profile. Tell us your amazing skills!',
+        hw_step_2_t: 'Play & Practice', hw_step_2_p: 'Play skill games and practice interview questions. Our AI learns what you\'re great at!',
+        hw_step_3_t: 'Get Your Dream Job', hw_step_3_p: 'Our AI recommends perfect jobs and helps you connect with inclusive employers!',
+        // Accessibility features
+        a11y_feat_1_t: 'Voice Navigation', a11y_feat_1_p: 'Navigate the whole site with your voice in English or Arabic',
+        a11y_feat_2_t: 'Page Reading', a11y_feat_2_p: 'Every question and instruction read aloud automatically',
+        a11y_feat_3_t: 'Adjustable Text', a11y_feat_3_p: 'Increase or decrease font size with one click or voice command',
+        a11y_feat_4_t: 'Dark & High Contrast', a11y_feat_4_p: 'Multiple colour modes for every visual need',
+        a11y_feat_5_t: 'Arabic & English', a11y_feat_5_p: 'Full bilingual support with proper RTL layout for Arabic',
+        a11y_feat_6_t: 'Keyboard Friendly', a11y_feat_6_p: 'Every button and link works perfectly with keyboard navigation',
+        a11y_feat_7_t: 'Big Buttons', a11y_feat_7_p: 'All buttons are large, labelled, and easy to tap or click',
+        a11y_feat_8_t: 'Step-by-Step', a11y_feat_8_p: 'Each task broken into tiny manageable steps — never overwhelming!',
+        // Testimonials
+        testi_1_t: 'Ablex helped me create my first CV! The AI suggestions were amazing. Now I work at the local supermarket and I love every day!', testi_1_n: 'Ahmed, 24', testi_1_r: 'Store Assistant',
+        testi_2_t: 'My daughter used Ablex for 3 months. The interview practice gave her so much confidence. She got her first job last month!', testi_2_n: 'Sara\'s Mum', testi_2_r: 'Parent',
+        testi_3_t: 'The skill games are so fun! I play them every day. My memory improved and I learned to count money for my café job!', testi_3_n: 'Omar, 21', testi_3_r: 'Café Helper',
+        testi_4_t: 'The voice assistant makes everything easy. I talk to it and it helps me find jobs and practice my answers.', testi_4_n: 'Layla, 19', testi_4_r: 'Office Helper',
+        testi_5_t: 'As a teacher, I recommend Ablex to all my students. The step-by-step approach makes a huge difference in building confidence.', testi_5_n: 'Mr. Hassan', testi_5_r: 'Special Education Teacher',
+        // Commands
+        cmd_home: '"Go home"', cmd_home_d: 'Go to home page',
+        cmd_test: '"Start test"', cmd_test_d: 'Open job assessment',
+        cmd_train: '"Training"', cmd_train_d: 'Job training quiz',
+        cmd_cv: '"Open CV"', cmd_cv_d: 'Open CV builder',
+        cmd_jobs: '"Show jobs"', cmd_jobs_d: 'Open job listings',
+        cmd_inter: '"Start interview"', cmd_inter_d: 'Interview practice',
+        cmd_games: '"Open games"', cmd_games_d: 'Open skill games',
+        cmd_learn: '"Learn"', cmd_learn_d: 'Learning topics',
+        cmd_read: '"Read page"', cmd_read_d: 'Read this page aloud',
+        cmd_stop: '"Stop voice"', cmd_stop_d: 'Stop all reading',
+        cmd_dark: '"Dark mode"', cmd_dark_d: 'Switch dark/light',
+        cmd_hc: '"High contrast"', cmd_hc_d: 'High contrast mode',
+        cmd_big: '"Bigger text"', cmd_big_d: 'Increase font size',
+        cmd_small: '"Smaller text"', cmd_small_d: 'Decrease font size',
+        // Dashboard
+        dash_title: 'Progress Dashboard', dash_journey: 'Journey Progress', dash_activity: 'Recent Activity', dash_skills: 'Skill Progress',
+        dash_member: 'Ablex Member', dash_points: 'Points', dash_tests: 'Tests', dash_cvs: 'CVs', dash_ivs: 'Interviews',
+        dash_no_act: 'No activities yet. Start your journey!',
+        sk_comm: 'Communication', sk_org: 'Organisation', sk_team: 'Teamwork', sk_prob: 'Problem Solving', sk_punc: 'Punctuality',
+        // Jobs
+        jobs_search: 'Job Search', jobs_inclusive: 'Inclusive Job Listings', jobs_employers: 'All jobs are from inclusive employers who celebrate every talent!',
+        jobs_match: 'Match', jobs_interest: 'Express Interest', jobs_interested: 'Interested!', jobs_interest_saved: 'Interest saved for ',
+        jobs_filter_all: 'All', jobs_filter_retail: 'Retail', jobs_filter_food: 'Food & Beverage', jobs_filter_edu: 'Education',
+        jobs_filter_outdoor: 'Outdoors', jobs_filter_office: 'Office', jobs_filter_creative: 'Creative',
+        // Games
+        game_score: 'Score', game_level: 'Level', game_moves: 'Moves', game_pairs: 'Pairs Found', game_time: 'Time',
+        game_speed: 'Speed', game_over: 'Game Over!', game_new: 'New Game', game_all_sorted: 'All sorted! Great job!',
+        game_correct: 'Correct!', game_wrong: 'Wrong category, try again!', game_what_next: 'What shape comes next?',
+        game_what_is: 'What is ', game_points_val: ' pts',
+        // CV
+        cv_step_preview: 'Step 2 of 5', cv_step_build: 'Step 3 of 5',
+        cv_preview_title: 'Live Preview', cv_preview_placeholder: 'Your name here...',
+        cv_sec_summary: 'Professional Summary', cv_sec_exp: 'Work Experience', cv_sec_edu: 'Education',
+        cv_sec_certs: 'Certifications', cv_sec_skills: 'Skills', cv_sec_hobbies: 'Hobbies & Interests',
+        cv_save_toast: 'CV saved!', cv_next_games: 'Next: Games →',
+        // About
+        about_title: 'About Ablex', about_mission: 'An AI-powered career platform designed with love for people with Down Syndrome. Empowering every person to find their perfect career path.',
+        about_team_title: 'Meet Our Amazing Team', about_team_desc: 'The passionate people who built Ablex to make employment more inclusive.',
+        // Interview
+        iv_step_badge: 'Step 5 of 5', iv_step_desc: 'Step 5 — Practice makes perfect! Click Next Question to begin.',
+        iv_speaking: 'AI is speaking...', iv_greeting: 'Hi! I\'m your interview coach. Click "Next Question" to begin! 😊',
+        iv_ans_label: 'Your Answer:', iv_ans_ph: 'Click Start Answer and speak, or type here...',
+        iv_start_ans: 'Start Answer', iv_stop_ans: 'Stop Listening', iv_submit: 'Submit Answer', iv_next: 'Next Question',
+        iv_hint: 'Click Start Answer and speak — your voice is automatically converted to text!',
+        iv_effort: 'Great effort!', iv_prog_title: 'Interview Progress', iv_complete: 'Interview complete! You did amazing!',
+        iv_submit_toast: 'Answer submitted!', iv_please_ans: 'Please answer first!'
     },
     ar: {
         nav_home: '🏠 الرئيسية', nav_assess: '📋 الاختبار', nav_cvlearn: '📖 دليل السيرة',
@@ -85,28 +194,397 @@ var STRINGS = {
         nav_jobs: '💼 وظائف', nav_interview: '🎤 مقابلة', nav_dashboard: '📊 لوحة',
         nav_about: '👥 عن المنصة', nav_training: '🏋️ تدريب',
         lang_btn: '🌐 EN', stop_btn: '⏹ توقف',
-        reading_bar: 'جاري قراءة الصفحة…',
+        reading_bar_txt: 'جاري قراءة الصفحة…',
+        rb_stop: '✕ توقف',
+        vo_title: 'جاري الاستماع…',
+        vo_result: 'في انتظار صوتك…',
+        vo_guide_btn: '📖 دليل الأوامر',
+        vo_cancel_btn: '✕ إلغاء',
+        vcg_title: 'دليل الأوامر الصوتية',
+        vcg_subtitle: 'Voice Commands Guide',
+        vcg_desc: 'انقر على زر الميكروفون 🎙️ وقل أيًا من هذه الأوامر. تحدث بوضوح باللغة العربية أو الإنجليزية!',
+        vcg_h_nav: '🧭 التنقل',
+        vcg_h_a11y: '♿ سهولة الاستخدام',
+        vcg_start_btn: '🎙️ ابدأ الأوامر الصوتية',
         hero_badge: '✨ منصة مهنية بالذكاء الاصطناعي',
-        hero_h1_1: 'رحلتك نحو', hero_h1_2: 'العمل تبدأ هنا! 🚀',
-        hero_p: 'ابليكس يرشدك خطوة بخطوة — من اكتشاف وظيفتك المثالية إلى بناء سيرتك الذاتية حتى إجراء المقابلة. مع دعم صوتي ودود في كل خطوة!',
-        btn_start_assess: '📋 ابدأ الاختبار', btn_voice: '🎙️ استخدم صوتك', btn_voice_guide: '📖 دليل الأوامر',
+        hero_title: '<span class="gtext">رحلتك نحو</span><br>العمل تبدأ هنا! 🚀',
+        hero_desc: 'ابليكس يرشدك خطوة بخطوة — من اكتشاف وظيفتك المثالية إلى بناء سيرتك الذاتية حتى إجراء المقابلة. مع دعم صوتي ودود في كل خطوة!',
+        h_btn_assess: '📋 ابدأ الاختبار',
+        h_btn_voice: '🎙️ استخدم صوتك',
+        h_btn_guide: '📖 دليل الأوامر',
+        s_users: 'مستخدم تمت مساعدتهم',
+        s_cvs: 'سيرة ذاتية تم إنشاؤها',
+        s_jobs: 'وظيفة تم العثور عليها',
         journey_title: '🗺️ رحلتك المهنية في 5 خطوات',
-        true_btn: '✅ صح', false_btn: '❌ خطأ',
-        correct_msg: '✅ إجابة صحيحة! أحسنت!', wrong_msg: '❌ ليس تمامًا. الإجابة الصحيحة كانت',
-        training_title: '🏋️ تدريب على الوظائف · Job Training',
-        training_subtitle: 'اختر وظيفة لتبدأ تدريب صح/خطأ!',
-        training_sub_ar: 'Pick a job to start True/False training!',
-        q_of: 'من', score_label: 'النتيجة',
-        next_q: 'السؤال التالي →', restart: '🔄 ابدأ من جديد',
-        finish_msg: '🎉 أحسنت! أتممت التدريب!',
-        cv_guide_btn: '📄 ابنِ سيرتك الذاتية →',
-        reading_bar_txt: 'جاري قراءة الصفحة…'
+        tk_stag: 'كل ما تحتاجه',
+        tk_title: 'أدواتك المهنية المتكاملة 🎯',
+        tk_desc: 'سبع أدوات قوية مصممة خصيصًا لك. كل خطوة موجهة ومشجعة.',
+        hw_stag: 'خطوات بسيطة',
+        hw_title: 'كيف يعمل النظام ✨',
+        hw_desc: 'ثلاث خطوات سهلة فقط لتبدأ رحلتك المهنية المذهلة!',
+        a11y_stag: 'سهولة الوصول أولاً',
+        a11y_title: 'مصمم للجميع 💙',
+        a11y_desc: 'كل جزء في ابليكس تم بناؤه مع مراعاة سهولة الاستخدام المعرفي. بسيط، آمن، وداعم.',
+        testi_stag: 'قصص نجاح',
+        testi_title: 'ماذا يقول الناس 💬',
+        cta_stag: 'ابدأ اليوم',
+        cta_title: 'هل أنت مستعد لبدء رحلتك؟ 🌟',
+        cta_desc: 'انضم إلى آلاف الأشخاص الذين يبنون حياتهم المهنية مع ابليكس. إنه مجاني، ودود، ومصمم خصيصًا لك!',
+        cta_btn_assess: '📋 ابدأ الاختبار',
+        cta_btn_training: '🏋️ تدريب الوظائف',
+        cta_btn_cv: '📄 ابنِ سيرتي الذاتية',
+        footer_copy: '© 2025 ابليكس. صنع بكل ❤️ من أجل توظيف شامل.',
+        f_about: 'عن الفريق',
+        f_dashboard: 'لوحة التحكم',
+        coach_hi: '👋 مرحبًا! أنا ماكس!',
+        coach_txt: 'أنا مرشدك! انقر على 🔊 لسماع هذه الصفحة، 🎙️ للأوامر الصوتية، أو 📖 لدليل الصوت.',
+        coach_btn_ok: 'فهمت! 👍',
+        // Journey Steps
+        j_step_1_t: '1. اختبار الوظائف', j_step_1_p: 'ابحث عن وظيفتك المثالية',
+        j_step_2_t: '2. تدريب الوظائف', j_step_2_p: 'اختبار تدريبي صح/خطأ',
+        j_step_3_t: '3. تعلم بناء السيرة', j_step_3_p: 'شاهد فيديو دليل السيرة الذاتية',
+        j_step_4_t: '4. ابنِ سيرتك الذاتية', j_step_4_p: 'أنشئ سيرتك الذاتية الاحترافية',
+        j_step_5_t: '5. ممارسة المقابلة', j_step_5_p: 'مدرب ذكاء اصطناعي مع دعم صوتي',
+        // Toolkit Features
+        tk_feat_1_t: 'اختبار الوظيفة', tk_feat_1_p: 'أجب على أسئلة بسيطة وسيجد ذكاءنا الاصطناعي وظيفتك المثالية.', tk_feat_1_b: 'ابدأ الاختبار ←',
+        tk_feat_2_t: 'تدريب الوظيفة', tk_feat_2_p: 'تعرف على 7 وظائف من خلال أسئلة صح/خطأ ممتعة بالعربية والإنجليزية.', tk_feat_2_b: 'ابدأ التدريب ←',
+        tk_feat_3_t: 'بناء سيرتك الذاتية', tk_feat_3_p: 'املأ بياناتك مع دعم صوتي وقم بتحميل سيرة ذاتية احترافية جاهزة.', tk_feat_3_b: 'ابنِ الآن ←',
+        tk_feat_4_t: 'ألعاب المهارات', tk_feat_4_p: '5 ألعاب تفاعلية ممتعة — الذاكرة، الأنماط، الرياضيات، التصنيف، والتركيز!', tk_feat_4_b: 'العيد الآن ←',
+        tk_feat_5_t: 'مواضيع التعلم', tk_feat_5_p: 'دروس قصيرة عن مهارات العمل، التواصل، إدارة الوقت والمزيد!', tk_feat_5_b: 'تعلم ←',
+        tk_feat_6_t: 'مقابلة الذكاء الاصطناعي', tk_feat_6_p: 'تدرب على أسئلة المقابلة الحقيقية مع مدربنا. تحدث أو اكتب إجاباتك!', tk_feat_6_b: 'تدرب الآن ←',
+        // How it works steps
+        hw_step_1_t: 'أنشئ ملفك الشخصي', hw_step_1_p: 'أجب على أسئلة ودودة وابنِ ملفك الشخصي. أخبرنا بمهاراتك المذهلة!',
+        hw_step_2_t: 'العب وتدرب', hw_step_2_p: 'العب ألعاب المهارات وتدرب على أسئلة المقابلة. يتعلم ذكاءنا ما أنت بارع فيه!',
+        hw_step_3_t: 'احصل على وظيفة أحلامك', hw_step_3_p: 'يوصي ذكاؤنا الاصطناعي بوظائف مثالية ويساعدك على التواصل مع أصحاب العمل!',
+        // Accessibility features
+        a11y_feat_1_t: 'التنقل الصوتي', a11y_feat_1_p: 'تنقل في الموقع بالكامل بصوتك باللغتين العربية أو الإنجليزية',
+        a11y_feat_2_t: 'قراءة الصفحة', a11y_feat_2_p: 'كل سؤال وتعليمات تُقرأ بصوت عالٍ تلقائيًا',
+        a11y_feat_3_t: 'نص قابل للتعديل', a11y_feat_3_p: 'زيادة أو تقليل حجم الخط بنقرة واحدة أو بأمر صوتي',
+        a11y_feat_4_t: 'وضع مظلم وتباين عالٍ', a11y_feat_4_p: 'أوضاع ألوان متعددة لكل احتياجات بصرية',
+        a11y_feat_5_t: 'العربية والإنجليزية', a11y_feat_5_p: 'دعم كامل للغتين مع تخطيط صحيح للعربية من اليمين لليسار',
+        a11y_feat_6_t: 'صديق للوحة المفاتيح', a11y_feat_6_p: 'كل زر ورابط يعمل بشكل مثالي مع التنقل بلوحة المفاتيح',
+        a11y_feat_7_t: 'أزرار كبيرة', a11y_feat_7_p: 'جميع الأزرار كبيرة، واضحة، وسهلة النقر',
+        a11y_feat_8_t: 'خطوة بخطوة', a11y_feat_8_p: 'كل مهمة مقسمة إلى خطوات صغيرة يمكن التحكم فيها — لا إرهاق أبدًا!',
+        // Testimonials
+        testi_1_t: 'ساعدني ابليكس في إنشاء أول سيرة ذاتية لي! كانت اقتراحات الذكاء الاصطناعي مذهلة. الآن أعمل في السوبر ماركت المحلي وأحب كل يوم!', testi_1_n: 'أحمد، 24', testi_1_r: 'مساعد متجر',
+        testi_2_t: 'استخدمت ابنتي ابليكس لمدة 3 أشهر. ممارسة المقابلة أعطتها الكثير من الثقة. حصلت على أول وظيفة لها الشهر الماضي!', testi_2_n: 'والدة سارة', testi_2_r: 'ولي أمر',
+        testi_3_t: 'ألعاب المهارات ممتعة للغاية! ألعبها كل يوم. تحسنت ذاكرتي وتعلمت عد النقود لوظيفتي في المقهى!', testi_3_n: 'عمر، 21', testi_3_r: 'مساعد مقهى',
+        testi_4_t: 'المساعد الصوتي يجعل كل شيء سهلاً. أتحدث معه ويساعدني في العثور على وظائف والتدرب على إجابات في المقابلة.', testi_4_n: 'ليلى، 19', testi_4_r: 'مساعدة مكتبية',
+        testi_5_t: 'كمعلم، أوصي بـ ابليكس لجميع طلابي. النهج المتدرج خطوة بخطوة يصنع فرقًا كبيرًا في بناء الثقة.', testi_5_n: 'أستاذ حسن', testi_5_r: 'معلم تربية خاصة',
+        // Commands
+        cmd_home: '"الرئيسية"', cmd_home_d: 'العودة للصفحة الرئيسية',
+        cmd_test: '"ابدأ الاختبار"', cmd_test_d: 'فتح اختبار الوظائف',
+        cmd_train: '"تدريب"', cmd_train_d: 'اختبار تدريب الوظائف',
+        cmd_cv: '"افتح السيرة"', cmd_cv_d: 'فتح منشئ السيرة الذاتية',
+        cmd_jobs: '"اعرض الوظائف"', cmd_jobs_d: 'فتح قوائم الوظائف',
+        cmd_inter: '"ابدأ المقابلة"', cmd_inter_d: 'تدريب على المقابلات',
+        cmd_games: '"افتح الألعاب"', cmd_games_d: 'فتح ألعاب المهارات',
+        cmd_learn: '"تعلم"', cmd_learn_d: 'مواضيع التعلم',
+        cmd_read: '"اقرأ الصفحة"', cmd_read_d: 'قراءة هذه الصفحة بصوت عالٍ',
+        cmd_stop: '"توقف"', cmd_stop_d: 'إيقاف كل القراءة',
+        cmd_dark: '"وضع مظلم"', cmd_dark_d: 'تبديل الوضع المظلم/المضيء',
+        cmd_hc: '"تباين عالٍ"', cmd_hc_d: 'وضع التباين العالي',
+        cmd_big: '"نص أكبر"', cmd_big_d: 'زيادة حجم الخط',
+        cmd_small: '"تصغير الخط"', cmd_small_d: 'تقليل حجم الخط',
+        // Dashboard
+        dash_title: 'لوحة التقدم', dash_journey: 'تقدم الرحلة', dash_activity: 'النشاط الأخير', dash_skills: 'تقدم المهارات',
+        dash_member: 'عضو ابليكس', dash_points: 'نقاط', dash_tests: 'اختبارات', dash_cvs: 'سير ذاتية', dash_ivs: 'مقابلات',
+        dash_no_act: 'لا توجد أنشطة بعد. ابدأ رحلتك الآن!',
+        sk_comm: 'التواصل', sk_org: 'التنظيم', sk_team: 'العمل الجماعي', sk_prob: 'حل المشكلات', sk_punc: 'الالتزام بالمواعيد',
+        // Jobs
+        jobs_search: 'البحث عن وظيفة', jobs_inclusive: 'وظائف شاملة للجميع', jobs_employers: 'كل الوظائف من أصحاب عمل شاملين يحتفلون بكل موهبة!',
+        jobs_match: 'تطابق', jobs_interest: 'أبدِ اهتمامك', jobs_interested: 'مهتم!', jobs_interest_saved: 'تم حفظ اهتمامك بـ ',
+        jobs_filter_all: 'الكل', jobs_filter_retail: 'التجزئة', jobs_filter_food: 'المطاعم والكافيهات', jobs_filter_edu: 'التعليم',
+        jobs_filter_outdoor: 'خارج المنزل', jobs_filter_office: 'عمل مكتبي', jobs_filter_creative: 'إبداعي',
+        // Games
+        game_score: 'النتيجة', game_level: 'المستوى', game_moves: 'حركات', game_pairs: 'أزواج', game_time: 'الوقت',
+        game_speed: 'السرعة', game_over: 'انتهت اللعبة!', game_new: 'لعبة جديدة', game_all_sorted: 'أحسنتم! تم ترتيب الكل!',
+        game_correct: 'صحيح!', game_wrong: 'فئة خاطئة، حاول ثانية!', game_what_next: 'ما الشكل التالي؟',
+        game_what_is: 'ما هو نتيجة ', game_points_val: ' نقطة',
+        // CV
+        cv_step_preview: 'الخطوة 2 من 5', cv_step_build: 'الخطوة 3 من 5',
+        cv_preview_title: 'معاينة مباشرة', cv_preview_placeholder: 'اسمك هنا...',
+        cv_sec_summary: 'الملخص المهني', cv_sec_exp: 'الخبرة العملية', cv_sec_edu: 'التعليم',
+        cv_sec_certs: 'الشهادات', cv_sec_skills: 'المهارات', cv_sec_hobbies: 'الهوايات والاهتمامات',
+        cv_save_toast: 'تم حفظ السيرة!', cv_next_games: 'التالي: الألعاب ←',
+        // About
+        about_title: 'عن ابليكس', about_mission: 'منصة مهنية مدعومة بالذكاء الاصطناعي مصممة بحب للأشخاص من ذوي متلازمة داون. تمكين الجميع من إيجاد مسارهم المهني المثالي.',
+        about_team_title: 'تعرف على فريقنا الرائع', about_team_desc: 'الأشخاص الشغوفون الذين بنوا ابليكس لجعل التوظيف أكثر شمولاً.',
+        // Interview
+        iv_step_badge: 'الخطوة 5 من 5', iv_step_desc: 'الخطوة 5 — التدريب يؤدي للكمال! انقر على السؤال التالي للبدء.',
+        iv_speaking: 'المساعد يتحدث...', iv_greeting: 'مرحبًا! أنا مدرب المقابلات الخاص بك. انقر على "السؤال التالي" للبدء! 😊',
+        iv_ans_label: 'إجابتك:', iv_ans_ph: 'انقر على ابدأ وتحدث، أو اكتب هنا...',
+        iv_start_ans: 'ابدأ الإجابة', iv_stop_ans: 'إيقاف الاستماع', iv_submit: 'إرسال الإجابة', iv_next: 'السؤال التالي',
+        iv_hint: 'انقر على ابدأ وتحدث — سيتم تحويل صوتك إلى نص تلقائيًا!',
+        iv_effort: 'مجهود رائع!', iv_prog_title: 'تقدم المقابلة', iv_complete: 'اكتملت المقابلة! لقد أبليت بلاءً حسنًا!',
+        iv_submit_toast: 'تم إرسال الإجابة!', iv_please_ans: 'برجاء الإجابة أولاً!'
+    },
+    fr: {
+        nav_home: '🏠 Accueil', nav_assess: '📋 Évaluation', nav_cvlearn: '📖 Guide CV',
+        nav_cvbuild: '📄 Créer CV', nav_games: '🧩 Jeux', nav_learn: '📚 Apprendre',
+        nav_jobs: '💼 Emplois', nav_interview: '🎤 Entretien', nav_dashboard: '📊 Progrès',
+        nav_about: '👥 À propos', nav_training: '🏋️ Formation',
+        lang_btn: '🌐 ES', stop_btn: '⏹ Arrêter',
+        reading_bar_txt: 'Lecture de la page à voix haute…',
+        rb_stop: '✕ Arrêter',
+        vo_title: 'Écoute…',
+        vo_result: 'En attente de votre voix…',
+        vo_guide_btn: '📖 Guide Commandes',
+        vo_cancel_btn: '✕ Annuler',
+        vcg_title: 'Guide des Commandes Vocales',
+        vcg_subtitle: 'Découvrez les commandes',
+        vcg_desc: 'Cliquez sur le micro 🎙️ et dites une commande. Parlez clairement en français !',
+        vcg_h_nav: '🧭 Navigation',
+        vcg_h_a11y: '♿ Accessibilité',
+        vcg_start_btn: '🎙️ Démarrer les commandes',
+        hero_badge: '✨ Plateforme de carrière IA',
+        hero_title: '<span class="gtext">Votre voyage vers</span><br>le travail commence ici ! 🚀',
+        hero_desc: 'Ablex vous guide étape par étape — de la découverte de votre métier idéal à la réussite de votre entretien. Avec un coach vocal bienveillant !',
+        h_btn_assess: '📋 Débuter l\'évaluation',
+        h_btn_voice: '🎙️ Utiliser la voix',
+        h_btn_guide: '📖 Guide vocal',
+        s_users: 'Utilisateurs aidés',
+        s_cvs: 'CV créés',
+        s_jobs: 'Emplois trouvés',
+        journey_title: '🗺️ Votre parcours en 5 étapes',
+        tk_stag: 'Tout ce dont vous avez besoin',
+        tk_title: 'Votre boîte à outils complète 🎯',
+        tk_desc: 'Sept outils puissants conçus pour vous. Chaque étape est guidée et encourageante.',
+        hw_stag: 'Étapes simples',
+        hw_title: 'Comment ça marche ✨',
+        hw_desc: 'Trois étapes faciles pour commencer votre incroyable parcours professionnel !',
+        a11y_stag: 'Accessibilité d\'abord',
+        a11y_title: 'Conçu pour tous 💙',
+        a11y_desc: 'Chaque partie d\'Ablex est construite pour l\'accessibilité cognitive. Simple, sûr et bienveillant.',
+        testi_stag: 'Histoires de succès',
+        testi_title: 'Ce que disent les gens 💬',
+        cta_stag: 'Commencez aujourd\'hui',
+        cta_title: 'Prêt à commencer votre aventure ? 🌟',
+        cta_desc: 'Rejoignez des milliers de personnes qui construisent leur carrière avec Ablex. C\'est gratuit, convivial et conçu pour vous !',
+        cta_btn_assess: '📋 Évaluation',
+        cta_btn_training: '🏋️ Formation',
+        cta_btn_cv: '📄 Créer mon CV',
+        footer_copy: '© 2025 Ablex. Créé avec ❤️ pour l\'emploi inclusif.',
+        f_about: 'À propos',
+        f_dashboard: 'Tableau de bord',
+        coach_hi: '👋 Salut ! Je suis Max !',
+        coach_txt: 'Je suis votre guide ! Cliquez sur 🔊 pour entendre la page, 🎙️ pour les commandes vocales, ou 📖 pour le guide vocal.',
+        coach_btn_ok: 'Compris ! 👍',
+        // Journey Steps
+        j_step_1_t: '1. Évaluation métier', j_step_1_p: 'Trouvez votre métier idéal',
+        j_step_2_t: '2. Formation métier', j_step_2_p: 'Quiz Vrai/Faux d\'entraînement',
+        j_step_3_t: '3. Guide CV', j_step_3_p: 'Regardez le guide vidéo CV ATS',
+        j_step_4_t: '4. Créer votre CV', j_step_4_p: 'Créez votre CV professionnel',
+        j_step_5_t: '5. Entretien d\'entraînement', j_step_5_p: 'Coach IA avec support vocal',
+        // Toolkit Features
+        tk_feat_1_t: 'Évaluation métier', tk_feat_1_p: 'Répondez à des questions simples et notre IA trouve votre métier idéal.', tk_feat_1_b: 'Démarrer le test →',
+        tk_feat_2_t: 'Formation métier', tk_feat_2_p: 'Découvrez 7 métiers avec des questions Vrai/Faux amusantes.', tk_feat_2_b: 'S\'entraîner →',
+        tk_feat_3_t: 'Créateur de CV ATS', tk_feat_3_p: 'Remplissez vos informations avec support vocal et téléchargez un CV professionnel.', tk_feat_3_b: 'Créer maintenant →',
+        tk_feat_4_t: 'Jeux de compétences', tk_feat_4_p: '5 jeux interactifs — mémoire, motifs, maths, tri et concentration !', tk_feat_4_b: 'Jouer →',
+        tk_feat_5_t: 'Sujets d\'apprentissage', tk_feat_5_p: 'Courtes leçons sur le travail, la communication, la gestion du temps et plus !', tk_feat_5_b: 'Apprendre →',
+        tk_feat_6_t: 'Entretien IA', tk_feat_6_p: 'Entraînez-vous avec notre coach IA. Parlez ou tapez vos réponses !', tk_feat_6_b: 'Pratiquer →',
+        // How it works
+        hw_step_1_t: 'Créez votre profil', hw_step_1_p: 'Répondez à des questions amicales et construisez votre profil. Dites-nous vos talents !',
+        hw_step_2_t: 'Jouez et pratiquez', hw_step_2_p: 'Jouez à des jeux de compétences et pratiquez les questions d\'entretien. Notre IA apprend vos forces !',
+        hw_step_3_t: 'Obtenez votre emploi idéal', hw_step_3_p: 'Notre IA recommande les emplois parfaits et vous aide à contacter des employeurs inclusifs !',
+        // Accessibility features
+        a11y_feat_1_t: 'Navigation vocale', a11y_feat_1_p: 'Naviguez sur tout le site avec votre voix en français ou en arabe',
+        a11y_feat_2_t: 'Lecture de page', a11y_feat_2_p: 'Chaque question et instruction est lue automatiquement à voix haute',
+        a11y_feat_3_t: 'Texte ajustable', a11y_feat_3_p: 'Augmentez ou diminuez la taille de la police en un clic ou par commande vocale',
+        a11y_feat_4_t: 'Mode sombre et contraste élevé', a11y_feat_4_p: 'Plusieurs modes de couleurs pour chaque besoin visuel',
+        a11y_feat_5_t: 'Multilingue', a11y_feat_5_p: 'Support complet en plusieurs langues avec mise en page RTL pour l\'arabe',
+        a11y_feat_6_t: 'Compatible clavier', a11y_feat_6_p: 'Chaque bouton et lien fonctionne parfaitement avec la navigation au clavier',
+        a11y_feat_7_t: 'Gros boutons', a11y_feat_7_p: 'Tous les boutons sont grands, bien étiquetés et faciles à cliquer',
+        a11y_feat_8_t: 'Pas à pas', a11y_feat_8_p: 'Chaque tâche est découpée en petites étapes gérables — jamais de surcharge !',
+        // Testimonials
+        testi_1_t: 'Ablex m\'a aidé à créer mon premier CV ! Les suggestions IA étaient formidables. Maintenant je travaille au supermarché et j\'adore chaque jour !', testi_1_n: 'Léa, 24 ans', testi_1_r: 'Assistante de magasin',
+        testi_2_t: 'Ma fille a utilisé Ablex pendant 3 mois. La préparation à l\'entretien lui a donné tellement confiance. Elle a obtenu son premier emploi le mois dernier !', testi_2_n: 'La maman de Sara', testi_2_r: 'Parent',
+        testi_3_t: 'Les jeux de compétences sont trop fun ! J\'y joue tous les jours. Ma mémoire s\'est améliorée et j\'ai appris à compter la monnaie pour mon travail au café !', testi_3_n: 'Omar, 21 ans', testi_3_r: 'Aide de café',
+        testi_4_t: 'L\'assistant vocal rend tout facile. Je lui parle et il m\'aide à trouver des emplois et à pratiquer mes réponses.', testi_4_n: 'Layla, 19 ans', testi_4_r: 'Aide de bureau',
+        testi_5_t: 'En tant qu\'enseignant, je recommande Ablex à tous mes élèves. L\'approche étape par étape fait une énorme différence dans la construction de la confiance.', testi_5_n: 'M. Hassan', testi_5_r: 'Enseignant spécialisé',
+        // Commands
+        cmd_home: '"Aller à l\'accueil"', cmd_home_d: 'Retour à la page d\'accueil',
+        cmd_test: '"Démarrer le test"', cmd_test_d: 'Ouvrir l\'évaluation',
+        cmd_train: '"Formation"', cmd_train_d: 'Quiz de formation',
+        cmd_cv: '"Ouvrir CV"', cmd_cv_d: 'Ouvrir le créateur de CV',
+        cmd_jobs: '"Voir les emplois"', cmd_jobs_d: 'Ouvrir les offres d\'emploi',
+        cmd_inter: '"Démarrer l\'entretien"', cmd_inter_d: 'Pratique d\'entretien',
+        cmd_games: '"Ouvrir les jeux"', cmd_games_d: 'Ouvrir les jeux de compétences',
+        cmd_learn: '"Apprendre"', cmd_learn_d: 'Sujets d\'apprentissage',
+        cmd_read: '"Lire la page"', cmd_read_d: 'Lire cette page à voix haute',
+        cmd_stop: '"Arrêter la voix"', cmd_stop_d: 'Arrêter toute lecture',
+        cmd_dark: '"Mode sombre"', cmd_dark_d: 'Basculer sombre/clair',
+        cmd_hc: '"Contraste élevé"', cmd_hc_d: 'Mode contraste élevé',
+        cmd_big: '"Texte plus grand"', cmd_big_d: 'Augmenter la taille de police',
+        cmd_small: '"Texte plus petit"', cmd_small_d: 'Diminuer la taille de police',
+        // Dashboard
+        dash_title: 'Tableau de bord', dash_journey: 'Progression du parcours', dash_activity: 'Activité récente', dash_skills: 'Progression des compétences',
+        dash_member: 'Membre Ablex', dash_points: 'Points', dash_tests: 'Tests', dash_cvs: 'CV', dash_ivs: 'Entretiens',
+        dash_no_act: 'Pas encore d\'activités. Commencez votre parcours !',
+        sk_comm: 'Communication', sk_org: 'Organisation', sk_team: 'Travail d\'équipe', sk_prob: 'Résolution de problèmes', sk_punc: 'Ponctualité',
+        // Jobs
+        jobs_search: 'Recherche d\'emploi', jobs_inclusive: 'Offres d\'emploi inclusives', jobs_employers: 'Tous les emplois proviennent d\'employeurs inclusifs qui célèbrent chaque talent !',
+        jobs_match: 'Correspondance', jobs_interest: 'Exprimer son intérêt', jobs_interested: 'Intéressé !', jobs_interest_saved: 'Intérêt enregistré pour ',
+        jobs_filter_all: 'Tous', jobs_filter_retail: 'Commerce', jobs_filter_food: 'Restauration', jobs_filter_edu: 'Éducation',
+        jobs_filter_outdoor: 'Extérieur', jobs_filter_office: 'Bureau', jobs_filter_creative: 'Créatif',
+        // Games
+        game_score: 'Score', game_level: 'Niveau', game_moves: 'Coups', game_pairs: 'Paires trouvées', game_time: 'Temps',
+        game_speed: 'Vitesse', game_over: 'Partie terminée !', game_new: 'Nouvelle partie', game_all_sorted: 'Tout est trié ! Bravo !',
+        game_correct: 'Correct !', game_wrong: 'Mauvaise catégorie, réessayez !', game_what_next: 'Quelle forme vient ensuite ?',
+        game_what_is: 'Combien font ', game_points_val: ' pts',
+        // CV
+        cv_step_preview: 'Étape 2 sur 5', cv_step_build: 'Étape 3 sur 5',
+        cv_preview_title: 'Aperçu en direct', cv_preview_placeholder: 'Votre nom ici...',
+        cv_sec_summary: 'Résumé professionnel', cv_sec_exp: 'Expérience professionnelle', cv_sec_edu: 'Formation',
+        cv_sec_certs: 'Certifications', cv_sec_skills: 'Compétences', cv_sec_hobbies: 'Loisirs et intérêts',
+        cv_save_toast: 'CV enregistré !', cv_next_games: 'Suivant : Jeux →',
+        // About
+        about_title: 'À propos d\'Ablex', about_mission: 'Une plateforme de carrière alimentée par l\'IA, conçue avec amour pour les personnes atteintes du syndrome de Down. Permettre à chacun de trouver son chemin professionnel idéal.',
+        about_team_title: 'Découvrez notre équipe formidable', about_team_desc: 'Les passionnés qui ont construit Ablex pour rendre l\'emploi plus inclusif.',
+        // Interview
+        iv_step_badge: 'Étape 5 sur 5', iv_step_desc: 'Étape 5 — La pratique mène à la perfection ! Cliquez sur Question suivante pour commencer.',
+        iv_speaking: 'L\'IA parle...', iv_greeting: 'Bonjour ! Je suis votre coach d\'entretien. Cliquez sur "Question suivante" pour commencer ! 😊',
+        iv_ans_label: 'Votre réponse :', iv_ans_ph: 'Cliquez sur Commencer et parlez, ou tapez ici...',
+        iv_start_ans: 'Commencer la réponse', iv_stop_ans: 'Arrêter l\'écoute', iv_submit: 'Envoyer la réponse', iv_next: 'Question suivante',
+        iv_hint: 'Cliquez sur Commencer et parlez — votre voix est automatiquement convertie en texte !',
+        iv_effort: 'Bel effort !', iv_prog_title: 'Progression de l\'entretien', iv_complete: 'Entretien terminé ! Vous avez été formidable !',
+        iv_submit_toast: 'Réponse envoyée !', iv_please_ans: 'Veuillez répondre d\'abord !'
+    },
+    es: {
+        nav_home: '🏠 Inicio', nav_assess: '📋 Evaluación', nav_cvlearn: '📖 Guía CV',
+        nav_cvbuild: '📄 Crear CV', nav_games: '🧩 Juegos', nav_learn: '📚 Aprender',
+        nav_jobs: '💼 Empleos', nav_interview: '🎤 Entrevista', nav_dashboard: '📊 Progreso',
+        nav_about: '👥 Sobre nosotros', nav_training: '🏋️ Entrenamiento',
+        lang_btn: '🌐 EN', stop_btn: '⏹ Parar',
+        reading_bar_txt: 'Leyendo página en voz alta…',
+        rb_stop: '✕ Parar',
+        vo_title: 'Escuchando…',
+        vo_result: 'Esperando su voz…',
+        vo_guide_btn: '📖 Guía de comandos',
+        vo_cancel_btn: '✕ Cancelar',
+        vcg_title: 'Guía de Comandos de Voz',
+        vcg_subtitle: 'Descubre los comandos',
+        vcg_desc: 'Haz clic en el micro 🎙️ y di un comando. ¡Habla claro en español!',
+        vcg_h_nav: '🧭 Navegación',
+        vcg_h_a11y: '♿ Accesibilidad',
+        vcg_start_btn: '🎙️ Iniciar comandos',
+        hero_badge: '✨ Plataforma de carrera con IA',
+        hero_title: '<span class="gtext">Tu viaje hacia</span><br>el trabajo empieza aquí! 🚀',
+        hero_desc: 'Ablex te guía paso a paso — desde descubrir tu trabajo ideal, crear tu CV, hasta triunfar en tu entrevista. ¡Con asistente de voz amigable en cada paso!',
+        h_btn_assess: '📋 Iniciar evaluación',
+        h_btn_voice: '🎙️ Usar voz',
+        h_btn_guide: '📖 Guía de voz',
+        s_users: 'Usuarios ayudados',
+        s_cvs: 'CVs creados',
+        s_jobs: 'Empleos encontrados',
+        journey_title: '🗺️ Tu viaje profesional en 5 pasos',
+        tk_stag: 'Todo lo que necesitas',
+        tk_title: 'Tu kit completo de herramientas profesionales 🎯',
+        tk_desc: 'Siete herramientas potentes diseñadas especialmente para ti. Cada paso es guiado y motivador.',
+        hw_stag: 'Pasos simples',
+        hw_title: 'Cómo funciona ✨',
+        hw_desc: '¡Solo tres pasos fáciles para comenzar tu increíble carrera profesional!',
+        a11y_stag: 'Accesibilidad primero',
+        a11y_title: 'Diseñado para todos 💙',
+        a11y_desc: 'Cada parte de Ablex está construida pensando en la accesibilidad cognitiva. Simple, seguro y de apoyo.',
+        testi_stag: 'Historias de éxito',
+        testi_title: 'Lo que dice la gente 💬',
+        cta_stag: 'Empieza hoy',
+        cta_title: '¿Listo para comenzar tu aventura? 🌟',
+        cta_desc: 'Únete a miles de personas que construyen su carrera con Ablex. ¡Es gratis, amigable y diseñado especialmente para ti!',
+        cta_btn_assess: '📋 Evaluación',
+        cta_btn_training: '🏋️ Entrenamiento',
+        cta_btn_cv: '📄 Crear mi CV',
+        footer_copy: '© 2025 Ablex. Hecho con ❤️ para el empleo inclusivo.',
+        f_about: 'Sobre el equipo',
+        f_dashboard: 'Panel de control',
+        coach_hi: '👋 ¡Hola! ¡Soy Max!',
+        coach_txt: '¡Soy tu guía! Haz clic en 🔊 para escuchar la página, 🎙️ para comandos de voz, o 📖 para la guía de voz.',
+        coach_btn_ok: '¡Entendido! 👍',
+        // Journey Steps
+        j_step_1_t: '1. Evaluación laboral', j_step_1_p: 'Encuentra tu trabajo ideal',
+        j_step_2_t: '2. Entrenamiento laboral', j_step_2_p: 'Quiz de entrenamiento Verdadero/Falso',
+        j_step_3_t: '3. Guía para crear CV', j_step_3_p: 'Mira la guía en video del CV ATS',
+        j_step_4_t: '4. Crear tu CV', j_step_4_p: 'Crea tu currículum profesional',
+        j_step_5_t: '5. Practicar entrevista', j_step_5_p: 'Coach IA con soporte de voz',
+        // Toolkit Features
+        tk_feat_1_t: 'Evaluación laboral', tk_feat_1_p: 'Responde preguntas simples y nuestra IA encuentra tu trabajo perfecto.', tk_feat_1_b: 'Iniciar test →',
+        tk_feat_2_t: 'Entrenamiento laboral', tk_feat_2_p: 'Aprende sobre 7 trabajos con preguntas divertidas de Verdadero/Falso.', tk_feat_2_b: 'Entrenar →',
+        tk_feat_3_t: 'Creador de CV ATS', tk_feat_3_p: 'Llena tus datos con soporte de voz y descarga un CV profesional listo.', tk_feat_3_b: 'Crear ahora →',
+        tk_feat_4_t: 'Juegos de habilidades', tk_feat_4_p: '5 juegos interactivos divertidos: ¡memoria, patrones, matemáticas, clasificación y concentración!', tk_feat_4_b: 'Jugar →',
+        tk_feat_5_t: 'Temas de aprendizaje', tk_feat_5_p: 'Lecciones cortas sobre habilidades laborales, comunicación, gestión del tiempo ¡y más!', tk_feat_5_b: 'Aprender →',
+        tk_feat_6_t: 'Entrevista con IA', tk_feat_6_p: 'Practica preguntas reales de entrevista con nuestro coach IA. ¡Habla o escribe tus respuestas!', tk_feat_6_b: 'Practicar →',
+        // How it works
+        hw_step_1_t: 'Crea tu perfil', hw_step_1_p: '¡Responde preguntas amigables y construye tu perfil personal. Cuéntanos tus increíbles habilidades!',
+        hw_step_2_t: 'Juega y practica', hw_step_2_p: '¡Juega juegos de habilidades y practica preguntas de entrevista. Nuestra IA aprende en qué eres bueno!',
+        hw_step_3_t: 'Consigue tu trabajo soñado', hw_step_3_p: '¡Nuestra IA recomienda trabajos perfectos y te ayuda a conectar con empleadores inclusivos!',
+        // Accessibility features
+        a11y_feat_1_t: 'Navegación por voz', a11y_feat_1_p: 'Navega todo el sitio con tu voz en español o árabe',
+        a11y_feat_2_t: 'Lectura de página', a11y_feat_2_p: 'Cada pregunta e instrucción se lee automáticamente en voz alta',
+        a11y_feat_3_t: 'Texto ajustable', a11y_feat_3_p: 'Aumenta o disminuye el tamaño de fuente con un clic o comando de voz',
+        a11y_feat_4_t: 'Modo oscuro y alto contraste', a11y_feat_4_p: 'Múltiples modos de color para cada necesidad visual',
+        a11y_feat_5_t: 'Multilingüe', a11y_feat_5_p: 'Soporte completo en varios idiomas con diseño RTL para árabe',
+        a11y_feat_6_t: 'Compatible con teclado', a11y_feat_6_p: 'Cada botón y enlace funciona perfectamente con navegación por teclado',
+        a11y_feat_7_t: 'Botones grandes', a11y_feat_7_p: 'Todos los botones son grandes, etiquetados y fáciles de tocar o hacer clic',
+        a11y_feat_8_t: 'Paso a paso', a11y_feat_8_p: 'Cada tarea dividida en pequeños pasos manejables — ¡nunca abrumador!',
+        // Testimonials
+        testi_1_t: '¡Ablex me ayudó a crear mi primer CV! Las sugerencias de IA fueron increíbles. ¡Ahora trabajo en el supermercado local y amo cada día!', testi_1_n: 'Carlos, 24 años', testi_1_r: 'Asistente de tienda',
+        testi_2_t: 'Mi hija usó Ablex durante 3 meses. La práctica de entrevista le dio mucha confianza. ¡Consiguió su primer trabajo el mes pasado!', testi_2_n: 'La mamá de Sara', testi_2_r: 'Madre',
+        testi_3_t: '¡Los juegos de habilidades son muy divertidos! Juego todos los días. Mi memoria mejoró y ¡aprendí a contar dinero para mi trabajo en la cafetería!', testi_3_n: 'Omar, 21 años', testi_3_r: 'Ayudante de cafetería',
+        testi_4_t: 'El asistente de voz hace todo fácil. Le hablo y me ayuda a encontrar trabajos y practicar mis respuestas.', testi_4_n: 'Layla, 19 años', testi_4_r: 'Ayudante de oficina',
+        testi_5_t: 'Como profesor, recomiendo Ablex a todos mis estudiantes. El enfoque paso a paso hace una gran diferencia en la construcción de confianza.', testi_5_n: 'Sr. Hassan', testi_5_r: 'Profesor de educación especial',
+        // Commands
+        cmd_home: '"Ir al inicio"', cmd_home_d: 'Ir a la página de inicio',
+        cmd_test: '"Iniciar test"', cmd_test_d: 'Abrir evaluación laboral',
+        cmd_train: '"Entrenamiento"', cmd_train_d: 'Quiz de entrenamiento',
+        cmd_cv: '"Abrir CV"', cmd_cv_d: 'Abrir creador de CV',
+        cmd_jobs: '"Ver empleos"', cmd_jobs_d: 'Abrir ofertas de empleo',
+        cmd_inter: '"Iniciar entrevista"', cmd_inter_d: 'Práctica de entrevista',
+        cmd_games: '"Abrir juegos"', cmd_games_d: 'Abrir juegos de habilidades',
+        cmd_learn: '"Aprender"', cmd_learn_d: 'Temas de aprendizaje',
+        cmd_read: '"Leer página"', cmd_read_d: 'Leer esta página en voz alta',
+        cmd_stop: '"Detener voz"', cmd_stop_d: 'Detener toda lectura',
+        cmd_dark: '"Modo oscuro"', cmd_dark_d: 'Cambiar oscuro/claro',
+        cmd_hc: '"Alto contraste"', cmd_hc_d: 'Modo alto contraste',
+        cmd_big: '"Texto más grande"', cmd_big_d: 'Aumentar tamaño de fuente',
+        cmd_small: '"Texto más pequeño"', cmd_small_d: 'Disminuir tamaño de fuente',
+        // Dashboard
+        dash_title: 'Panel de progreso', dash_journey: 'Progreso del viaje', dash_activity: 'Actividad reciente', dash_skills: 'Progreso de habilidades',
+        dash_member: 'Miembro de Ablex', dash_points: 'Puntos', dash_tests: 'Tests', dash_cvs: 'CVs', dash_ivs: 'Entrevistas',
+        dash_no_act: '¡Aún no hay actividades. Comienza tu viaje!',
+        sk_comm: 'Comunicación', sk_org: 'Organización', sk_team: 'Trabajo en equipo', sk_prob: 'Resolución de problemas', sk_punc: 'Puntualidad',
+        // Jobs
+        jobs_search: 'Búsqueda de empleo', jobs_inclusive: 'Ofertas de empleo inclusivas', jobs_employers: '¡Todos los empleos son de empleadores inclusivos que celebran cada talento!',
+        jobs_match: 'Coincidencia', jobs_interest: 'Expresar interés', jobs_interested: '¡Interesado!', jobs_interest_saved: 'Interés guardado para ',
+        jobs_filter_all: 'Todos', jobs_filter_retail: 'Tienda', jobs_filter_food: 'Alimentos y Bebidas', jobs_filter_edu: 'Educación',
+        jobs_filter_outdoor: 'Aire libre', jobs_filter_office: 'Oficina', jobs_filter_creative: 'Creativo',
+        // Games
+        game_score: 'Puntuación', game_level: 'Nivel', game_moves: 'Movimientos', game_pairs: 'Pares encontrados', game_time: 'Tiempo',
+        game_speed: 'Velocidad', game_over: '¡Juego terminado!', game_new: 'Nuevo juego', game_all_sorted: '¡Todo ordenado! ¡Buen trabajo!',
+        game_correct: '¡Correcto!', game_wrong: 'Categoría incorrecta, ¡inténtalo de nuevo!', game_what_next: '¿Qué forma sigue?',
+        game_what_is: '¿Cuánto es ', game_points_val: ' pts',
+        // CV
+        cv_step_preview: 'Paso 2 de 5', cv_step_build: 'Paso 3 de 5',
+        cv_preview_title: 'Vista previa en vivo', cv_preview_placeholder: 'Tu nombre aquí...',
+        cv_sec_summary: 'Resumen profesional', cv_sec_exp: 'Experiencia laboral', cv_sec_edu: 'Educación',
+        cv_sec_certs: 'Certificaciones', cv_sec_skills: 'Habilidades', cv_sec_hobbies: 'Aficiones e intereses',
+        cv_save_toast: '¡CV guardado!', cv_next_games: 'Siguiente: Juegos →',
+        // About
+        about_title: 'Sobre Ablex', about_mission: 'Una plataforma de carrera impulsada por IA diseñada con amor para personas con síndrome de Down. Empoderando a cada persona para encontrar su camino profesional perfecto.',
+        about_team_title: 'Conoce a nuestro increíble equipo', about_team_desc: 'Las personas apasionadas que construyeron Ablex para hacer el empleo más inclusivo.',
+        // Interview
+        iv_step_badge: 'Paso 5 de 5', iv_step_desc: 'Paso 5 — ¡La práctica hace al maestro! Haz clic en Siguiente Pregunta para comenzar.',
+        iv_speaking: 'La IA está hablando...', iv_greeting: '¡Hola! Soy tu coach de entrevistas. ¡Haz clic en "Siguiente Pregunta" para comenzar! 😊',
+        iv_ans_label: 'Tu respuesta:', iv_ans_ph: 'Haz clic en Comenzar y habla, o escribe aquí...',
+        iv_start_ans: 'Comenzar respuesta', iv_stop_ans: 'Dejar de escuchar', iv_submit: 'Enviar respuesta', iv_next: 'Siguiente pregunta',
+        iv_hint: '¡Haz clic en Comenzar y habla — tu voz se convierte automáticamente en texto!',
+        iv_effort: '¡Gran esfuerzo!', iv_prog_title: 'Progreso de la entrevista', iv_complete: '¡Entrevista completa! ¡Lo hiciste increíble!',
+        iv_submit_toast: '¡Respuesta enviada!', iv_please_ans: '¡Por favor responde primero!'
     }
 };
 
 function t(key) {
-    var lang = isAR ? 'ar' : 'en';
-    return (STRINGS[lang] && STRINGS[lang][key]) || (STRINGS['en'][key]) || key;
+    return (STRINGS[currentLang] && STRINGS[currentLang][key]) || (STRINGS['en'][key]) || key;
 }
 
 // ── JOBS TRAINING DATA ──────────────────────────────────────────────
@@ -117,19 +595,23 @@ var TRAINING_JOBS = [
         color: '#FF6B35',
         titleAr: 'عامل تبئة وتغليف',
         titleEn: 'Packaging Worker',
+        titleFr: 'Ouvrier d\'emballage',
+        titleEs: 'Trabajador de empaque',
         descriptionAr: 'يقوم الموظف فى هذة المهنة بتجهيز المنتجات ووضعها داخل العبوات المخصصة لها بشكل منظم. يتطلب العمل الدقة فى وضع الملصقات واغلاق الصناديق باحكام باستخدام الشريط اللاصق والتاكد من نظافة المنتج قبل تقديمه للعملاء هى مهنة ممتعة تساعد على تنمية مهارات التركيز والنظام.',
         descriptionEn: 'In this job, the worker prepares products and places them neatly inside their designated packages. The work requires accuracy in placing labels and closing boxes tightly with tape, and ensuring the product is clean before giving it to customers. It is a fun job that helps develop focus and organization skills.',
+        descriptionFr: 'Dans ce travail, l\'ouvrier prépare les produits et les place proprement dans leurs emballages désignés. Le travail exige de la précision dans le placement des étiquettes et la fermeture hermétique des boîtes avec du ruban adhésif, et de s\'assurer que le produit est propre avant de le donner aux clients. C\'est un travail amusant qui aide à développer la concentration et le sens de l\'organisation.',
+        descriptionEs: 'En este trabajo, el trabajador prepara los productos y los coloca ordenadamente dentro de sus envases designados. El trabajo requiere precisión al colocar las etiquetas y cerrar las cajas herméticamente con cinta adhesiva, y asegurarse de que el producto esté limpio antes de entregarlo a los clientes. Es un trabajo divertido que ayuda a desarrollar la concentración y las habilidades de organización.',
         questions: [
-            { questionAr: 'يجب غسل اليدين جيدا قبل البدء فى لمس المنتجات.', questionEn: 'You must wash your hands well before touching the products.', answer: true },
-            { questionAr: 'اذا وجدنا صندوقا ممزقا نضع فيه المنتج ونغلقه.', questionEn: 'If we find a torn box, we put the product in it and close it.', answer: false },
-            { questionAr: 'نضع المنتجات داخل الصناديق بنظام وترتيب.', questionEn: 'We put products inside boxes in an organized and orderly way.', answer: true },
-            { questionAr: 'اذا سقط منتج على الارض يجب تنظيفه اولا قبل وضعه ف الكيس.', questionEn: 'If a product falls on the floor, we must clean it first before putting it in the bag.', answer: true },
-            { questionAr: 'نستخدم الشريط اللاصق لاغلاق الصناديق باحكام.', questionEn: 'We use tape to close boxes tightly.', answer: true },
-            { questionAr: 'اذا شعرت بالتعب اخبر المشرف المسؤول اننى احتاج للراحة.', questionEn: 'If I feel tired, I tell the supervisor that I need to rest.', answer: true },
-            { questionAr: 'اذا طلب منى المدير وضع قطعتين فقط اضع عشر قطع.', questionEn: 'If the manager asks me to put only two pieces, I put ten pieces.', answer: false },
-            { questionAr: 'اساعد زميلى فى العمل اذا كان يحتاج للعمل.', questionEn: 'I help my coworker if they need help with work.', answer: true },
-            { questionAr: 'اترك الصناديق فى وسط الممر ليتعثر بها الناس.', questionEn: 'I leave boxes in the middle of the aisle so people trip over them.', answer: false },
-            { questionAr: 'التزم بمواعيد العمل واسمع تعليمات المشرف.', questionEn: 'I stick to work hours and listen to the supervisor\'s instructions.', answer: true }
+            { questionAr: 'يجب غسل اليدين جيدا قبل البدء فى لمس المنتجات.', questionEn: 'You must wash your hands well before touching the products.', questionFr: 'Il faut bien se laver les mains avant de toucher les produits.', questionEs: 'Debes lavarte bien las manos antes de tocar los productos.', answer: true },
+            { questionAr: 'اذا وجدنا صندوقا ممزقا نضع فيه المنتج ونغلقه.', questionEn: 'If we find a torn box, we put the product in it and close it.', questionFr: 'Si nous trouvons une boîte déchirée, nous y mettons le produit et la fermons.', questionEs: 'Si encontramos una caja rota, metemos el producto en ella y la cerramos.', answer: false },
+            { questionAr: 'نضع المنتجات داخل الصناديق بنظام وترتيب.', questionEn: 'We put products inside boxes in an organized and orderly way.', questionFr: 'Nous mettons les produits dans les boîtes de manière organisée et ordonnée.', questionEs: 'Ponemos los productos dentro de las cajas de forma organizada y ordenada.', answer: true },
+            { questionAr: 'اذا سقط منتج على الارض يجب تنظيفه اولا قبل وضعه ف الكيس.', questionEn: 'If a product falls on the floor, we must clean it first before putting it in the bag.', questionFr: 'Si un produit tombe par terre, il faut le nettoyer avant de le mettre dans le sac.', questionEs: 'Si un producto se cae al suelo, debemos limpiarlo primero antes de meterlo en la bolsa.', answer: true },
+            { questionAr: 'نستخدم الشريط اللاصق لاغلاق الصناديق باحكام.', questionEn: 'We use tape to close boxes tightly.', questionFr: 'Nous utilisons du ruban adhésif pour bien fermer les boîtes.', questionEs: 'Usamos cinta adhesiva para cerrar las cajas con fuerza.', answer: true },
+            { questionAr: 'اذا شعرت بالتعب اخبر المشرف المسؤول اننى احتاج للراحة.', questionEn: 'If I feel tired, I tell the supervisor that I need to rest.', questionFr: 'Si je me sens fatigué, je dis au superviseur que j\'ai besoin de me reposer.', questionEs: 'Si me siento cansado, le digo al supervisor que necesito descansar.', answer: true },
+            { questionAr: 'اذا طلب منى المدير وضع قطعتين فقط اضع عشر قطع.', questionEn: 'If the manager asks me to put only two pieces, I put ten pieces.', questionFr: 'Si le manager me demande de mettre seulement deux pièces, j\'en mets dix.', questionEs: 'Si el gerente me pide que ponga solo dos piezas, pongo diez.', answer: false },
+            { questionAr: 'اساعد زميلى فى العمل اذا كان يحتاج للعمل.', questionEn: 'I help my coworker if they need help with work.', questionFr: 'J\'aide mon collègue s\'il a besoin d\'aide pour son travail.', questionEs: 'Ayudo a mi compañero de trabajo si necesita ayuda con el trabajo.', answer: true },
+            { questionAr: 'اترك الصناديق فى وسط الممر ليتعثر بها الناس.', questionEn: 'I leave boxes in the middle of the aisle so people trip over them.', questionFr: 'Je laisse des boîtes au milieu de l\'allée pour que les gens trébuchent dessus.', questionEs: 'Dejo las cajas en medio del pasillo para que la gente se tropiece con ellas.', answer: false },
+            { questionAr: 'التزم بمواعيد العمل واسمع تعليمات المشرف.', questionEn: 'I stick to work hours and listen to the supervisor\'s instructions.', questionFr: 'Je respecte les horaires de travail et j\'écoute les instructions du superviseur.', questionEs: 'Cumplo con el horario de trabajo y escucho las instrucciones del supervisor.', answer: true }
         ],
         trainVideo: './images/مساعد تغليف.mp4'
     },
@@ -139,19 +621,23 @@ var TRAINING_JOBS = [
         color: '#10B981',
         titleAr: 'عامل زراعة وحدائق',
         titleEn: 'Gardening Worker',
+        titleFr: 'Ouvrier de jardinage',
+        titleEs: 'Trabajador de jardinería',
         descriptionAr: 'تعتبر مهنة الزراعة والحدائق من اجمل المهن لانها تجعلنا نهتم بالطبيعة والنباتات. يقوم العامل فى هذه الوظيفة بسقى الزرع بالماء وتنظيف الحديقة من الاوراق اليابسة وزراعة الزهور الملونة لتصبح الحديقة مكانا جميلا.',
         descriptionEn: 'Farming and gardening is one of the most beautiful professions because it makes us care about nature and plants. The worker waters the plants, cleans the garden of dry leaves, and plants colorful flowers to make the garden a beautiful place.',
+        descriptionFr: 'Le jardinage est l\'un des plus beaux métiers car il nous fait aimer la nature et les plantes. L\'ouvrier arrose les plantes, nettoie le jardin des feuilles mortes et plante des fleurs colorées pour faire du jardin un endroit magnifique.',
+        descriptionEs: 'La jardinería es una de las profesiones más bellas porque nos hace cuidar la naturaleza y las plantas. El trabajador riega las plantas, limpia el jardín de hojas secas y planta flores de colores para hacer del jardín un lugar hermoso.',
         questions: [
-            { questionAr: 'يجب سقى النباتات بالماء بانتظام لكى تعيش.', questionEn: 'Plants must be watered regularly so they can live.', answer: true },
-            { questionAr: 'يمكننا شد الزهور بقوة وقطعها من مكانها.', questionEn: 'We can pull flowers hard and cut them from their place.', answer: false },
-            { questionAr: 'نجمع الاوراق اليابسة من الارض ونضعها فى سلة المهملات.', questionEn: 'We collect dry leaves from the ground and put them in the trash bin.', answer: true },
-            { questionAr: 'نستخدم المرش المخصص لسقى النباتات الصغيرة برفق.', questionEn: 'We use the sprayer to water small plants gently.', answer: true },
-            { questionAr: 'يجب المشى فوق الزهور الصغيرة لكى تنمو بسرعة.', questionEn: 'We must walk on small flowers so they grow fast.', answer: false },
-            { questionAr: 'اذا رايت حشرة ضارة على النبات اخبر المشرف المسؤول.', questionEn: 'If I see a harmful insect on a plant, I tell the supervisor.', answer: true },
-            { questionAr: 'نرتدى القفازات فى ايدينا لحمايتها اثناء العمل فى الطين.', questionEn: 'We wear gloves on our hands to protect them while working in the mud.', answer: true },
-            { questionAr: 'نترك ادوات الزراعة فى وسط الطريق بعد الانتهاء.', questionEn: 'We leave gardening tools in the middle of the path after finishing.', answer: false },
-            { questionAr: 'نزرع البذور فى التربة ونغطيها بالرمل برفق.', questionEn: 'We plant seeds in the soil and cover them gently with sand.', answer: true },
-            { questionAr: 'التزم بمواعيد العمل واحافظ على نظافة الحديقة.', questionEn: 'I stick to work hours and keep the garden clean.', answer: true }
+            { questionAr: 'يجب سقى النباتات بالماء بانتظام لكى تعيش.', questionEn: 'Plants must be watered regularly so they can live.', questionFr: 'Les plantes doivent être arrosées régulièrement pour vivre.', questionEs: 'Las plantas deben regarse regularmente para que puedan vivir.', answer: true },
+            { questionAr: 'يمكننا شد الزهور بقوة وقطعها من مكانها.', questionEn: 'We can pull flowers hard and cut them from their place.', questionFr: 'Nous pouvons tirer les fleurs fort et les couper de leur place.', questionEs: 'Podemos tirar de las flores con fuerza y cortarlas de su lugar.', answer: false },
+            { questionAr: 'نجمع الاوراق اليابسة من الارض ونضعها فى سلة المهملات.', questionEn: 'We collect dry leaves from the ground and put them in the trash bin.', questionFr: 'Nous ramassons les feuilles mortes par terre et les mettons à la poubelle.', questionEs: 'Recogemos las hojas secas del suelo y las metemos en el cubo de la basura.', answer: true },
+            { questionAr: 'نستخدم المرش المخصص لسقى النباتات الصغيرة برفق.', questionEn: 'We use the sprayer to water small plants gently.', questionFr: 'Nous utilisons le pulvérisateur pour arroser les petites plantes doucement.', questionEs: 'Usamos el rociador para regar las plantas pequeñas con suavidad.', answer: true },
+            { questionAr: 'يجب المشى فوق الزهور الصغيرة لكى تنمو بسرعة.', questionEn: 'We must walk on small flowers so they grow fast.', questionFr: 'Il faut marcher sur les petites fleurs pour qu\'elles poussent vite.', questionEs: 'Debemos caminar sobre las flores pequeñas para que crezcan rápido.', answer: false },
+            { questionAr: 'اذا رايت حشرة ضارة على النبات اخبر المشرف المسؤول.', questionEn: 'If I see a harmful insect on a plant, I tell the supervisor.', questionFr: 'Si je vois un insecte nuisible sur une plante, je préviens le superviseur.', questionEs: 'Si veo un insecto dañino en una planta, se lo digo al supervisor.', answer: true },
+            { questionAr: 'نرتدى القفازات فى ايدينا لحمايتها اثناء العمل فى الطين.', questionEn: 'We wear gloves on our hands to protect them while working in the mud.', questionFr: 'Nous portons des gants aux mains pour les protéger du travail dans la boue.', questionEs: 'Usamos guantes en las manos para protegerlas mientras trabajamos en el barro.', answer: true },
+            { questionAr: 'نترك ادوات الزراعة فى وسط الطريق بعد الانتهاء.', questionEn: 'We leave gardening tools in the middle of the path after finishing.', questionFr: 'Nous laissons les outils au milieu du chemin après avoir fini.', questionEs: 'Dejamos las herramientas de jardinería en medio del camino después de terminar.', answer: false },
+            { questionAr: 'نزرع البذور فى التربة ونغطيها بالرمل برفق.', questionEn: 'We plant seeds in the soil and cover them gently with sand.', questionFr: 'Nous plantons les graines dans la terre et les couvrons doucement de sable.', questionEs: 'Plantamos semillas en la tierra y las cubrimos suavemente con arena.', answer: true },
+            { questionAr: 'التزم بمواعيد العمل واحافظ على نظافة الحديقة.', questionEn: 'I stick to work hours and keep the garden clean.', questionFr: 'Je respecte les horaires et je garde le jardin propre.', questionEs: 'Cumplo con el horario de trabajo y mantengo el jardín limpio.', answer: true }
         ],
         trainVideo: './images/مساعد حديقة.mp4'
     },
@@ -161,19 +647,23 @@ var TRAINING_JOBS = [
         color: '#3B82F6',
         titleAr: 'مساعد فى سوبر ماركت',
         titleEn: 'Supermarket Assistant',
+        titleFr: 'Assistant de supermarché',
+        titleEs: 'Asistente de supermercado',
         descriptionAr: 'مساعد السوبر ماركت يساعد فى ترتيب المنتجات على الرفوف داخل المتجر. كما يساعد الزبائن فى ايجاد الاشياء التى يريدونها ويحافظ على نظافة المكان وترتيبه.',
         descriptionEn: 'The supermarket assistant helps arrange products on the shelves inside the store. They also help customers find the things they want and keep the place clean and tidy.',
+        descriptionFr: 'L\'assistant de supermarché aide à disposer les produits sur les étagères à l\'intérieur du magasin. Il aide également les clients à trouver ce qu\'ils cherchent et maintient l\'endroit propre et bien rangé.',
+        descriptionEs: 'El asistente de supermercado ayuda a colocar los productos en los estantes dentro de la tienda. También ayuda a los clientes a encontrar lo que buscan y mantiene el lugar limpio y ordenado.',
         questions: [
-            { questionAr: 'مساعد السوبر ماركت يعمل داخل متجر.', questionEn: 'The supermarket assistant works inside a store.', answer: true },
-            { questionAr: 'وظيفة مساعد السوبر ماركت هى ترتيب المنتجات.', questionEn: 'The job of the supermarket assistant is to arrange products.', answer: true },
-            { questionAr: 'مساعد السوبر ماركت لا يساعد الزبائن.', questionEn: 'The supermarket assistant does not help customers.', answer: false },
-            { questionAr: 'من عمل مساعد السوبر ماركت تنظيف المكان.', questionEn: 'Cleaning the place is part of the supermarket assistant\'s work.', answer: true },
-            { questionAr: 'المنتجات توضع على الرفوف.', questionEn: 'Products are placed on shelves.', answer: true },
-            { questionAr: 'مساعد السوبر ماركت يعمل فى المطار.', questionEn: 'The supermarket assistant works at the airport.', answer: false },
-            { questionAr: 'من عمله تعبئة المشتريات فى الاكياس.', questionEn: 'Packing purchases into bags is part of their work.', answer: true },
-            { questionAr: 'يجب ان يكون المكان مرتبا ونظيفا.', questionEn: 'The place must be tidy and clean.', answer: true },
-            { questionAr: 'الزبائن ياتون لشراء المنتجات.', questionEn: 'Customers come to buy products.', answer: true },
-            { questionAr: 'مساعد السوبر ماركت لا يهتم بالمنتجات.', questionEn: 'The supermarket assistant does not care about the products.', answer: false }
+            { questionAr: 'مساعد السوبر ماركت يعمل داخل متجر.', questionEn: 'The supermarket assistant works inside a store.', questionFr: 'L\'assistant de supermarché travaille dans un magasin.', questionEs: 'El asistente de supermercado trabaja dentro de una tienda.', answer: true },
+            { questionAr: 'وظيفة مساعد السوبر ماركت هى ترتيب المنتجات.', questionEn: 'The job of the supermarket assistant is to arrange products.', questionFr: 'Le travail de l\'assistant de supermarché est de ranger les produits.', questionEs: 'El trabajo del asistente de supermercado es ordenar los productos.', answer: true },
+            { questionAr: 'مساعد السوبر ماركت لا يساعد الزبائن.', questionEn: 'The supermarket assistant does not help customers.', questionFr: 'L\'assistant de supermarché n\'aide pas les clients.', questionEs: 'El asistente de supermercado no ayuda a los clientes.', answer: false },
+            { questionAr: 'من عمل مساعد السوبر ماركت تنظيف المكان.', questionEn: 'Cleaning the place is part of the supermarket assistant\'s work.', questionFr: 'Nettoyer l\'endroit fait partie du travail de l\'assistant.', questionEs: 'Limpiar el lugar es parte del trabajo del asistente.', answer: true },
+            { questionAr: 'المنتجات توضع على الرفوف.', questionEn: 'Products are placed on shelves.', questionFr: 'Les produits sont placés sur les étagères.', questionEs: 'Los productos se colocan en los estantes.', answer: true },
+            { questionAr: 'مساعد السوبر ماركت يعمل فى المطار.', questionEn: 'The supermarket assistant works at the airport.', questionFr: 'L\'assistant de supermarché travaille à l\'aéroport.', questionEs: 'El asistente de supermercado trabaja en el aeropuerto.', answer: false },
+            { questionAr: 'من عمله تعبئة المشتريات فى الاكياس.', questionEn: 'Packing purchases into bags is part of their work.', questionFr: 'Emballer les achats dans des sacs fait partie de son travail.', questionEs: 'Empacar las compras en bolsas es parte de su trabajo.', answer: true },
+            { questionAr: 'يجب ان يكون المكان مرتبا ونظيفا.', questionEn: 'The place must be tidy and clean.', questionFr: 'L\'endroit doit être bien rangé et propre.', questionEs: 'El lugar debe estar ordenado y limpio.', answer: true },
+            { questionAr: 'الزبائن ياتون لشراء المنتجات.', questionEn: 'Customers come to buy products.', questionFr: 'Les clients viennent pour acheter des produits.', questionEs: 'Los clientes vienen a comprar productos.', answer: true },
+            { questionAr: 'مساعد السوبر ماركت لا يهتم بالمنتجات.', questionEn: 'The supermarket assistant does not care about the products.', questionFr: 'L\'assistant de supermarché ne se soucie pas des produits.', questionEs: 'El asistente de supermercado no se preocupa por los productos.', answer: false }
         ],
         trainVideo: './images/مساعد فى سوبر ماركت.mp4'
     },
@@ -183,19 +673,23 @@ var TRAINING_JOBS = [
         color: '#1DB9A8',
         titleAr: 'مساعد فى كافيه',
         titleEn: 'Cafe Assistant',
+        titleFr: 'Assistant de café',
+        titleEs: 'Asistente de cafetería',
         descriptionAr: 'مساعد الكافيه يعمل فى تقديم الطلبات للزبائن ويساعد فى ترتيب الطاولات والكراسى كما يمكنه تحضير مشروبات بسيطة مثل القهوة او الشاى.',
         descriptionEn: 'The cafe assistant works on serving orders to customers, helps arrange tables and chairs, and can prepare simple drinks like coffee or tea.',
+        descriptionFr: 'L\'assistant de café travaille à servir les commandes aux clients, aide à disposer les tables et les chaises, et peut préparer des boissons simples comme le café ou le thé.',
+        descriptionEs: 'El asistente de cafetería trabaja sirviendo pedidos a los clientes, ayuda a colocar las mesas y sillas, y puede preparar bebidas sencillas como café o té.',
         questions: [
-            { questionAr: 'مساعد الكافيه يعمل فى كافيه.', questionEn: 'The cafe assistant works in a cafe.', answer: true },
-            { questionAr: 'من عمله تقديم الطلبات للزبائن.', questionEn: 'Serving orders to customers is part of their job.', answer: true },
-            { questionAr: 'مساعد الكافيه لا يرتب الطاولات.', questionEn: 'The cafe assistant does not arrange tables.', answer: false },
-            { questionAr: 'يمكنه تحضير مشروبات بسيطة.', questionEn: 'They can prepare simple drinks.', answer: true },
-            { questionAr: 'الزبائن ياتون الى الكافيه لتناول الطعام او الشراب.', questionEn: 'Customers come to the cafe to eat or drink.', answer: true },
-            { questionAr: 'الكافيه مكان لبيع الملابس.', questionEn: 'The cafe is a place to sell clothes.', answer: false },
-            { questionAr: 'من عمله احضار الاكواب والاطباق.', questionEn: 'Bringing cups and plates is part of their job.', answer: true },
-            { questionAr: 'يجب ان تكون الطاولات مرتبة.', questionEn: 'The tables must be tidy.', answer: true },
-            { questionAr: 'مساعد الكافيه يعمل فى المستشفى.', questionEn: 'The cafe assistant works in a hospital.', answer: false },
-            { questionAr: 'الابتسامة مهمة عند التعامل مع الزبائن.', questionEn: 'Smiling is important when dealing with customers.', answer: true }
+            { questionAr: 'مساعد الكافيه يعمل فى كافيه.', questionEn: 'The cafe assistant works in a cafe.', questionFr: 'L\'assistant de café travaille dans un café.', questionEs: 'El asistente de cafetería trabaja en una cafetería.', answer: true },
+            { questionAr: 'من عمله تقديم الطلبات للزبائن.', questionEn: 'Serving orders to customers is part of their job.', questionFr: 'Servir les commandes aux clients fait partie de son travail.', questionEs: 'Servir pedidos a los clientes es parte de su trabajo.', answer: true },
+            { questionAr: 'مساعد الكافيه لا يرتب الطاولات.', questionEn: 'The cafe assistant does not arrange tables.', questionFr: 'L\'assistant de café ne range pas les tables.', questionEs: 'El asistente de cafetería no ordena las mesas.', answer: false },
+            { questionAr: 'يمكنه تحضير مشروبات بسيطة.', questionEn: 'They can prepare simple drinks.', questionFr: 'Il peut préparer des boissons simples.', questionEs: 'Puede preparar bebidas sencillas.', answer: true },
+            { questionAr: 'الزبائن ياتون الى الكافيه لتناول الطعام او الشراب.', questionEn: 'Customers come to the cafe to eat or drink.', questionFr: 'Les clients viennent au café pour manger ou boire.', questionEs: 'Los clientes vienen a la cafetería a comer o beber.', answer: true },
+            { questionAr: 'الكافيه مكان لبيع الملابس.', questionEn: 'The cafe is a place to sell clothes.', questionFr: 'Le café est un endroit pour vendre des vêtements.', questionEs: 'La cafetería es un lugar para vender ropa.', answer: false },
+            { questionAr: 'من عمله احضار الاكواب والاطباق.', questionEn: 'Bringing cups and plates is part of their job.', questionFr: 'Apporter les tasses et les assiettes fait partie de son travail.', questionEs: 'Traer tazas y platos es parte de su trabajo.', answer: true },
+            { questionAr: 'يجب ان تكون الطاولات مرتبة.', questionEn: 'The tables must be tidy.', questionFr: 'Les tables doivent être bien rangées.', questionEs: 'Las mesas deben estar ordenadas.', answer: true },
+            { questionAr: 'مساعد الكافيه يعمل فى المستشفى.', questionEn: 'The cafe assistant works in a hospital.', questionFr: 'L\'assistant de café travaille dans un hôpital.', questionEs: 'El asistente de cafetería trabaja en un hospital.', answer: false },
+            { questionAr: 'الابتسامة مهمة عند التعامل مع الزبائن.', questionEn: 'Smiling is important when dealing with customers.', questionFr: 'Sourire est important lors des contacts avec les clients.', questionEs: 'Sonreír es importante al tratar con los clientes.', answer: true }
         ],
         trainVideo: './images/مساعد فى مطعم.mp4'
     },
@@ -205,19 +699,23 @@ var TRAINING_JOBS = [
         color: '#7C3AED',
         titleAr: 'مساعد مكتبى',
         titleEn: 'Office Assistant',
+        titleFr: 'Assistant de bureau',
+        titleEs: 'Asistente de oficina',
         descriptionAr: 'يعمل داخل المكتب ويساعد فى ترتيب الملفات والاوراق كما يساعد فى تنظيم المكتب وتوزيع الاوراق.',
         descriptionEn: 'He works inside the office and helps arrange files and papers, and also helps organize the office and distribute papers.',
+        descriptionFr: 'Il travaille à l\'intérieur du bureau et aide à classer les dossiers et les papiers, et aide également à organiser le bureau et à distribuer les documents.',
+        descriptionEs: 'Trabaja dentro de la oficina y ayuda a organizar archivos y papeles, y también ayuda a organizar la oficina y distribuir documentos.',
         questions: [
-            { questionAr: 'المساعد المكتبى يعمل فى مكتب.', questionEn: 'The office assistant works in an office.', answer: true },
-            { questionAr: 'من عمله ترتيب الملفات.', questionEn: 'Arranging files is part of his job.', answer: true },
-            { questionAr: 'المساعد المكتبى يعمل فى البحر.', questionEn: 'The office assistant works at sea.', answer: false },
-            { questionAr: 'من عمله توزيع الاوراق.', questionEn: 'Distributing papers is part of his job.', answer: true },
-            { questionAr: 'المكتب يجب ان يكون مرتبا.', questionEn: 'The office must be tidy.', answer: true },
-            { questionAr: 'المساعد المكتبى لا يهتم بالاوراق.', questionEn: 'The office assistant does not care about papers.', answer: false },
-            { questionAr: 'من عمله تنظيم المكتب.', questionEn: 'Organizing the office is part of his job.', answer: true },
-            { questionAr: 'الملفات تحتفظ داخل المكتب.', questionEn: 'Files are kept inside the office.', answer: true },
-            { questionAr: 'المساعد المكتبى يعمل فى مزرعة.', questionEn: 'The office assistant works on a farm.', answer: false },
-            { questionAr: 'ترتيب الملفات يساعد على سهولة العمل.', questionEn: 'Arranging files helps make work easier.', answer: true }
+            { questionAr: 'المساعد المكتبى يعمل فى مكتب.', questionEn: 'The office assistant works in an office.', questionFr: 'L\'assistant de bureau travaille dans un bureau.', questionEs: 'El asistente de oficina trabaja en una oficina.', answer: true },
+            { questionAr: 'من عمله ترتيب الملفات.', questionEn: 'Arranging files is part of his job.', questionFr: 'Classer les dossiers fait partie de son travail.', questionEs: 'Organizar archivos es parte de su trabajo.', answer: true },
+            { questionAr: 'المساعد المكتبى يعمل فى البحر.', questionEn: 'The office assistant works at sea.', questionFr: 'L\'assistant de bureau travaille en mer.', questionEs: 'El asistente de oficina trabaja en el mar.', answer: false },
+            { questionAr: 'من عمله توزيع الاوراق.', questionEn: 'Distributing papers is part of his job.', questionFr: 'Distribuer les papiers fait partie de son travail.', questionEs: 'Distribuir documentos es parte de su trabajo.', answer: true },
+            { questionAr: 'المكتب يجب ان يكون مرتبا.', questionEn: 'The office must be tidy.', questionFr: 'Le bureau doit être bien rangé.', questionEs: 'La oficina debe estar ordenada.', answer: true },
+            { questionAr: 'المساعد المكتبى لا يهتم بالاوراق.', questionEn: 'The office assistant does not care about papers.', questionFr: 'L\'assistant de bureau ne se soucie pas des papiers.', questionEs: 'El asistente de oficina no se preocupa por los papeles.', answer: false },
+            { questionAr: 'من عمله تنظيم المكتب.', questionEn: 'Organizing the office is part of his job.', questionFr: 'Organiser le bureau fait partie de son travail.', questionEs: 'Organizar la oficina es parte de su trabajo.', answer: true },
+            { questionAr: 'الملفات تحتفظ داخل المكتب.', questionEn: 'Files are kept inside the office.', questionFr: 'Les dossiers sont conservés à l\'intérieur du bureau.', questionEs: 'Los archivos se guardan dentro de la oficina.', answer: true },
+            { questionAr: 'المساعد المكتبى يعمل فى مزرعة.', questionEn: 'The office assistant works on a farm.', questionFr: 'L\'assistant de bureau travaille dans une ferme.', questionEs: 'El asistente de oficina trabaja en una granja.', answer: false },
+            { questionAr: 'ترتيب الملفات يساعد على سهولة العمل.', questionEn: 'Arranging files helps make work easier.', questionFr: 'Le classement des dossiers facilite le travail.', questionEs: 'Organizar los archivos ayuda a facilitar el trabajo.', answer: true }
         ],
         trainVideo: './images/عامل فى مكتبة.mp4'
     },
@@ -227,19 +725,23 @@ var TRAINING_JOBS = [
         color: '#FFB830',
         titleAr: 'مساعد فى فندق',
         titleEn: 'Hotel Assistant',
+        titleFr: 'Assistant d\'hôtel',
+        titleEs: 'Asistente de hotel',
         descriptionAr: 'مساعد الفندق يعمل على مساعدة الضيوف ويساعد فى الترحيب بالناس وتنظيم المكان كما يساعد الموظفين فى بعض الاعمال البسيطة.',
         descriptionEn: 'The hotel assistant helps guests, helps welcome people and organize the place, and also assists staff with some simple tasks.',
+        descriptionFr: 'L\'assistant d\'hôtel aide les clients, aide à accueillir les gens et à organiser les lieux, et assiste également le personnel dans certaines tâches simples.',
+        descriptionEs: 'El asistente de hotel ayuda a los huéspedes, ayuda a dar la bienvenida a las personas y a organizar el lugar, y también asiste al personal en algunas tareas sencillas.',
         questions: [
-            { questionAr: 'مساعد الفندق يعمل فى فندق.', questionEn: 'The hotel assistant works in a hotel.', answer: true },
-            { questionAr: 'من عمله الترحيب بالضيوف.', questionEn: 'Welcoming guests is part of his job.', answer: true },
-            { questionAr: 'الضيوف ياتون الى الفندق للاقامة.', questionEn: 'Guests come to the hotel to stay.', answer: true },
-            { questionAr: 'مساعد الفندق لا يساعد الموظفين.', questionEn: 'The hotel assistant does not help staff.', answer: false },
-            { questionAr: 'الفندق مكان لاستقبال الزوار.', questionEn: 'The hotel is a place to receive visitors.', answer: true },
-            { questionAr: 'من عمله المساعدة فى ترتيب المكان.', questionEn: 'Helping to arrange the place is part of his job.', answer: true },
-            { questionAr: 'الفندق مكان لبيع الطعام فقط.', questionEn: 'The hotel is a place to sell food only.', answer: false },
-            { questionAr: 'يجب ان يكون المكان نظيفا.', questionEn: 'The place must be clean.', answer: true },
-            { questionAr: 'الضيوف يحبون المعاملة الجيدة.', questionEn: 'Guests like good treatment.', answer: true },
-            { questionAr: 'مساعد الفندق يعمل فى مصنع.', questionEn: 'The hotel assistant works in a factory.', answer: false }
+            { questionAr: 'مساعد الفندق يعمل فى فندق.', questionEn: 'The hotel assistant works in a hotel.', questionFr: 'L\'assistant d\'hôtel travaille dans un hôtel.', questionEs: 'El asistente de hotel trabaja en un hotel.', answer: true },
+            { questionAr: 'من عمله الترحيب بالضيوف.', questionEn: 'Welcoming guests is part of his job.', questionFr: 'Accueillir les clients fait partie de son travail.', questionEs: 'Dar la bienvenida a los huéspedes es parte de su trabajo.', answer: true },
+            { questionAr: 'الضيوف ياتون الى الفندق للاقامة.', questionEn: 'Guests come to the hotel to stay.', questionFr: 'Les clients viennent à l\'hôtel pour séjourner.', questionEs: 'Los huéspedes vienen al hotel para quedarse.', answer: true },
+            { questionAr: 'مساعد الفندق لا يساعد الموظفين.', questionEn: 'The hotel assistant does not help staff.', questionFr: 'L\'assistant d\'hôtel n\'aide pas le personnel.', questionEs: 'El asistente de hotel no ayuda al personal.', answer: false },
+            { questionAr: 'الفندق مكان لاستقبال الزوار.', questionEn: 'The hotel is a place to receive visitors.', questionFr: 'L\'hôtel est un lieu pour recevoir des visiteurs.', questionEs: 'El hotel es un lugar para recibir visitantes.', answer: true },
+            { questionAr: 'من عمله المساعدة فى ترتيب المكان.', questionEn: 'Helping to arrange the place is part of his job.', questionFr: 'Aider à ranger l\'endroit fait partie de son travail.', questionEs: 'Ayudar a organizar el lugar es parte de su trabajo.', answer: true },
+            { questionAr: 'الفندق مكان لبيع الطعام فقط.', questionEn: 'The hotel is a place to sell food only.', questionFr: 'L\'hôtel est un endroit pour vendre uniquement de la nourriture.', questionEs: 'El hotel es un lugar para vender comida únicamente.', answer: false },
+            { questionAr: 'يجب ان يكون المكان نظيفا.', questionEn: 'The place must be clean.', questionFr: 'L\'endroit doit être propre.', questionEs: 'El lugar debe estar limpio.', answer: true },
+            { questionAr: 'الضيوف يحبون المعاملة الجيدة.', questionEn: 'Guests like good treatment.', questionFr: 'Les clients aiment être bien traités.', questionEs: 'A los huéspedes les gusta el buen trato.', answer: true },
+            { questionAr: 'مساعد الفندق يعمل فى مصنع.', questionEn: 'The hotel assistant works in a factory.', questionFr: 'L\'assistant d\'hôtel travaille dans une usine.', questionEs: 'El asistente de hotel trabaja en una fábrica.', answer: false }
         ],
         trainVideo: './images/ريسيبشانيست.mp4'
     },
@@ -249,19 +751,23 @@ var TRAINING_JOBS = [
         color: '#F43F5E',
         titleAr: 'مساعد فى حضانة اطفال',
         titleEn: 'Nursery Assistant',
+        titleFr: 'Assistant de crèche',
+        titleEs: 'Asistente de guardería',
         descriptionAr: 'يقوم المساعد فى هذه الوظيفة بتقديم الرعاية واللطف للاطفال الصغار داخل الحضانة. يتضمن العمل المساعدة فى ترتيب الالعاب ومساعدة الاطفال اثناء وقت الطعام واللعب معهم برفق والتاكد من ان المكان نظيف وامن من اجلهم هى وظيفة مليئة بالحب والبهجة.',
         descriptionEn: 'The assistant in this job provides care and kindness to young children in the nursery. The work includes helping to arrange toys, assisting children during meal times, playing gently with them, and making sure the place is clean and safe for them. It is a job full of love and joy.',
+        descriptionFr: 'L\'assistant dans ce travail apporte soin et gentillesse aux jeunes enfants de la crèche. Le travail comprend l\'aide au rangement des jouets, l\'assistance aux enfants pendant les repas, le jeu doux avec eux et la garantie que l\'endroit est propre et sûr pour eux. C\'est un travail plein d\'amour et de joie.',
+        descriptionEs: 'El asistente en este trabajo brinda cuidado y amabilidad a los niños pequeños en la guardería. El trabajo incluye ayudar a organizar los juguetes, asistir a los niños durante las comidas, jugar suavemente con ellos y asegurarse de que el lugar esté limpio y sea seguro para ellos. Es un trabajo lleno de amor y alegría.',
         questions: [
-            { questionAr: 'يجب ان ابتسم فى وجه الاطفال واتعامل معهم بلطف.', questionEn: 'I must smile at the children and treat them kindly.', answer: true },
-            { questionAr: 'يمكننى ترك الالعاب مبعثرة على الارض بعد انتهاء وقت اللعب.', questionEn: 'I can leave the toys scattered on the floor after playtime.', answer: false },
-            { questionAr: 'اساعد الاطفال فى غسل ايديهم قبل تناول الطعام.', questionEn: 'I help the children wash their hands before eating.', answer: true },
-            { questionAr: 'اذا بكى طفل صغير احاول تهدئته او انادى المعلمة المسؤولة.', questionEn: 'If a young child cries, I try to calm them or call the teacher in charge.', answer: true },
-            { questionAr: 'يمكننى الصراخ بصوت عالى جدا بجانب الاطفال.', questionEn: 'I can shout very loudly near the children.', answer: false },
-            { questionAr: 'اتاكد من اعادة كل لعبة الى مكانها الصحيح بعد الاستخدام.', questionEn: 'I make sure to put each toy back in its correct place after use.', answer: true },
-            { questionAr: 'يجب ان اكون صبورا وهادئا اثناء التعامل مع الاطفال.', questionEn: 'I must be patient and calm when dealing with children.', answer: true },
-            { questionAr: 'اذا رايت طفلا يركض نحو الباب بمفرده يجب ان انتبه له فورا.', questionEn: 'If I see a child running towards the door alone, I must pay attention immediately.', answer: true },
-            { questionAr: 'يمكننى اكل طعام الاطفال المخصص لهم.', questionEn: 'I can eat the children\'s food that is meant for them.', answer: false },
-            { questionAr: 'احافظ على نظافة المكان واسمع تعليمات مديرة الحضانة.', questionEn: 'I keep the place clean and listen to the nursery director\'s instructions.', answer: true }
+            { questionAr: 'يجب ان ابتسم فى وجه الاطفال واتعامل معهم بلطف.', questionEn: 'I must smile at the children and treat them kindly.', questionFr: 'Je dois sourire aux enfants et les traiter avec gentillesse.', questionEs: 'Debo sonreír a los niños y tratarlos con amabilidad.', answer: true },
+            { questionAr: 'يمكننى ترك الالعاب مبعثرة على الارض بعد انتهاء وقت اللعب.', questionEn: 'I can leave the toys scattered on the floor after playtime.', questionFr: 'Je peux laisser les jouets éparpillés sur le sol après le temps de jeu.', questionEs: 'Puedo dejar los juguetes esparcidos por el suelo después del tiempo de juego.', answer: false },
+            { questionAr: 'اساعد الاطفال فى غسل ايديهم قبل تناول الطعام.', questionEn: 'I help the children wash their hands before eating.', questionFr: 'J\'aide les enfants à se laver les mains avant de manger.', questionEs: 'Ayudo a los niños a lavarse las manos antes de comer.', answer: true },
+            { questionAr: 'اذا بكى طفل صغير احاول تهدئته او انادى المعلمة المسؤولة.', questionEn: 'If a young child cries, I try to calm them or call the teacher in charge.', questionFr: 'Si un jeune enfant pleure, j\'essaie de le calmer ou j\'appelle l\'enseignante responsable.', questionEs: 'Si un niño pequeño llora, trato de calmarlo o llamo a la maestra a cargo.', answer: true },
+            { questionAr: 'يمكننى الصراخ بصوت عالى جدا بجانب الاطفال.', questionEn: 'I can shout very loudly near the children.', questionFr: 'Je peux crier très fort près des enfants.', questionEs: 'Puedo gritar muy fuerte cerca de los niños.', answer: false },
+            { questionAr: 'اتاكد من اعادة كل لعبة الى مكانها الصحيح بعد الاستخدام.', questionEn: 'I make sure to put each toy back in its correct place after use.', questionFr: 'Je m\'assure de remettre chaque jouet à sa place après utilisation.', questionEs: 'Me aseguro de volver a poner cada juguete en su lugar correcto después de su uso.', answer: true },
+            { questionAr: 'يجب ان اكون صبورا وهادئا اثناء التعامل مع الاطفال.', questionEn: 'I must be patient and calm when dealing with children.', questionFr: 'Je dois être patient et calme avec les enfants.', questionEs: 'Debo ser paciente y estar tranquilo al tratar con los niños.', answer: true },
+            { questionAr: 'اذا رايت طفلا يركض نحو الباب بمفرده يجب ان انتبه له فورا.', questionEn: 'If I see a child running towards the door alone, I must pay attention immediately.', questionFr: 'Si je vois un enfant courir seul vers la porte, je dois faire attention immédiatement.', questionEs: 'Si veo a un niño corriendo solo hacia la puerta, debo prestar atención de inmediato.', answer: true },
+            { questionAr: 'يمكننى اكل طعام الاطفال المخصص لهم.', questionEn: 'I can eat the children\'s food that is meant for them.', questionFr: 'Je peux manger la nourriture des enfants qui leur est destinée.', questionEs: 'Puedo comer la comida de los niños que es para ellos.', answer: false },
+            { questionAr: 'احافظ على نظافة المكان واسمع تعليمات مديرة الحضانة.', questionEn: 'I keep the place clean and listen to the nursery director\'s instructions.', questionFr: 'Je garde l\'endroit propre et j\'écoute les instructions de la directrice de la crèche.', questionEs: 'Mantengo el lugar limpio y escucho las instrucciones de la directora de la guardería.', answer: true }
         ],
         trainVideo: './images/مساعد فى حضانة.mp4'
     }
@@ -270,183 +776,193 @@ var TRAINING_JOBS = [
 // ── EXISTING DATA ────────────────────────────────────────────────────
 var JOBS_DATA = [
     {
-        id: 'store', icon: '🛒', name: 'Store Helper', nameAr: 'مساعد متجر', color: '#FF6B35',
+        id: 'store', icon: '🛒', name: 'Store Helper', nameAr: 'مساعد متجر', nameFr: 'Assistant de magasin', nameEs: 'Ayudante de tienda', color: '#FF6B35',
         desc: 'Helps customers find products, organises shelves, and keeps the store tidy.',
         descAr: 'يساعد العملاء في إيجاد المنتجات وينظم الرفوف.',
+        descFr: 'Aide les clients à trouver des produits, organise les étagères et maintient le magasin propre.',
+        descEs: 'Ayuda a los clientes a encontrar productos, organiza los estantes y mantiene la tienda ordenada.',
         questions: [
-            { q: 'Do you enjoy helping people?', qAr: 'هل تستمتع بمساعدة الناس؟', opts: ['Yes, I love it! 😊', 'Sometimes', 'Not really'], scores: [3, 2, 1] },
-            { q: 'Can you count items and stay organised?', qAr: 'هل يمكنك عد الأشياء والبقاء منظماً؟', opts: ['Yes, very organised!', 'I can try', 'I find it hard'], scores: [3, 2, 1] },
-            { q: 'Do you like working with people?', qAr: 'هل تحب العمل مع الآخرين؟', opts: ['I love teamwork! 🤝', 'Sometimes', 'I prefer alone'], scores: [3, 2, 1] },
-            { q: 'Can you stand for most of the day?', qAr: 'هل يمكنك الوقوف معظم اليوم؟', opts: ['Yes, no problem!', 'With breaks', 'That is hard'], scores: [3, 2, 1] },
-            { q: 'Do you like keeping places tidy?', qAr: 'هل تحب إبقاء الأماكن نظيفة؟', opts: ['Yes! I love tidying! 🧹', 'Sometimes', 'Not really'], scores: [3, 2, 1] }
+            { q: 'Do you enjoy helping people?', qAr: 'هل تستمتع بمساعدة الناس؟', qFr: 'Aimez-vous aider les gens ?', qEs: '¿Te gusta ayudar a la gente?', opts: ['Yes, I love it! 😊', 'Sometimes', 'Not really'], optsAr: ['نعم، أحب ذلك! 😊', 'أحياناً', 'ليس حقاً'], optsFr: ['Oui, j\'adore ! 😊', 'Parfois', 'Pas vraiment'], optsEs: ['¡Sí, me encanta! 😊', 'A veces', 'No mucho'], scores: [3, 2, 1] },
+            { q: 'Can you count items and stay organised?', qAr: 'هل يمكنك عد الأشياء والبقاء منظماً؟', qFr: 'Pouvez-vous compter les articles et rester organisé ?', qEs: '¿Puedes contar artículos y ser organizado?', opts: ['Yes, very organised!', 'I can try', 'I find it hard'], optsAr: ['نعم، منظم جداً!', 'يمكنني المحاولة', 'أجد ذلك صعباً'], optsFr: ['Oui, très organisé !', 'Je peux essayer', 'C\'est difficile'], optsEs: ['¡Sí, muy organizado!', 'Puedo intentarlo', 'Me resulta difícil'], scores: [3, 2, 1] },
+            { q: 'Do you like working with people?', qAr: 'هل تحب العمل مع الآخرين؟', qFr: 'Aimez-vous travailler avec les autres ?', qEs: '¿Te gusta trabajar con gente?', opts: ['I love teamwork! 🤝', 'Sometimes', 'I prefer alone'], optsAr: ['أحب العمل الجماعي! 🤝', 'أحياناً', 'أفضل وحدي'], optsFr: ['J\'adore le travail d\'équipe ! 🤝', 'Parfois', 'Je préfère seul'], optsEs: ['¡Amo el trabajo en equipo! 🤝', 'A veces', 'Prefiero solo'], scores: [3, 2, 1] },
+            { q: 'Can you stand for most of the day?', qAr: 'هل يمكنك الوقوف معظم اليوم؟', qFr: 'Pouvez-vous rester debout la majeure partie de la journée ?', qEs: '¿Puedes estar de pie casi todo el día?', opts: ['Yes, no problem!', 'With breaks', 'That is hard'], optsAr: ['نعم، لا مشكلة!', 'مع فترات راحة', 'هذا صعب'], optsFr: ['Oui, pas de problème !', 'Avec des pauses', 'C\'est dur'], optsEs: ['¡Sí, sin problema!', 'Con descansos', 'Es difícil'], scores: [3, 2, 1] },
+            { q: 'Do you like keeping places tidy?', qAr: 'هل تحب إبقاء الأماكن نظيفة؟', qFr: 'Aimez-vous garder les endroits propres ?', qEs: '¿Te gusta mantener los lugares ordenados?', opts: ['Yes! I love tidying! 🧹', 'Sometimes', 'Not really'], optsAr: ['نعم! أحب الترتيب! 🧹', 'أحياناً', 'ليس حقاً'], optsFr: ['Oui ! J\'adore ranger ! 🧹', 'Parfois', 'Pas vraiment'], optsEs: ['¡Sí! ¡Amo ordenar! 🧹', 'A veces', 'No mucho'], scores: [3, 2, 1] }
         ]
     },
     {
-        id: 'cafe', icon: '☕', name: 'Café Assistant', nameAr: 'مساعد مقهى', color: '#1DB9A8',
+        id: 'cafe', icon: '☕', name: 'Café Assistant', nameAr: 'مساعد مقهى', nameFr: 'Assistant de café', nameEs: 'Asistente de cafetería', color: '#1DB9A8',
         desc: 'Serves drinks and food, keeps the café clean, and makes every customer feel welcome.',
         descAr: 'يخدم المشروبات والطعام ويحافظ على نظافة المقهى.',
+        descFr: 'Sert des boissons et de la nourriture, maintient le café propre et accueille les clients.',
+        descEs: 'Sirve bebidas y comida, mantiene la cafetería limpia y hace que los clientes se sientan bienvenidos.',
         questions: [
-            { q: 'Do you enjoy talking to people?', qAr: 'هل تستمتع بالتحدث مع الناس؟', opts: ['I love it! 😄', 'Sometimes', 'I prefer quiet tasks'], scores: [3, 2, 1] },
-            { q: 'Can you carry trays and move quickly?', qAr: 'هل يمكنك حمل الصواني والتحرك بسرعة؟', opts: ['Yes, easily!', 'With practice', 'Sounds difficult'], scores: [3, 2, 1] },
-            { q: 'Do you like busy, lively places?', qAr: 'هل تحب الأماكن المزدحمة والحيوية؟', opts: ['Love the energy! ⚡', 'I can manage', 'I prefer quiet'], scores: [3, 2, 1] },
-            { q: 'Can you remember simple orders?', qAr: 'هل يمكنك تذكر الطلبات البسيطة؟', opts: ['Good memory!', 'I write them', 'That is hard'], scores: [3, 2, 1] },
-            { q: 'Do you care about making people welcome?', qAr: 'هل تهتم بجعل الناس يشعرون بالترحيب؟', opts: ['Always! 💝', 'Most times', 'Not really'], scores: [3, 2, 1] }
+            { q: 'Do you enjoy talking to people?', qAr: 'هل تستمتع بالتحدث مع الناس؟', qFr: 'Aimez-vous parler aux gens ?', qEs: '¿Te gusta hablar con la gente?', opts: ['I love it! 😄', 'Sometimes', 'I prefer quiet tasks'], optsAr: ['أحب ذلك! 😄', 'أحياناً', 'أفضل المهام الهادئة'], optsFr: ['J\'adore ! 😄', 'Parfois', 'Je préfère le calme'], optsEs: ['¡Me encanta! 😄', 'A veces', 'Prefiero tareas tranquilas'], scores: [3, 2, 1] },
+            { q: 'Can you carry trays and move quickly?', qAr: 'هل يمكنك حمل الصواني والتحرك بسرعة؟', qFr: 'Pouvez-vous porter des plateaux et bouger vite ?', qEs: '¿Puedes llevar bandejas y moverte rápido?', opts: ['Yes, easily!', 'With practice', 'Sounds difficult'], optsAr: ['نعم، بسهولة!', 'مع التدريب', 'يبدو صعباً'], optsFr: ['Oui, facilement !', 'Avec de l\'entraînement', 'Ça semble dur'], optsEs: ['¡Sí, fácilmente!', 'Con práctica', 'Parece difícil'], scores: [3, 2, 1] },
+            { q: 'Do you like busy, lively places?', qAr: 'هل تحب الأماكن المزدحمة والحيوية؟', qFr: 'Aimez-vous les endroits animés ?', qEs: '¿Te gustan los lugares concurridos y animados?', opts: ['Love the energy! ⚡', 'I can manage', 'I prefer quiet'], optsAr: ['أحب هذه الطاقة! ⚡', 'يمكنني التدبر', 'أفضل الهدوء'], optsFr: ['J\'adore l\'énergie ! ⚡', 'Je peux gérer', 'Je préfère le calme'], optsEs: ['¡Amo la energía! ⚡', 'Puedo manejarlo', 'Prefiero la calma'], scores: [3, 2, 1] },
+            { q: 'Can you remember simple orders?', qAr: 'هل يمكنك تذكر الطلبات البسيطة؟', qFr: 'Pouvez-vous retenir des commandes simples ?', qEs: '¿Puedes recordar pedidos sencillos?', opts: ['Good memory!', 'I write them', 'That is hard'], optsAr: ['ذاكرة جيدة!', 'أكتبها', 'هذا صعب'], optsFr: ['Bonne mémoire !', 'Je les note', 'C\'est dur'], optsEs: ['¡Buena memoria!', 'Los anoto', 'Es difícil'], scores: [3, 2, 1] },
+            { q: 'Do you care about making people welcome?', qAr: 'هل تهتم بجعل الناس يشعرون بالترحيب؟', qFr: 'Est-ce important pour vous d\'accueillir les gens ?', qEs: '¿Te importa que la gente se sienta bienvenida?', opts: ['Always! 💝', 'Most times', 'Not really'], optsAr: ['دائماً! 💝', 'معظم الوقت', 'ليس حقاً'], optsFr: ['Toujours ! 💝', 'La plupart du temps', 'Pas vraiment'], optsEs: ['¡Siempre! 💝', 'Casi siempre', 'No mucho'], scores: [3, 2, 1] }
         ]
     },
     {
-        id: 'library', icon: '📚', name: 'Library Assistant', nameAr: 'مساعد مكتبة', color: '#7C3AED',
+        id: 'library', icon: '📚', name: 'Library Assistant', nameAr: 'مساعد مكتبة', nameFr: 'Assistant de bibliothèque', nameEs: 'Asistente de biblioteca', color: '#7C3AED',
         desc: 'Organises and sorts books, helps visitors find materials, and keeps the library peaceful.',
         descAr: 'ينظم الكتب ويساعد الزوار في إيجاد ما يبحثون عنه.',
+        descFr: 'Organise et trie les livres, aide les visiteurs à trouver des documents et maintient le calme.',
+        descEs: 'Organiza y clasifica libros, ayuda a los visitantes a encontrar materiales y mantiene la calma.',
         questions: [
-            { q: 'Do you enjoy organising and sorting?', qAr: 'هل تستمتع بالتنظيم والترتيب؟', opts: ['Love sorting! 📂', 'Sometimes', 'Not really'], scores: [3, 2, 1] },
-            { q: 'Can you work in a quiet environment?', qAr: 'هل يمكنك العمل في بيئة هادئة؟', opts: ['Love quiet! 🤫', 'Can manage', 'Prefer busy'], scores: [3, 2, 1] },
-            { q: 'Do you like helping people find information?', qAr: 'هل تحب مساعدة الناس في العثور على معلومات؟', opts: ['Yes, always!', 'Sometimes', 'Not really'], scores: [3, 2, 1] },
-            { q: 'Are you careful and detail-oriented?', qAr: 'هل أنت دقيق ومنتبه للتفاصيل؟', opts: ['Very careful! 🎯', 'Mostly yes', 'I miss things'], scores: [3, 2, 1] },
-            { q: 'Do you enjoy being around books?', qAr: 'هل تستمتع بالتواجد مع الكتب؟', opts: ['Love books! 📖', 'They are okay', 'Not really'], scores: [3, 2, 1] }
+            { q: 'Do you enjoy organising and sorting?', qAr: 'هل تستمتع بالتنظيم والترتيب؟', qFr: 'Aimez-vous organiser et trier ?', qEs: '¿Te gusta organizar y clasificar?', opts: ['Love sorting! 📂', 'Sometimes', 'Not really'], optsAr: ['أحب الترتيب! 📂', 'أحياناً', 'ليس حقاً'], optsFr: ['J\'adore trier ! 📂', 'Parfois', 'Pas vraiment'], optsEs: ['¡Amo clasificar! 📂', 'A veces', 'No mucho'], scores: [3, 2, 1] },
+            { q: 'Can you work in a quiet environment?', qAr: 'هل يمكنك العمل في بيئة هادئة؟', qFr: 'Pouvez-vous travailler dans le calme ?', qEs: '¿Puedes trabajar en un ambiente tranquilo?', opts: ['Love quiet! 🤫', 'Can manage', 'Prefer busy'], optsAr: ['أحب الهدوء! 🤫', 'يمكنني التدبر', 'أفضل الأماكن المزدحمة'], optsFr: ['J\'adore le calme ! 🤫', 'Je peux gérer', 'Je préfère l\'agitation'], optsEs: ['¡Amo el silencio! 🤫', 'Puedo manejarlo', 'Prefiero el movimiento'], scores: [3, 2, 1] },
+            { q: 'Do you like helping people find information?', qAr: 'هل تحب مساعدة الناس في العثور على معلومات؟', qFr: 'Aimez-vous aider les gens à trouver des infos ?', qEs: '¿Te gusta ayudar a la gente a encontrar información?', opts: ['Yes, always!', 'Sometimes', 'Not really'], optsAr: ['نعم، دائماً!', 'أحياناً', 'ليس حقاً'], optsFr: ['Oui, toujours !', 'Parfois', 'Pas vraiment'], optsEs: ['¡Sí, siempre!', 'A veces', 'No mucho'], scores: [3, 2, 1] },
+            { q: 'Are you careful and detail-oriented?', qAr: 'هل أنت دقيق ومنتبه للتفاصيل؟', qFr: 'Êtes-vous minutieux ?', qEs: '¿Eres cuidadoso y detallista?', opts: ['Very careful! 🎯', 'Mostly yes', 'I miss things'], optsAr: ['دقيق جداً! 🎯', 'غالباً نعم', 'أفوت بعض الأشياء'], optsFr: ['Très minutieux ! 🎯', 'Plutôt oui', 'J\'oublie des choses'], optsEs: ['¡Muy cuidadoso! 🎯', 'Casi siempre sí', 'Se me pasan cosas'], scores: [3, 2, 1] },
+            { q: 'Do you enjoy being around books?', qAr: 'هل تستمتع بالتواجد مع الكتب؟', qFr: 'Aimez-vous être entouré de livres ?', qEs: '¿Te gusta estar rodeado de libros?', opts: ['Love books! 📖', 'They are okay', 'Not really'], optsAr: ['أحب الكتب! 📖', 'إنها جيدة', 'ليس حقاً'], optsFr: ['J\'adore les livres ! 📖', 'Ils sont corrects', 'Pas vraiment'], optsEs: ['¡Amo los libros! 📖', 'Están bien', 'No mucho'], scores: [3, 2, 1] }
         ]
     },
     {
-        id: 'garden', icon: '🌿', name: 'Garden Helper', nameAr: 'مساعد حديقة', color: '#10B981',
+        id: 'garden', icon: '🌿', name: 'Garden Helper', nameAr: 'مساعد حديقة', nameFr: 'Assistant de jardin', nameEs: 'Ayudante de jardín', color: '#10B981',
         desc: 'Plants flowers, waters plants, keeps gardens beautiful. A peaceful outdoor job!',
         descAr: 'يزرع الزهور ويسقي النباتات ويحافظ على جمال الحدائق.',
+        descFr: 'Plante des fleurs, arrose les plantes, maintient les jardins beaux.',
+        descEs: 'Planta flores, riega plantas, mantiene los jardines hermosos.',
         questions: [
-            { q: 'Do you enjoy working outdoors?', qAr: 'هل تستمتع بالعمل في الهواء الطلق؟', opts: ['Love being outside! 🌞', 'Sometimes', 'Prefer indoors'], scores: [3, 2, 1] },
-            { q: 'Do you like plants and nature?', qAr: 'هل تحب النباتات والطبيعة؟', opts: ['Nature is beautiful! 🌸', 'A little', 'Not really'], scores: [3, 2, 1] },
-            { q: 'Can you do physical tasks like digging?', qAr: 'هل يمكنك القيام بمهام جسدية كالحفر؟', opts: ['Yes, I am strong! 💪', 'With breaks', 'Too hard'], scores: [3, 2, 1] },
-            { q: 'Do you enjoy quiet, peaceful work?', qAr: 'هل تستمتع بالعمل الهادئ والسلمي؟', opts: ['Love calm work!', 'Sometimes', 'Prefer busy'], scores: [3, 2, 1] },
-            { q: 'Can you follow a daily routine?', qAr: 'هل يمكنك اتباع روتين يومي؟', opts: ['Routines help me! ⏰', 'Usually yes', 'Find routines hard'], scores: [3, 2, 1] }
+            { q: 'Do you enjoy working outdoors?', qAr: 'هل تستمتع بالعمل في الهواء الطلق؟', qFr: 'Aimez-vous travailler dehors ?', qEs: '¿Te gusta trabajar al aire libre?', opts: ['Love being outside! 🌞', 'Sometimes', 'Prefer indoors'], optsAr: ['أحب الوجود في الخارج! 🌞', 'أحياناً', 'أفضل الداخل'], optsFr: ['J\'adore être dehors ! 🌞', 'Parfois', 'Je préfère l\'intérieur'], optsEs: ['¡Amo estar afuera! 🌞', 'A veces', 'Prefiero el interior'], scores: [3, 2, 1] },
+            { q: 'Do you like plants and nature?', qAr: 'هل تحب النباتات والطبيعة؟', qFr: 'Aimez-vous les plantes et la nature ?', qEs: '¿Te gustan las plantas y la naturaleza?', opts: ['Nature is beautiful! 🌸', 'A little', 'Not really'], optsAr: ['الطبيعة جميلة! 🌸', 'قليلاً', 'ليس حقاً'], optsFr: ['La nature est belle ! 🌸', 'Un peu', 'Pas vraiment'], optsEs: ['¡La naturaleza es bella! 🌸', 'Un poco', 'No mucho'], scores: [3, 2, 1] },
+            { q: 'Can you do physical tasks like digging?', qAr: 'هل يمكنك القيام بمهام جسدية كالحفر؟', qFr: 'Pouvez-vous creuser ou jardiner ?', qEs: '¿Puedes hacer tareas físicas como cavar?', opts: ['Yes, I am strong! 💪', 'With breaks', 'Too hard'], optsAr: ['نعم، أنا قوي! 💪', 'مع فترات راحة', 'صعب جداً'], optsFr: ['Oui, je suis fort ! 💪', 'Avec des pauses', 'Trop dur'], optsEs: ['¡Sí, soy fuerte! 💪', 'Con descansos', 'Muy difícil'], scores: [3, 2, 1] },
+            { q: 'Do you enjoy quiet, peaceful work?', qAr: 'هل تستمتع بالعمل الهادئ والسلمي؟', qFr: 'Aimez-vous le travail calme ?', qEs: '¿Disfrutas del trabajo tranquilo y pacífico?', opts: ['Love calm work!', 'Sometimes', 'Prefer busy'], optsAr: ['أحب العمل الهادئ!', 'أحياناً', 'أفضل الأماكن المزدحمة'], optsFr: ['J\'adore le travail calme !', 'Parfois', 'Je préfère l\'agitation'], optsEs: ['¡Amo el trabajo tranquilo!', 'A veces', 'Prefiero el movimiento'], scores: [3, 2, 1] },
+            { q: 'Can you follow a daily routine?', qAr: 'هل يمكنك اتباع روتين يومي؟', qFr: 'Pouvez-vous suivre une routine ?', qEs: '¿Puedes seguir una rutina diaria?', opts: ['Routines help me! ⏰', 'Usually yes', 'Find routines hard'], optsAr: ['الروتين يساعدني! ⏰', 'عادة نعم', 'أجد الروتين صعباً'], optsFr: ['La routine m\'aide ! ⏰', 'Généralement oui', 'C\'est dur pour moi'], optsEs: ['¡La rutina me ayuda! ⏰', 'Casi siempre sí', 'Me cuesta'], scores: [3, 2, 1] }
         ]
     },
     {
-        id: 'office', icon: '🏢', name: 'Office Helper', nameAr: 'مساعد مكتب', color: '#3B82F6',
+        id: 'office', icon: '🏢', name: 'Office Helper', nameAr: 'مساعد مكتب', nameFr: 'Assistant de bureau', nameEs: 'Ayudante de oficina', color: '#3B82F6',
         desc: 'Organises documents, delivers messages, helps with filing. An indoor professional role.',
         descAr: 'ينظم المستندات ويوصل الرسائل ويساعد في الأرشفة.',
+        descFr: 'Organise les documents, livre les messages, aide au classement.',
+        descEs: 'Organiza documentos, entrega mensajes, ayuda con el archivo.',
         questions: [
-            { q: 'Do you enjoy indoor desk-based work?', qAr: 'هل تستمتع بالعمل المكتبي الداخلي؟', opts: ['Offices are great! 💼', 'Sometimes', 'Prefer outdoor'], scores: [3, 2, 1] },
-            { q: 'Can you organise papers carefully?', qAr: 'هل يمكنك تنظيم الأوراق بعناية؟', opts: ['Very carefully!', 'With some help', 'Sounds hard'], scores: [3, 2, 1] },
-            { q: 'Do you like following clear rules?', qAr: 'هل تحب اتباع القواعد الواضحة؟', opts: ['Love clear rules!', 'Usually yes', 'Prefer freedom'], scores: [3, 2, 1] },
-            { q: 'Can you use a computer for basic tasks?', qAr: 'هل يمكنك استخدام الكمبيوتر للمهام الأساسية؟', opts: ['Yes I can! 💻', 'With training', 'Not yet'], scores: [3, 2, 1] },
-            { q: 'Are you polite and professional?', qAr: 'هل أنت مؤدب واحترافي؟', opts: ['Always! 😊', 'Usually', 'Not always'], scores: [3, 2, 1] }
+            { q: 'Do you enjoy indoor desk-based work?', qAr: 'هل تستمتع بالعمل المكتبي الداخلي؟', qFr: 'Aimez-vous le travail de bureau ?', qEs: '¿Te gusta el trabajo de oficina?', opts: ['Offices are great! 💼', 'Sometimes', 'Prefer outdoor'], optsAr: ['المكاتب رائعة! 💼', 'أحياناً', 'أفضل الخارج'], optsFr: ['Les bureaux sont super ! 💼', 'Parfois', 'Je préfère l\'extérieur'], optsEs: ['¡Las oficinas son geniales! 💼', 'A veces', 'Prefiero afuera'], scores: [3, 2, 1] },
+            { q: 'Can you organise papers carefully?', qAr: 'هل يمكنك تنظيم الأوراق بعناية؟', qFr: 'Pouvez-vous classer des papiers ?', qEs: '¿Puedes organizar papeles con cuidado?', opts: ['Very carefully!', 'With some help', 'Sounds hard'], optsAr: ['بعناية فائقة!', 'ببعض المساعدة', 'يبدو صعباً'], optsFr: ['Très soigneusement !', 'Avec de l\'aide', 'Ça semble dur'], optsEs: ['¡Muy cuidadosamente!', 'Con algo de ayuda', 'Parece difícil'], scores: [3, 2, 1] },
+            { q: 'Do you like following clear rules?', qAr: 'هل تحب اتباع القواعد الواضحة؟', qFr: 'Aimez-vous suivre des règles claires ?', qEs: '¿Te gusta seguir reglas claras?', opts: ['Love clear rules!', 'Usually yes', 'Prefer freedom'], optsAr: ['أحب القواعد الواضحة!', 'عادة نعم', 'أفضل الحرية'], optsFr: ['J\'adore les règles !', 'Généralement oui', 'Je préfère la liberté'], optsEs: ['¡Amo las reglas claras!', 'Casi siempre sí', 'Prefiero libertad'], scores: [3, 2, 1] },
+            { q: 'Can you use a computer for basic tasks?', qAr: 'هل يمكنك استخدام الكمبيوتر للمهام الأساسية؟', qFr: 'Savez-vous utiliser un ordinateur ?', qEs: '¿Puedes usar una computadora para tareas básicas?', opts: ['Yes I can! 💻', 'With training', 'Not yet'], optsAr: ['نعم يمكنني! 💻', 'مع التدريب', 'ليس بعد'], optsFr: ['Oui je peux ! 💻', 'Avec formation', 'Pas encore'], optsEs: ['¡Sí, puedo! 💻', 'Con capacitación', 'Aún no'], scores: [3, 2, 1] },
+            { q: 'Are you polite and professional?', qAr: 'هل أنت مؤدب واحترافي؟', qFr: 'Êtes-vous poli et professionnel ?', qEs: '¿Eres educado y profesional?', opts: ['Always! 😊', 'Usually', 'Not always'], optsAr: ['دائماً! 😊', 'عادة', 'ليس دائماً'], optsFr: ['Toujours ! 😊', 'Généralement', 'Pas toujours'], optsEs: ['¡Siempre! 😊', 'Normalmente', 'No siempre'], scores: [3, 2, 1] }
         ]
     }
 ];
 
 var JOBS_LISTINGS = [
-    { id: 1, title: 'Store Helper', company: 'Al-Amal Supermarket', icon: '🛒', type: 'Retail', location: 'Cairo', match: 95, desc: 'Help customers and organise shelves in a welcoming inclusive team.', tags: ['Retail', 'No Experience', 'Full Time'] },
-    { id: 2, title: 'Café Assistant', company: 'Sunrise Café', icon: '☕', type: 'Food & Beverage', location: 'Cairo', match: 90, desc: 'Serve drinks and snacks, greet customers, and keep the café tidy.', tags: ['Food', 'Part Time', 'Friendly Team'] },
-    { id: 3, title: 'Library Assistant', company: 'City Public Library', icon: '📚', type: 'Education', location: 'Alexandria', match: 85, desc: 'Sort books, help visitors find materials, and maintain the library.', tags: ['Education', 'Quiet', 'Structured'] },
-    { id: 4, title: 'Garden Helper', company: 'Green Park', icon: '🌿', type: 'Outdoors', location: 'Giza', match: 88, desc: 'Water plants, plant flowers, and keep the garden beautiful.', tags: ['Outdoor', 'Active', 'Creative'] },
-    { id: 5, title: 'Office Helper', company: 'Bright Offices', icon: '🏢', type: 'Office', location: 'Cairo', match: 80, desc: 'Organise documents, assist with copying, and support the team.', tags: ['Office', 'Indoor', 'Professional'] },
-    { id: 6, title: 'Bakery Helper', company: 'Golden Bakery', icon: '🍞', type: 'Food & Beverage', location: 'Cairo', match: 82, desc: 'Help bake and package bread, organise shelves, and serve customers.', tags: ['Food', 'Active', 'Morning Shift'] },
-    { id: 7, title: 'Recycling Sorter', company: 'EcoGreen Centre', icon: '♻️', type: 'Environment', location: 'Giza', match: 78, desc: 'Sort recyclable materials by type and help run the recycling station.', tags: ['Environmental', 'Active', 'Routine'] },
-    { id: 8, title: 'Art Studio Helper', company: 'Creative Hands Studio', icon: '🎨', type: 'Creative', location: 'Alexandria', match: 86, desc: 'Help set up art materials, clean brushes, and assist art teachers.', tags: ['Creative', 'Art', 'Part Time'] },
-    { id: 9, title: 'Animal Care Helper', company: 'Happy Paws Centre', icon: '🐾', type: 'Animal Care', location: 'Cairo', match: 84, desc: 'Feed and care for animals, clean enclosures, and welcome visitors.', tags: ['Animals', 'Active', 'Rewarding'] }
+    { id: 1, title: 'Store Helper', titleAr: 'مساعد متجر', titleFr: 'Assistant de magasin', titleEs: 'Ayudante de tienda', company: 'Al-Amal Supermarket', companyAr: 'سوبر ماركت الأمل', companyFr: 'Supermarché Al-Amal', companyEs: 'Supermercado Al-Amal', icon: '🛒', type: 'Retail', typeAr: 'التجزئة', typeFr: 'Commerce', typeEs: 'Venta al por menor', location: 'Cairo', locationAr: 'القاهرة', locationFr: 'Le Caire', locationEs: 'El Cairo', match: 95, desc: 'Help customers and organise shelves in a welcoming inclusive team.', descAr: 'ساعد العملاء ونظم الرفوف في فريق شامل وودود.', descFr: 'Aidez les clients et organisez les étagères dans une équipe inclusive.', descEs: 'Ayuda a los clientes y organiza estantes en un equipo inclusivo.', tags: ['Retail', 'No Experience', 'Full Time'], tagsAr: ['التجزئة', 'بدون خبرة', 'دوام كامل'], tagsFr: ['Commerce', 'Sans expérience', 'Temps plein'], tagsEs: ['Venta', 'Sin experiencia', 'Tiempo completo'] },
+    { id: 2, title: 'Café Assistant', titleAr: 'مساعد مقهى', titleFr: 'Assistant de café', titleEs: 'Asistente de cafetería', company: 'Sunrise Café', companyAr: 'كافيه الشروق', companyFr: 'Café Sunrise', companyEs: 'Café Sunrise', icon: '☕', type: 'Food', typeAr: 'المطاعم والكافيهات', typeFr: 'Restauration', typeEs: 'Alimentos y Bebidas', location: 'Cairo', locationAr: 'القاهرة', locationFr: 'Le Caire', locationEs: 'El Cairo', match: 90, desc: 'Serve drinks and snacks, greet customers, and keep the café tidy.', descAr: 'تلقى الطلبات ورحب بالعملاء وحافظ على نظافة المقهى.', descFr: 'Servez des boissons, accueillez les clients et gardez le café propre.', descEs: 'Sirve bebidas y aperitivos, saluda a los clientes y mantén el café ordenado.', tags: ['Food', 'Part Time', 'Friendly Team'], tagsAr: ['طعام', 'دوام جزئي', 'فريق ودود'], tagsFr: ['Alimentation', 'Temps partiel', 'Équipe sympa'], tagsEs: ['Comida', 'Medio tiempo', 'Equipo amigable'] },
+    { id: 3, title: 'Library Assistant', titleAr: 'مساعد مكتبة', titleFr: 'Assistant de bibliothèque', titleEs: 'Asistente de biblioteca', company: 'City Public Library', companyAr: 'مكتبة المدينة العامة', companyFr: 'Bibliothèque Publique', companyEs: 'Biblioteca Pública', icon: '📚', type: 'Education', typeAr: 'التعليم', typeFr: 'Éducation', typeEs: 'Educación', location: 'Alexandria', locationAr: 'الإسكندرية', locationFr: 'Alexandrie', locationEs: 'Alejandría', match: 85, desc: 'Sort books, help visitors find materials, and maintain the library.', descAr: 'رتب الكتب وساعد الزوار في العثور على المواد وحافظ على المكتبة.', descFr: 'Triez les livres, aidez les visiteurs et entretenez la bibliothèque.', descEs: 'Clasifica libros, ayuda a los visitantes y mantén la biblioteca.', tags: ['Education', 'Quiet', 'Structured'], tagsAr: ['تعليم', 'هادئ', 'منظم'], tagsFr: ['Éducation', 'Calme', 'Structuré'], tagsEs: ['Educación', 'Tranquilo', 'Estructurado'] },
+    { id: 4, title: 'Garden Helper', titleAr: 'مساعد حديقة', titleFr: 'Assistant de jardin', titleEs: 'Ayudante de jardín', company: 'Green Park', companyAr: 'الحديقة الخضراء', companyFr: 'Parc Vert', companyEs: 'Parque Verde', icon: '🌿', type: 'Outdoors', typeAr: 'خارج المنزل', typeFr: 'Plein air', typeEs: 'Aire libre', location: 'Giza', locationAr: 'الجيزة', locationFr: 'Gizeh', locationEs: 'Guiza', match: 88, desc: 'Water plants, plant flowers, and keep the garden beautiful.', descAr: 'اسقِ النباتات وازرع الزهور وحافظ على جمال الحديقة.', descFr: 'Arrosez les plantes, plantez des fleurs et entretenez le jardin.', descEs: 'Riega las plantas, planta flores y mantén el jardín hermoso.', tags: ['Outdoor', 'Active', 'Creative'], tagsAr: ['خارج المنزل', 'نشيط', 'إبداعي'], tagsFr: ['Extérieur', 'Actif', 'Créatif'], tagsEs: ['Exterior', 'Activo', 'Creativo'] },
+    { id: 5, title: 'Office Helper', titleAr: 'مساعد مكتب', titleFr: 'Assistant de bureau', titleEs: 'Ayudante de oficina', company: 'Bright Offices', companyAr: 'مكاتب برايت', companyFr: 'Bureaux Bright', companyEs: 'Oficinas Bright', icon: '🏢', type: 'Office', typeAr: 'عمل مكتبي', typeFr: 'Bureau', typeEs: 'Oficina', location: 'Cairo', locationAr: 'القاهرة', locationFr: 'Le Caire', locationEs: 'El Cairo', match: 80, desc: 'Organise documents, assist with copying, and support the team.', descAr: 'نظم المستندات وساعد في التصوير وادعم الفريق.', descFr: 'Organisez les documents, aidez à la copie et soutenez l\'équipe.', descEs: 'Organiza documentos, ayuda con las fotocopias y apoya al equipo.', tags: ['Office', 'Indoor', 'Professional'], tagsAr: ['مكتب', 'داخل المنزل', 'احترافي'], tagsFr: ['Bureau', 'Intérieur', 'Professionnel'], tagsEs: ['Oficina', 'Interior', 'Profesional'] },
+    { id: 6, title: 'Bakery Helper', titleAr: 'مساعد مخبز', titleFr: 'Assistant de boulangerie', titleEs: 'Ayudante de panadería', company: 'Golden Bakery', companyAr: 'المخبز الذهبي', companyFr: 'Boulangerie Dorée', companyEs: 'Panadería Dorada', icon: '🍞', type: 'Food', typeAr: 'المطاعم والكافيهات', typeFr: 'Restauration', typeEs: 'Alimentos y Bebidas', location: 'Cairo', locationAr: 'القاهرة', locationFr: 'Le Caire', locationEs: 'El Cairo', match: 82, desc: 'Help bake and package bread, organise shelves, and serve customers.', descAr: 'ساعد في الخبز وتغليف الخبز ونظم الرفوف وخدمة العملاء.', descFr: 'Aidez à cuire le pain, rangez les étagères et servez les clients.', descEs: 'Ayuda a hornear y empaquetar pan, organiza estantes y sirve clientes.', tags: ['Food', 'Active', 'Morning Shift'], tagsAr: ['طعام', 'نشيط', 'وردية صباحية'], tagsFr: ['Alimentation', 'Actif', 'Matin'], tagsEs: ['Comida', 'Activo', 'Turno mañana'] },
+    { id: 7, title: 'Recycling Sorter', titleAr: 'مصنف إعادة تدوير', titleFr: 'Trieur de recyclage', titleEs: 'Clasificador de reciclaje', company: 'EcoGreen Centre', companyAr: 'مركز إيكو جرين', companyFr: 'Centre Éco-Vert', companyEs: 'Centro EcoVerde', icon: '♻️', type: 'Environment', typeAr: 'البيئة', typeFr: 'Environnement', typeEs: 'Medio Ambiente', location: 'Giza', locationAr: 'الجيزة', locationFr: 'Gizeh', locationEs: 'Guiza', match: 78, desc: 'Sort recyclable materials by type and help run the recycling station.', descAr: 'صنف المواد القابلة لإعادة التدوير حسب النوع وساعد في محطة التدوير.', descFr: 'Triez les matériaux recyclables et aidez à gérer la station.', descEs: 'Clasifica materiales reciclables y ayuda en la estación de reciclaje.', tags: ['Environmental', 'Active', 'Routine'], tagsAr: ['بيئي', 'نشيط', 'روتيني'], tagsFr: ['Écologie', 'Actif', 'Routine'], tagsEs: ['Ambiental', 'Activo', 'Rutina'] },
+    { id: 8, title: 'Art Studio Helper', titleAr: 'مساعد استوديو فنون', titleFr: 'Assistant d\'atelier d\'art', titleEs: 'Ayudante de estudio de arte', company: 'Creative Hands Studio', companyAr: 'استوديو كيريتيف هاندز', companyFr: 'Atelier Mains Créatives', companyEs: 'Estudio Manos Creativas', icon: '🎨', type: 'Creative', typeAr: 'إبداعي', typeFr: 'Création', typeEs: 'Creativo', location: 'Alexandria', locationAr: 'الإسكندرية', locationFr: 'Alexandrie', locationEs: 'Alejandría', match: 86, desc: 'Help set up art materials, clean brushes, and assist art teachers.', descAr: 'ساعد في تجهيز المواد الفنية وتنظيف الفرش ومساعدة المعلمين.', descFr: 'Préparez le matériel d\'art, nettoyez les pinceaux et aidez les profs.', descEs: 'Prepara materiales de arte, limpia pinceles y ayuda a profesores.', tags: ['Creative', 'Art', 'Part Time'], tagsAr: ['إبداعي', 'فن', 'دوام جزئي'], tagsFr: ['Créatif', 'Art', 'Temps partiel'], tagsEs: ['Creativo', 'Arte', 'Medio tiempo'] },
+    { id: 9, title: 'Animal Care Helper', titleAr: 'مساعد رعاية حيوانات', titleFr: 'Assistant de soins animaliers', titleEs: 'Ayudante de cuidado animal', company: 'Happy Paws Centre', companyAr: 'مركز هابي بوز', companyFr: 'Centre Happy Paws', companyEs: 'Centro Happy Paws', icon: '🐾', type: 'Animals', typeAr: 'رعاية حيوانات', typeFr: 'Animaux', typeEs: 'Cuidado Animal', location: 'Cairo', locationAr: 'القاهرة', locationFr: 'Le Caire', locationEs: 'El Cairo', match: 84, desc: 'Feed and care for animals, clean enclosures, and welcome visitors.', descAr: 'أطعم الحيوانات واعتنِ بها ونظف الحظائر ورحب بالزوار.', descFr: 'Nourrissez les animaux, nettoyez les enclos et accueillez les visiteurs.', descEs: 'Alimenta a los animales, limpia jaulas y recibe a los visitantes.', tags: ['Animals', 'Active', 'Rewarding'], tagsAr: ['حيوانات', 'نشيط', 'مجزي'], tagsFr: ['Animaux', 'Actif', 'Gratifiant'], tagsEs: ['Animales', 'Activo', 'Gratificante'] }
 ];
 
 var TOPICS = [
     {
-        id: 'intro', icon: '👋', title: 'How to Introduce Yourself', titleAr: 'كيف تقدم نفسك', time: '10 min', color: '#FF6B35',
+        id: 'intro', icon: '👋', title: 'How to Introduce Yourself', titleAr: 'كيف تقدم نفسك', titleFr: 'Comment se présenter', titleEs: 'Cómo presentarse', time: '10 min', color: '#FF6B35',
         content: [
-            { type: 'text', en: 'Introducing yourself is the first step in any new workplace. A good introduction helps people remember you!', ar: 'تقديم نفسك هو الخطوة الأولى في أي مكان عمل جديد.' },
-            { type: 'tip', en: '💡 Keep it short: Your name, what you enjoy, and one fun fact!', ar: '💡 اجعلها قصيرة: اسمك وما تستمتع به وحقيقة ممتعة!' },
-            { type: 'example', en: 'Example: "Hi! My name is Ahmed. I love gardening and I\'m excited to join your team!"', ar: 'مثال: "مرحباً! اسمي أحمد. أحب البستنة وأنا متحمس للانضمام!"' },
-            { type: 'quiz', q: 'What should you say first?', qAr: 'ماذا تقول أولاً؟', opts: ['Your name', 'Your favourite food', 'Your age'], answer: 0 }
+            { type: 'text', en: 'Introducing yourself is the first step in any new workplace. A good introduction helps people remember you!', ar: 'تقديم نفسك هو الخطوة الأولى في أي مكان عمل جديد.', fr: 'Se présenter est la première étape dans tout nouveau lieu de travail. Une bonne présentation aide les gens à se souvenir de vous !', es: 'Presentarse es el primer paso en cualquier lugar de trabajo nuevo. ¡Una buena presentación ayuda a que la gente te recuerde!' },
+            { type: 'tip', en: '💡 Keep it short: Your name, what you enjoy, and one fun fact!', ar: '💡 اجعلها قصيرة: اسمك وما تستمتع به وحقيقة ممتعة!', fr: '💡 Restez bref : votre nom, ce que vous aimez et un fait amusant !', es: '💡 Sé breve: ¡tu nombre, lo que te gusta y un dato divertido!' },
+            { type: 'example', en: 'Example: "Hi! My name is Ahmed. I love gardening and I\'m excited to join your team!"', ar: 'مثال: "مرحباً! اسمي أحمد. أحب البستنة وأنا متحمس للانضمام!"', fr: 'Exemple : "Salut ! Je m\'appelle Ahmed. J\'adore le jardinage et je suis ravi de rejoindre votre équipe !"', es: 'Ejemplo: "¡Hola! Mi nombre es Ahmed. ¡Me encanta la jardinería y estoy emocionado de unirme a su equipo!"' },
+            { type: 'quiz', q: 'What should you say first?', qAr: 'ماذا تقول أولاً؟', qFr: 'Que devriez-vous dire en premier ?', qEs: '¿Qué deberías decir primero?', opts: ['Your name', 'Your favourite food', 'Your age'], optsAr: ['اسمك', 'طعامك المفضل', 'عمرك'], optsFr: ['Votre nom', 'Votre plat préféré', 'Votre âge'], optsEs: ['Tu nombre', 'Tu comida favorita', 'Tu edad'], answer: 0 }
         ]
     },
     {
-        id: 'interview', icon: '🎤', title: 'Preparing for a Job Interview', titleAr: 'التحضير للمقابلة', time: '15 min', color: '#1DB9A8',
+        id: 'interview', icon: '🎤', title: 'Preparing for a Job Interview', titleAr: 'التحضير للمقابلة', titleFr: 'Se préparer pour un entretien', titleEs: 'Prepararse para una entrevista', time: '15 min', color: '#1DB9A8',
         content: [
-            { type: 'text', en: 'A job interview is when an employer asks you questions to see if you are right for the job. Being prepared makes you confident!', ar: 'مقابلة العمل هي عندما يطرح صاحب العمل عليك أسئلة.' },
-            { type: 'tip', en: '💡 Before the interview: know the company name, arrive 10 minutes early, and smile!', ar: '💡 قبل المقابلة: اعرف اسم الشركة، احضر قبل 10 دقائق، وابتسم!' },
-            { type: 'example', en: '"I am very excited about this job. I am hardworking and I love helping people!"', ar: '"أنا متحمس جداً لهذه الوظيفة. أنا مجتهد وأحب مساعدة الناس!"' },
-            { type: 'quiz', q: 'How early should you arrive?', qAr: 'كم مبكراً يجب أن تصل؟', opts: ['5 minutes late', 'Exactly on time', '10 minutes early'], answer: 2 }
+            { type: 'text', en: 'A job interview is when an employer asks you questions to see if you are right for the job. Being prepared makes you confident!', ar: 'مقابلة العمل هي عندما يطرح صاحب العمل عليك أسئلة.', fr: 'Un entretien d\'embauche, c\'est quand un employeur vous pose des questions pour voir si vous convenez au poste. Être préparé vous donne confiance !', es: 'Una entrevista de trabajo es cuando un empleador te hace preguntas para ver si eres apto para el puesto. ¡Estar preparado te da confianza!' },
+            { type: 'tip', en: '💡 Before the interview: know the company name, arrive 10 minutes early, and smile!', ar: '💡 قبل المقابلة: اعرف اسم الشركة، احضر قبل 10 دقائق، وابتسم!', fr: '💡 Avant l\'entretien : connaissez le nom de l\'entreprise, arrivez 10 minutes à l\'avance et souriez !', es: '💡 Antes de la entrevista: ¡conoce el nombre de la empresa, llega 10 minutos antes y sonríe!' },
+            { type: 'example', en: '"I am very excited about this job. I am hardworking and I love helping people!"', ar: '"أنا متحمس جداً لهذه الوظيفة. أنا مجتهد وأحب مساعدة الناس!"', fr: '"Je suis très enthousiaste à l\'idée d\'occuper ce poste. Je suis travailleur et j\'aime aider les gens !"', es: '"Estoy muy emocionado por este trabajo. ¡Soy trabajador y me encanta ayudar a la gente!"' },
+            { type: 'quiz', q: 'How early should you arrive?', qAr: 'كم مبكراً يجب أن تصل؟', qFr: 'Combien de temps à l\'avance devez-vous arriver ?', qEs: '¿Con cuánta antelación debes llegar?', opts: ['5 minutes late', 'Exactly on time', '10 minutes early'], optsAr: ['متأخر 5 دقائق', 'في الوقت تماماً', 'عشر دقائق مبكراً'], optsFr: ['5 minutes de retard', 'Pile à l\'heure', '10 minutes d\'avance'], optsEs: ['5 minutos tarde', 'Exactamente a tiempo', '10 minutos antes'], answer: 2 }
         ]
     },
     {
-        id: 'comms', icon: '🗣️', title: 'Communicating with Coworkers', titleAr: 'التواصل مع الزملاء', time: '12 min', color: '#7C3AED',
+        id: 'comms', icon: '🗣️', title: 'Communicating with Coworkers', titleAr: 'التواصل مع الزملاء', titleFr: 'Communiquer avec les collègues', titleEs: 'Comunicarse con compañeros', time: '12 min', color: '#7C3AED',
         content: [
-            { type: 'text', en: 'Good communication means being clear, kind, and respectful. It helps everyone work together happily!', ar: 'التواصل الجيد يعني الوضوح واللطف والاحترام.' },
-            { type: 'tip', en: '💡 Always say please and thank you! And listen carefully when others speak.', ar: '💡 قل دائماً من فضلك وشكراً!' },
-            { type: 'example', en: '"Excuse me, could you help me with this task please?"', ar: '"عذراً، هل يمكنك مساعدتي في هذه المهمة من فضلك؟"' },
-            { type: 'quiz', q: 'What should you do when a coworker is talking?', qAr: 'ماذا تفعل عندما يتحدث زميل؟', opts: ['Look at your phone', 'Listen carefully', 'Walk away'], answer: 1 }
+            { type: 'text', en: 'Good communication means being clear, kind, and respectful. It helps everyone work together happily!', ar: 'التواصل الجيد يعني الوضوح واللطف والاحترام.', fr: 'Une bonne communication signifie être clair, gentil et respectueux. Cela aide tout le monde à travailler ensemble dans la bonne humeur !', es: 'Una buena comunicación significa ser claro, amable y respetuoso. ¡Ayuda a que todos trabajen juntos felizmente!' },
+            { type: 'tip', en: '💡 Always say please and thank you! And listen carefully when others speak.', ar: '💡 قل دائماً من فضلك وشكراً!', fr: '💡 Dites toujours s\'il vous plaît et merci ! Et écoutez attentivement quand les autres parlent.', es: '💡 ¡Di siempre por favor y gracias! Y escucha con atención cuando otros hablan.' },
+            { type: 'example', en: '"Excuse me, could you help me with this task please?"', ar: '"عذراً، هل يمكنك مساعدتي في هذه المهمة من فضلك؟"', fr: '"Excusez-moi, pourriez-vous m\'aider pour cette tâche s\'il vous plaît ?"', es: '"Disculpe, ¿podría ayudarme con esta tarea por favor?"' },
+            { type: 'quiz', q: 'What should you do when a coworker is talking?', qAr: 'ماذا تفعل عندما يتحدث زميل؟', qFr: 'Que devez-vous faire quand un collègue parle ?', qEs: '¿Qué debes hacer cuando un compañero habla?', opts: ['Look at your phone', 'Listen carefully', 'Walk away'], optsAr: ['تنظر في هاتفك', 'تستمع باهتمام', 'تمشي بعيداً'], optsFr: ['Regarder son téléphone', 'Écouter attentivement', 'S\'en aller'], optsEs: ['Mirar tu teléfono', 'Escuchar con atención', 'Irte'], answer: 1 }
         ]
     },
     {
-        id: 'behavior', icon: '🤝', title: 'Workplace Behaviour', titleAr: 'السلوك في العمل', time: '10 min', color: '#10B981',
+        id: 'behavior', icon: '🤝', title: 'Workplace Behaviour', titleAr: 'السلوك في العمل', titleFr: 'Comportement au travail', titleEs: 'Comportamiento en el trabajo', time: '10 min', color: '#10B981',
         content: [
-            { type: 'text', en: 'Good workplace behaviour means being respectful, reliable, and friendly. Your actions affect the whole team!', ar: 'السلوك الجيد في مكان العمل يعني الاحترام والموثوقية.' },
-            { type: 'tip', en: '💡 Always tell your manager if you will be late. Keep your work area tidy.', ar: '💡 أخبر مديرك دائماً إذا كنت ستتأخر.' },
-            { type: 'example', en: 'Good behaviour: arriving on time, completing tasks, saying good morning to your team!', ar: 'السلوك الجيد: الحضور في الوقت وإتمام المهام وقول صباح الخير!' },
-            { type: 'quiz', q: 'What should you do if you will be late?', qAr: 'ماذا تفعل إذا كنت ستتأخر؟', opts: ['Say nothing', 'Tell your manager', 'Ask a friend'], answer: 1 }
+            { type: 'text', en: 'Good workplace behaviour means being respectful, reliable, and friendly. Your actions affect the whole team!', ar: 'السلوك الجيد في مكان العمل يعني الاحترام والموثوقية.', fr: 'Un bon comportement au travail signifie être respectueux, fiable et amical. Vos actions affectent toute l\'équipe !', es: 'Un buen comportamiento laboral significa ser respetuoso, confiable y amable. ¡Tus acciones afectan a todo el equipo!' },
+            { type: 'tip', en: '💡 Always tell your manager if you will be late. Keep your work area tidy.', ar: '💡 أخبر مديرك دائماً إذا كنت ستتأخر.', fr: '💡 Prévenez toujours votre manager si vous allez être en retard. Gardez votre zone de travail propre.', es: '💡 Avisa siempre a tu jefe si vas a llegar tarde. Mantén limpia tu zona de trabajo.' },
+            { type: 'example', en: 'Good behaviour: arriving on time, completing tasks, saying good morning to your team!', ar: 'السلوك الجيد: الحضور في الوقت وإتمام المهام وقول صباح الخير!', fr: 'Bon comportement : arriver à l\'heure, terminer ses tâches, dire bonjour à son équipe !', es: 'Buen comportamiento: llegar a tiempo, completar tareas, ¡decir buenos días a tu equipo!' },
+            { type: 'quiz', q: 'What should you do if you will be late?', qAr: 'ماذا تفعل إذا كنت ستتأخر؟', qFr: 'Que faire si vous allez être en retard ?', qEs: '¿Qué debes hacer si vas a llegar tarde?', opts: ['Say nothing', 'Tell your manager', 'Ask a friend'], optsAr: ['لا تقل شيئاً', 'أخبر مديرك', 'أسأل صديقاً'], optsFr: ['Ne rien dire', 'Prévenir son manager', 'Demander à un ami'], optsEs: ['No decir nada', 'Avisar a tu jefe', 'Preguntar a un amigo'], answer: 1 }
         ]
     },
     {
-        id: 'time', icon: '⏰', title: 'Time Management', titleAr: 'إدارة الوقت', time: '12 min', color: '#FFB830',
+        id: 'time', icon: '⏰', title: 'Time Management', titleAr: 'إدارة الوقت', titleFr: 'Gestion du temps', titleEs: 'Gestión del tiempo', time: '12 min', color: '#FFB830',
         content: [
-            { type: 'text', en: 'Managing your time means doing the right tasks at the right moment. It helps you feel calm and in control!', ar: 'إدارة وقتك تعني القيام بالمهام الصحيحة في الوقت المناسب.' },
-            { type: 'tip', en: '💡 Use an alarm clock! Write a daily to-do list the night before work.', ar: '💡 استخدم المنبه! اكتب قائمة مهام يومية في الليلة السابقة.' },
-            { type: 'example', en: 'Morning routine: wake up, get dressed, eat breakfast, and leave on time!', ar: 'روتين صباحي: استيقظ، والبس، وتناول الإفطار، واغادر في الوقت.' },
-            { type: 'quiz', q: 'When to plan tomorrow\'s tasks?', qAr: 'متى تخطط لمهام الغد؟', opts: ['During work', 'The night before', 'On the way'], answer: 1 }
+            { type: 'text', en: 'Managing your time means doing the right tasks at the right moment. It helps you feel calm and in control!', ar: 'إدارة وقتك تعني القيام بالمهام الصحيحة في الوقت المناسب.', fr: 'Gérer son temps signifie faire les bonnes tâches au bon moment. Cela vous aide à vous sentir calme et à garder le contrôle !', es: 'Gestionar tu tiempo significa hacer las tareas correctas en el momento adecuado. ¡Te ayuda a sentirte tranquilo y en control!' },
+            { type: 'tip', en: '💡 Use an alarm clock! Write a daily to-do list the night before work.', ar: '💡 استخدم المنبه! اكتب قائمة مهام يومية في الليلة السابقة.', fr: '💡 Utilisez un réveil ! Écrivez une liste de choses à faire la veille au soir.', es: '💡 ¡Usa un despertador! Escribe una lista de tareas la noche anterior.' },
+            { type: 'example', en: 'Morning routine: wake up, get dressed, eat breakfast, and leave on time!', ar: 'روتين صباحي: استيقظ، والبس، وتناول الإفطار، واغادر في الوقت.', fr: 'Routine matinale : se réveiller, s\'habiller, prendre son petit-déjeuner et partir à l\'heure !', es: 'Rutina matutina: ¡despierta, vístete, desayuna y sal a tiempo!' },
+            { type: 'quiz', q: 'When to plan tomorrow\'s tasks?', qAr: 'متى تخطط لمهام الغد؟', qFr: 'Quand planifier les tâches de demain ?', qEs: '¿Cuándo planificar las tareas de mañana?', opts: ['During work', 'The night before', 'On the way'], optsAr: ['أثناء العمل', 'الليلة السابقة', 'في الطريق'], optsFr: ['Pendant le travail', 'La veille au soir', 'En chemin'], optsEs: ['Durante el trabajo', 'La noche anterior', 'En el camino'], answer: 1 }
         ]
     },
     {
-        id: 'computer', icon: '💻', title: 'Basic Computer Skills', titleAr: 'مهارات الكمبيوتر الأساسية', time: '15 min', color: '#3B82F6',
+        id: 'computer', icon: '💻', title: 'Basic Computer Skills', titleAr: 'مهارات الكمبيوتر الأساسية', titleFr: 'Compétences informatiques de base', titleEs: 'Habilidades básicas de computación', time: '15 min', color: '#3B82F6',
         content: [
-            { type: 'text', en: 'Basic computer skills are very helpful in many jobs. Learning to type, use email, and open files is a great start!', ar: 'مهارات الكمبيوتر الأساسية مفيدة جداً في كثير من الوظائف.' },
-            { type: 'tip', en: '💡 Practice typing your name every day. Start with ASDF for your left hand!', ar: '💡 تدرب على كتابة اسمك كل يوم.' },
-            { type: 'example', en: 'Key skills: turning on/off computer, typing, opening browser, sending emails.', ar: 'المهارات الرئيسية: تشغيل الكمبيوتر والكتابة وفتح المتصفح وإرسال البريد.' },
-            { type: 'quiz', q: 'What is a keyboard used for?', qAr: 'ما استخدام لوحة المفاتيح؟', opts: ['To type letters', 'To take photos', 'To print'], answer: 0 }
+            { type: 'text', en: 'Basic computer skills are very helpful in many jobs. Learning to type, use email, and open files is a great start!', ar: 'مهارات الكمبيوتر الأساسية مفيدة جداً في كثير من الوظائف.', fr: 'Les compétences informatiques de base sont très utiles dans de nombreux emplois. Apprendre à taper, utiliser les e-mails et ouvrir des fichiers est un excellent début !', es: 'Las habilidades básicas de computación son muy útiles en muchos trabajos. ¡Aprender a escribir, usar el correo electrónico y abrir archivos es un gran comienzo!' },
+            { type: 'tip', en: '💡 Practice typing your name every day. Start with ASDF for your left hand!', ar: '💡 تدرب على كتابة اسمك كل يوم.', fr: '💡 Entraînez-vous à taper votre nom chaque jour. Commencez par ASDF pour la main gauche !', es: '💡 Practica escribir tu nombre todos los días. ¡Empieza con ASDF para tu mano izquierda!' },
+            { type: 'example', en: 'Key skills: turning on/off computer, typing, opening browser, sending emails.', ar: 'المهارات الرئيسية: تشغيل الكمبيوتر والكتابة وفتح المتصفح وإرسال البريد.', fr: 'Compétences clés : allumer/éteindre l\'ordinateur, taper, ouvrir le navigateur, envoyer des e-mails.', es: 'Habilidades clave: encender/apagar la computadora, escribir, abrir el navegador, enviar correos.' },
+            { type: 'quiz', q: 'What is a keyboard used for?', qAr: 'ما استخدام لوحة المفافيح؟', qFr: 'À quoi sert un clavier ?', qEs: '¿Para qué se usa un teclado?', opts: ['To type letters', 'To take photos', 'To print'], optsAr: ['كتابة الحروف', 'التقاط الصور', 'الطباعة'], optsFr: ['Taper des lettres', 'Prendre des photos', 'Imprimer'], optsEs: ['Para escribir letras', 'Para tomar fotos', 'Para imprimir'], answer: 0 }
         ]
     },
     {
-        id: 'customer', icon: '🛍️', title: 'Customer Service Basics', titleAr: 'أساسيات خدمة العملاء', time: '10 min', color: '#F43F5E',
+        id: 'customer', icon: '🛍️', title: 'Customer Service Basics', titleAr: 'أساسيات خدمة العملاء', titleFr: 'Bases du service client', titleEs: 'Fundamentos de atención al cliente', time: '10 min', color: '#F43F5E',
         content: [
-            { type: 'text', en: 'Customer service is about making customers feel happy and valued. Your smile makes a huge difference!', ar: 'خدمة العملاء تتعلق بجعل العملاء يشعرون بالسعادة.' },
-            { type: 'tip', en: '💡 Always greet customers with a smile. If unsure, say "Let me find out for you!"', ar: '💡 دائماً رحب بالعملاء بابتسامة.' },
-            { type: 'example', en: '"Welcome! How can I help you today?" is a perfect greeting.', ar: '"مرحباً! كيف يمكنني مساعدتك اليوم؟"' },
-            { type: 'quiz', q: 'Most important in customer service?', qAr: 'أهم شيء في خدمة العملاء؟', opts: ['Selling quickly', 'Making customer happy', 'Working fast'], answer: 1 }
+            { type: 'text', en: 'Customer service is about making customers feel happy and valued. Your smile makes a huge difference!', ar: 'خدمة العملاء تتعلق بجعل العملاء يشعرون بالسعادة.', fr: 'Le service client consiste à rendre les clients heureux et valorisés. Votre sourire fait toute la différence !', es: 'El servicio al cliente consiste en hacer que los clientes se sientan felices y valorados. ¡Tu sonrisa hace una gran diferencia!' },
+            { type: 'tip', en: '💡 Always greet customers with a smile. If unsure, say "Let me find out for you!"', ar: '💡 دائماً رحب بالعملاء بابتسامة.', fr: '💡 Accueillez toujours les clients avec le sourire. En cas de doute, dites \"Laissez-moi me renseigner pour vous !\"', es: '💡 Siempre saluda a los clientes con una sonrisa. Si no estás seguro, di \"¡Déjame averiguarlo por ti!\"' },
+            { type: 'example', en: '"Welcome! How can I help you today?" is a perfect greeting.', ar: '"مرحباً! كيف يمكنني مساعدتك اليوم؟"', fr: '\"Bienvenue ! Comment puis-je vous aider aujourd\'hui ?\" est un accueil parfait.', es: '\"¡Bienvenido! ¿Cómo puedo ayudarle hoy?\" es un saludo perfecto.' },
+            { type: 'quiz', q: 'Most important in customer service?', qAr: 'أهم شيء في خدمة العملاء؟', qFr: 'Le plus important dans le service client ?', qEs: '¿Lo más importante en el servicio al cliente?', opts: ['Selling quickly', 'Making customer happy', 'Working fast'], optsAr: ['البيع بسرعة', 'إسعاد العميل', 'العمل بسرعة'], optsFr: ['Vendre vite', 'Rendre le client heureux', 'Travailler vite'], optsEs: ['Vender rápido', 'Hacer feliz al cliente', 'Trabajar rápido'], answer: 1 }
         ]
     }
 ];
 
 var CV_FIELDS = [
-    { key: 'name', en: 'What is your full name?', ar: 'ما اسمك الكامل؟', hint: 'e.g. Ahmed Mohammed Ali', type: 'text' },
-    { key: 'role', en: 'What job do you want?', ar: 'ما الوظيفة التي تريدها؟', hint: 'e.g. Store Helper, Café Assistant', type: 'text' },
-    { key: 'email', en: 'Your email address:', ar: 'عنوان بريدك الإلكتروني:', hint: 'e.g. ahmed@gmail.com', type: 'email' },
-    { key: 'phone', en: 'Your phone number:', ar: 'رقم هاتفك:', hint: 'e.g. +20 100 000 0000', type: 'text' },
-    { key: 'loc', en: 'Where do you live?', ar: 'أين تسكن؟', hint: 'e.g. Cairo, Egypt', type: 'text' },
-    { key: 'summary', en: 'Write a short professional summary:', ar: 'اكتب ملخصاً احترافياً قصيراً:', hint: '2-3 sentences about your strengths and goals', type: 'textarea' },
-    { key: 'exp', en: 'Work experience:', ar: 'خبرتك العملية:', hint: 'Any jobs, volunteering, or school activities.', type: 'textarea' },
-    { key: 'edu', en: 'Your education:', ar: 'تعليمك:', hint: 'School name, year graduated, and achievements', type: 'textarea' },
-    { key: 'cert', en: 'Any certifications or courses?', ar: 'أي شهادات أو دورات؟', hint: 'e.g. First Aid, computer course', type: 'text' },
-    { key: 'skills', en: 'Your skills:', ar: 'مهاراتك:', hint: 'Click all that apply!', type: 'skills' },
-    { key: 'hobbies', en: 'Hobbies and interests:', ar: 'هواياتك واهتماماتك:', hint: 'e.g. football, art, reading', type: 'textarea' }
+    { key: 'name', en: 'What is your full name?', ar: 'ما اسمك الكامل؟', fr: 'Quel est votre nom complet ?', es: '¿Cuál es su nombre completo?', hint: 'e.g. Ahmed Mohammed Ali', hintAr: 'مثال: أحمد محمد علي', hintFr: 'ex. Ahmed Mohammed Ali', hintEs: 'ej. Ahmed Mohammed Ali', type: 'text' },
+    { key: 'role', en: 'What job do you want?', ar: 'ما الوظيفة التي تريدها؟', fr: 'Quel travail voulez-vous ?', es: '¿Qué trabajo quieres?', hint: 'e.g. Store Helper, Café Assistant', hintAr: 'مثال: مساعد متجر، مساعد مقهى', hintFr: 'ex. Assistant de magasin', hintEs: 'ej. Ayudante de tienda', type: 'text' },
+    { key: 'email', en: 'Your email address:', ar: 'عنوان بريدك الإلكتروني:', fr: 'Votre adresse e-mail :', es: 'Su correo electrónico:', hint: 'e.g. ahmed@gmail.com', hintAr: 'مثال: ahmed@gmail.com', hintFr: 'ex. ahmed@gmail.com', hintEs: 'ej. ahmed@gmail.com', type: 'email' },
+    { key: 'phone', en: 'Your phone number:', ar: 'رقم هاتفك:', fr: 'Votre numéro de téléphone :', es: 'Su número de teléfono:', hint: 'e.g. +20 100 000 0000', hintAr: 'مثال: +20 100 000 0000', hintFr: 'ex. +20 100 000 0000', hintEs: 'ej. +20 100 000 0000', type: 'text' },
+    { key: 'loc', en: 'Where do you live?', ar: 'أين تسكن؟', fr: 'Où habitez-vous ?', es: '¿Dónde vives?', hint: 'e.g. Cairo, Egypt', hintAr: 'مثال: القاهرة، مصر', hintFr: 'ex. Le Caire, Égypte', hintEs: 'ej. El Cairo, Egipto', type: 'text' },
+    { key: 'summary', en: 'Write a short professional summary:', ar: 'اكتب ملخصاً احترافياً قصيراً:', fr: 'Écrivez un court résumé professionnel :', es: 'Escribe un breve resumen profesional:', hint: '2-3 sentences about your strengths and goals', hintAr: '2-3 جمل عن قوتك وأهدافك', hintFr: '2-3 phrases sur vos points forts', hintEs: '2-3 frases sobre tus fortalezas', type: 'textarea' },
+    { key: 'exp', en: 'Work experience:', ar: 'خبرتك العملية:', fr: 'Expérience professionnelle :', es: 'Experiencia laboral:', hint: 'Any jobs, volunteering, or school activities.', hintAr: 'أي وظائف أو تطوع أو أنشطة مدرسية.', hintFr: 'Tous les emplois ou activités scolaires.', hintEs: 'Cualquier trabajo o actividad escolar.', type: 'textarea' },
+    { key: 'edu', en: 'Your education:', ar: 'تعليمك:', fr: 'Votre éducation :', es: 'Tu educación:', hint: 'School name, year graduated, and achievements', hintAr: 'اسم المدرسة وسنة التخرج والإنجازات', hintFr: 'Nom de l\'école et année de diplôme', hintEs: 'Nombre de la escuela y año de graduación', type: 'textarea' },
+    { key: 'cert', en: 'Any certifications or courses?', ar: 'أي شهادات أو دورات؟', fr: 'Des certifications ou cours ?', es: '¿Alguna certificación o curso?', hint: 'e.g. First Aid, computer course', hintAr: 'مثال: إسعافات أولية، دورة كمبيوتر', hintFr: 'ex. Premiers secours', hintEs: 'ej. Primeros auxilios', type: 'text' },
+    { key: 'skills', en: 'Your skills:', ar: 'مهاراتك:', fr: 'Vos compétences :', es: 'Tus habilidades:', hint: 'Click all that apply!', hintAr: 'انقر على كل ما ينطبق!', hintFr: 'Cliquez sur tout ce qui s\'applique !', hintEs: '¡Haz clic en todo lo que aplique!', type: 'skills' },
+    { key: 'hobbies', en: 'Hobbies and interests:', ar: 'هواياتك واهتماماتك:', fr: 'Loisirs et intérêts :', es: 'Aficiones e intereses:', hint: 'e.g. football, art, reading', hintAr: 'مثال: كرة القدم، الفن، القراءة', hintFr: 'ex. football, art, lecture', hintEs: 'ej. fútbol, arte, lectura', type: 'textarea' }
 ];
 
 var SKILLS_LIST = ['Friendly & polite', 'Good listener', 'Team player', 'Organised', 'Punctual', 'Creative', 'Good memory', 'Computer basics', 'Counting & maths', 'Customer service', 'Physical work', 'Drawing & art', 'Music', 'Cooking', 'Tidying & cleaning', 'Problem solving', 'Fast learner'];
 
 var CV_SLIDES = [
-    { c: '📄', en: "Welcome! Let's learn how to build an ATS-ready CV step by step!", ar: 'مرحباً! لنتعلم كيف نبني سيرة ذاتية!' },
-    { c: '🤖', en: 'ATS = Applicant Tracking System. It reads your CV before a real person!', ar: 'ATS = نظام تتبع المتقدمين. يقرأ سيرتك الذاتية قبل الإنسان!' },
-    { c: '👤', en: 'Section 1: Your Name, Email, Phone, and Location — all at the TOP.', ar: 'القسم 1: اسمك والبريد ورقم الهاتف والموقع — كلها في الأعلى.' },
-    { c: '✍️', en: 'Section 2: Professional Summary — 2-3 sentences about your strengths.', ar: 'القسم 2: الملخص الاحترافي — 2-3 جمل عن نقاط قوتك.' },
-    { c: '💼', en: 'Section 3: Work Experience — even small jobs and volunteering count!', ar: 'القسم 3: الخبرة العملية — حتى الأعمال الصغيرة والتطوع تهم!' },
-    { c: '🎓', en: 'Section 4: Education — school name and graduation year.', ar: 'القسم 4: التعليم — اسم المدرسة وسنة التخرج.' },
-    { c: '🏆', en: 'Section 5: Certifications — any courses, awards, or training.', ar: 'القسم 5: الشهادات — أي دورات أو جوائز.' },
-    { c: '🧩', en: 'Section 6: Skills — teamwork, customer service, computer basics. Use keywords!', ar: 'القسم 6: المهارات — العمل الجماعي وخدمة العملاء.' },
-    { c: '✅', en: 'Use simple fonts and clear headings. No photos — ATS cannot read them!', ar: 'استخدم خطوطاً بسيطة وعناوين واضحة.' },
-    { c: '🎉', en: "Amazing! Now you know how to build an ATS CV. Let's build yours!", ar: 'رائع! الآن تعرف كيف تبني سيرة ذاتية. لنبنِ سيرتك!' }
+    { c: '📄', en: "Welcome! Let's learn how to build an ATS-ready CV step by step!", ar: 'مرحباً! لنتعلم كيف نبني سيرة ذاتية!', fr: 'Bienvenue ! Apprenons à créer un CV prêt pour l\'ATS étape par étape !', es: '¡Bienvenido! ¡Aprendamos a crear un CV listo para ATS paso a paso!' },
+    { c: '🤖', en: 'ATS = Applicant Tracking System. It reads your CV before a real person!', ar: 'ATS = نظام تتبع المتقدمين. يقرأ سيرتك الذاتية قبل الإنسان!', fr: 'ATS = Système de suivi des candidatures. Il lit votre CV avant une vraie personne !', es: 'ATS = Sistema de seguimiento de candidatos. ¡Lee tu CV antes que una persona!' },
+    { c: '👤', en: 'Section 1: Your Name, Email, Phone, and Location — all at the TOP.', ar: 'القسم 1: اسمك والبريد ورقم الهاتف والموقع — كلها في الأعلى.', fr: 'Section 1 : Votre nom, e-mail, téléphone et lieu — tout en HAUT.', es: 'Sección 1: Tu nombre, e-mail, teléfono y ubicación, todo en la PARTE SUPERIOR.' },
+    { c: '✍️', en: 'Section 2: Professional Summary — 2-3 sentences about your strengths.', ar: 'القسم 2: الملخص الاحترافي — 2-3 جمل عن نقاط قوتك.', fr: 'Section 2 : Résumé professionnel — 2-3 phrases sur vos points forts.', es: 'Sección 2: Resumen profesional — 2-3 frases sobre tus fortalezas.' },
+    { c: '💼', en: 'Section 3: Work Experience — even small jobs and volunteering count!', ar: 'القسم 3: الخبرة العملية — حتى الأعمال الصغيرة والتطوع تهم!', fr: 'Section 3 : Expérience pro — même les petits jobs et le bénévolat comptent !', es: 'Sección 3: Experiencia laboral — ¡incluso los trabajos pequeños cuentan!' },
+    { c: '🎓', en: 'Section 4: Education — school name and graduation year.', ar: 'القسم 4: التعليم — اسم المدرسة وسنة التخرج.', fr: 'Section 4 : Éducation — nom de l\'école et année d\'obtention du diplôme.', es: 'Sección 4: Educación — nombre de la escuela y año de graduación.' },
+    { c: '🏆', en: 'Section 5: Certifications — any courses, awards, or training.', ar: 'القسم 5: الشهادات — أي دورات أو جوائز.', fr: 'Section 5 : Certifications — tous les cours, prix ou formations.', es: 'Sección 5: Certificaciones — cualquier curso, premio o capacitación.' },
+    { c: '🧩', en: 'Section 6: Skills — teamwork, customer service, computer basics. Use keywords!', ar: 'القسم 6: المهارات — العمل الجماعي وخدمة العملاء.', fr: 'Section 6 : Compétences — travail d\'équipe, service client, informatique.', es: 'Sección 6: Habilidades: trabajo en equipo, servicio al cliente, informática.' },
+    { c: '✅', en: 'Use simple fonts and clear headings. No photos — ATS cannot read them!', ar: 'استخدم خطوطاً بسيطة وعناوين واضحة.', fr: 'Utilisez des polices simples et des titres clairs. Pas de photos !', es: 'Usa fuentes simples y encabezados claros. ¡Sin fotos!' },
+    { c: '🎉', en: "Amazing! Now you know how to build an ATS CV. Let's build yours!", ar: 'رائع! الآن تعرف كيف تبني سيرة ذاتية. لنبنِ سيرتك!', fr: 'Incroyable ! Maintenant vous savez créer un CV ATS. Créons le vôtre !', es: '¡Increíble! Ahora sabes cómo crear un CV ATS. ¡Creemos el tuyo!' }
 ];
 
 var IV_QS = [
-    { q: 'Tell me about yourself. What do you like and what are you good at?', qAr: 'أخبرني عن نفسك. ماذا تحب وما الذي تجيده؟' },
-    { q: 'Why do you want this job? What excites you about it?', qAr: 'لماذا تريد هذه الوظيفة؟' },
-    { q: 'What is your biggest strength? Can you give me an example?', qAr: 'ما هي أكبر نقطة قوة لديك؟' },
-    { q: 'Have you ever worked with a team? How did that go?', qAr: 'هل عملت يوماً مع فريق؟' },
-    { q: 'What do you do when something is difficult at work?', qAr: 'ماذا تفعل عندما تواجه صعوبة في العمل؟' },
-    { q: 'Can you tell me about a time you helped someone?', qAr: 'هل يمكنك إخباري عن وقت ساعدت فيه شخصاً؟' },
-    { q: 'How do you make sure you arrive on time every day?', qAr: 'كيف تضمن الوصول في الوقت المحدد كل يوم؟' },
-    { q: 'Do you have any questions for me?', qAr: 'هل لديك أي أسئلة تود طرحها؟' }
+    { q: 'Tell me about yourself. What do you like and what are you good at?', qAr: 'أخبرني عن نفسك. ماذا تحب وما الذي تجيده؟', qFr: 'Parlez-moi de vous. Qu\'aimez-vous et en quoi êtes-vous doué ?', qEs: 'Cuéntame sobre ti. ¿Qué te gusta y en qué eres bueno?' },
+    { q: 'Why do you want this job? What excites you about it?', qAr: 'لماذا تريد هذه الوظيفة؟', qFr: 'Pourquoi voulez-vous ce travail ? Qu\'est-ce qui vous enthousiasme ?', qEs: '¿Por qué quieres este trabajo? ¿Qué te emociona de él?' },
+    { q: 'What is your biggest strength? Can you give me an example?', qAr: 'ما هي أكبر نقطة قوة لديك؟', qFr: 'Quelle est votre plus grande qualité ? Pouvez-vous donner un exemple ?', qEs: '¿Cuál es tu mayor fortaleza? ¿Puedes darme un ejemplo?' },
+    { q: 'Have you ever worked with a team? How did that go?', qAr: 'هل عملت يوماً مع فريق؟', qFr: 'Avez-vous déjà travaillé en équipe ? Comment ça s\'est passé ?', qEs: '¿Has trabajado alguna vez en equipo? ¿Cómo fue?' },
+    { q: 'What do you do when something is difficult at work?', qAr: 'ماذا تفعل عندما تواجه صعوبة في العمل؟', qFr: 'Que faites-vous quand quelque chose est difficile au travail ?', qEs: '¿Qué haces cuando algo es difícil en el trabajo?' },
+    { q: 'Can you tell me about a time you helped someone?', qAr: 'هل يمكنك إخباري عن وقت ساعدت فيه شخصاً؟', qFr: 'Pouvez-vous me parler d\'une fois où vous avez aidé quelqu\'un ?', qEs: '¿Puedes contarme sobre una vez que ayudaste a alguien?' },
+    { q: 'How do you make sure you arrive on time every day?', qAr: 'كيف تضمن الوصول في الوقت المحدد كل يوم؟', qFr: 'Comment vous assurez-vous d\'arriver à l\'heure chaque jour ?', qEs: '¿Cómo te aseguras de llegar a tiempo todos los días?' },
+    { q: 'Do you have any questions for me?', qAr: 'هل لديك أي أسئلة تود طرحها؟', qFr: 'Avez-vous des questions pour moi ?', qEs: '¿Tienes alguna pregunta para mí?' }
 ];
 
 var IV_FB = [
@@ -462,56 +978,67 @@ var IV_FB = [
 
 var TEAM = [
     {
-        e: './images/about/ahmad_yasser.jpeg', n: 'Ahmad Yasser', r: 'Frontend Developer – Angular',
+        e: './images/about/ahmad_yasser.jpeg', n: 'Ahmad Yasser', nAr: 'أحمد ياسر', r: 'Frontend Developer – Angular', rAr: 'مطور واجهات - أنجولار',
         desc: 'Led the development of Ablex, building all Angular components and ensuring the platform is fast and accessible.',
+        descAr: 'قاد تطوير ابليكس، حيث بنى جميع مكونات الواجهة وضمن سرعة وسهولة استخدام المنصة.',
         PLink: 'https://www.instagram.com/1_0ahmedd1_0?igsh=ZG1vdGg4OHk5a3A2'
     },
     {
-        e: './images/about/amany_ibrahim.jpeg', n: 'Amany Ibrahim', r: 'Graphic Designer',
+        e: './images/about/amany_ibrahim.jpeg', n: 'Amany Ibrahim', nAr: 'أماني إبراهيم', r: 'Graphic Designer', rAr: 'مصممة جرافيك',
         desc: 'Created all icons, illustrations, and visual assets used throughout the platform.',
+        descAr: 'صممت جميع الأيقونات والرسومات والأصول البصرية المستخدمة في المنصة.',
         PLink: 'https://www.instagram.com/_mony_105?utm_source=qr&igsh=MWtqZG5jMWt6emNuYw=='
     },
     {
-        e: './images/about/baisan_mohamed.jpeg', n: 'baisan mohamed', r: 'Graphic Designer',
+        e: './images/about/baisan_mohamed.jpeg', n: 'baisan mohamed', nAr: 'بيسان محمد', r: 'Graphic Designer', rAr: 'مصممة جرافيك',
         desc: 'Created all icons, illustrations, and visual assets used throughout the platform.',
+        descAr: 'صممت جميع الأيقونات والرسومات والأصول البصرية المستخدمة في المنصة.',
         PLink: 'https://www.facebook.com/share/1CuBmZjSE2/'
     },
     {
-        e: './images/about/habiba_elsayed.jpeg', n: 'Habiba Elsayed', r: 'Content Specialist',
+        e: './images/about/habiba_elsayed.jpeg', n: 'Habiba Elsayed', nAr: 'حبيبة السيد', r: 'Content Specialist', rAr: 'أخصائية محتوى',
         desc: 'Wrote all platform content in English and Arabic, ensuring clarity and inclusivity throughout.',
+        descAr: 'كتبت جميع محتويات المنصة باللغتين العربية والإنجليزية، لضمان الوضوح والشمول.',
         PLink: 'https://www.facebook.com/share/1FXRhTAT2y'
     },
     {
-        e: './images/about/nourhan_ahamed.jpeg', n: 'Nourhan Ahmad', r: 'Content Researcher',
+        e: './images/about/nourhan_ahamed.jpeg', n: 'Nourhan Ahmad', nAr: 'نورهان أحمد', r: 'Content Researcher', rAr: 'باحثة محتوى',
         desc: 'Created all icons, illustrations, and visual assets used throughout the platform.',
+        descAr: 'صممت جميع الأيقونات والرسومات والأصول البصرية المستخدمة في المنصة.',
         PLink: 'https://www.instagram.com/nourrhan.ahmeed?igsh=dG1kaDZxanZ0dnJi'
     },
     {
-        e: './images/about/nourhan_ayman.jpeg', n: 'Nourhan Ayman', r: 'Voice & Audio Lead',
+        e: './images/about/nourhan_ayman.jpeg', n: 'Nourhan Ayman', nAr: 'نورهان أيمن', r: 'Voice & Audio Lead', rAr: 'مسئولة الصوت والسمعيات',
         desc: 'Designed and implemented the voice navigation system and text-to-speech features.',
+        descAr: 'صممت ونفذت نظام التنقل الصوتي وميزات تحويل النص إلى كلام.',
         pLink: 'https://www.instagram.com/nour.sawan.1238?igsh=MXAxNGJwdHhjbDZqdg=='
     },
     {
-        e: './images/about/naira.jpeg', n: 'Naira Ayman', r: 'Graphic Designer',
+        e: './images/about/naira.jpeg', n: 'Naira Ayman', nAr: 'نيرة أيمن', r: 'Graphic Designer', rAr: 'مصممة جرافيك',
         desc: 'Created all icons, illustrations, and visual assets used throughout the platform.',
+        descAr: 'صممت جميع الأيقونات والرسومات والأصول البصرية المستخدمة في المنصة.',
         PLink: 'https://www.instagram.com/no0rr_rr?igsh=Mjd6dHNraTUweDA='
     },
     {
-        e: './images/about/maryem_ehab.jpeg', n: 'Mariam Ehab', r: 'Education Specialist',
-        desc: 'Designed the learning curriculum and quiz systems to build real workplace skills.'
+        e: './images/about/maryem_ehab.jpeg', n: 'Mariam Ehab', nAr: 'مريم إيهاب', r: 'Education Specialist', rAr: 'أخصائية تعليم',
+        desc: 'Designed the learning curriculum and quiz systems to build real workplace skills.',
+        descAr: 'صممت المنهج التعليمي وأنظمة الاختبارات لبناء مهارات عملية حقيقية.'
     },
     {
-        e: './images/about/nourhan_salah.jpeg', n: 'Nourhan Salah', r: 'Quality Assurance',
+        e: './images/about/nourhan_salah.jpeg', n: 'Nourhan Salah', nAr: 'نورهان صلاح', r: 'Quality Assurance', rAr: 'جودة البرمجيات',
         desc: 'Tested every feature thoroughly to ensure a smooth, bug-free experience for all users.',
+        descAr: 'اختبرت كل ميزة بدقة لضمان تجربة سلسة وخالية من المشاكل لجميع المستخدمين.',
         PLink: 'https://www.instagram.com/norhan_salah27'
     },
     {
-        e: './images/about/rawan_nader.jpeg', n: 'Rawan Nader', r: 'Accessibility Researcher',
-        desc: 'Researched and implemented cognitive accessibility best practices for users with Down Syndrome.'
+        e: './images/about/rawan_nader.jpeg', n: 'Rawan Nader', nAr: 'روان نادر', r: 'Accessibility Researcher', rAr: 'باحثة سهولة الوصول',
+        desc: 'Researched and implemented cognitive accessibility best practices for users with Down Syndrome.',
+        descAr: 'بحثت ونفذت أفضل ممارسات سهولة الوصول لمرضى متلازمة داون.'
     },
     {
-        e: './images/about/sama_hamada.jpeg', n: 'Sama Hamada', r: 'Accessibility Researcher',
+        e: './images/about/sama_hamada.jpeg', n: 'Sama Hamada', nAr: 'سما حمادة', r: 'Accessibility Researcher', rAr: 'باحثة سهولة الوصول',
         desc: 'Researched and implemented cognitive accessibility best practices for users with Down Syndrome.',
+        descAr: 'بحثت ونفذت أفضل ممارسات سهولة الوصول لمرضى متلازمة داون.',
         PLink: 'https://www.instagram.com/sama_hamada_782005?utm_source=qr&igsh=OGEzbTdxbHgxbXlo'
     }
 ];
@@ -529,7 +1056,7 @@ function speak(text, onEnd) {
     stopAll();
     if (!window.speechSynthesis || !text) return;
     var u = new SpeechSynthesisUtterance(text);
-    u.lang = isAR ? 'ar-SA' : 'en-US';
+    u.lang = ({en:'en-US', ar:'ar-SA', fr:'fr-FR', es:'es-ES'})[currentLang] || 'en-US';
     u.rate = 0.87; u.pitch = 1.05;
     isSpeaking = true;
     var sb = document.getElementById('stop-btn');
@@ -780,12 +1307,12 @@ function showResult() {
         '<div style="background:var(--surf);border:2px solid var(--bdr);border-radius:var(--rlg);padding:44px;text-align:center;animation:slideUp .5s ease-out;margin-top:14px">' +
         '<div style="font-size:4.5rem;margin-bottom:12px">' + bestJob.icon + '</div>' +
         '<div style="width:100px;height:100px;border-radius:50%;border:6px solid var(--bg2);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:1.9rem;font-weight:900;color:var(--jade);margin:0 auto 20px;background:conic-gradient(var(--jade) ' + deg + 'deg,var(--bg2) ' + deg + 'deg)">' + pct + '%</div>' +
-        '<h2 style="font-family:var(--fd);font-size:1.8rem;font-weight:900;margin-bottom:8px">' + (isAR ? 'أفضل وظيفة لك: ' : 'Your Match: ') + (isAR ? bestJob.nameAr : bestJob.name) + '! 🎉</h2>' +
-        '<p style="color:var(--txt2);margin-bottom:24px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7">' + (isAR ? 'حصلت على ' : 'You scored ') + pct + (isAR ? '%. ' : '%. ') + (isAR ? bestJob.descAr : bestJob.desc) + '</p>' +
+        '<h2 style="font-family:var(--fd);font-size:1.8rem;font-weight:900;margin-bottom:8px">' + t('q_best_job') + (isAR ? bestJob.nameAr : bestJob.name) + '! 🎉</h2>' +
+        '<p style="color:var(--txt2);margin-bottom:24px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7">' + t('q_score_msg') + pct + '%. ' + (isAR ? bestJob.descAr : bestJob.desc) + '</p>' +
         '<div style="display:flex;gap:11px;justify-content:center;flex-wrap:wrap">' +
-        '<button class="btn btn-o" onclick="speak(\'' + (isAR ? bestJob.descAr : bestJob.desc) + '\',null)">🔊 ' + (isAR ? 'استمع للوصف' : 'Hear Description') + '</button>' +
-        '<button class="btn btn-t" onclick="showPage(\'cvlearn\')">📄 ' + (isAR ? 'ابنِ سيرتي الذاتية' : 'Build My CV') + '</button>' +
-        '<button class="btn btn-g" onclick="showPage(\'jobs\')">💼 ' + (isAR ? 'ابحث عن وظائف' : 'Find Jobs') + '</button></div></div>';
+        '<button class="btn btn-o" onclick="speak(\'' + (isAR ? bestJob.descAr : bestJob.desc) + '\',null)">' + t('btn_hear_desc') + '</button>' +
+        '<button class="btn btn-t" onclick="showPage(\'cvlearn\')">' + t('btn_build_cv') + '</button>' +
+        '<button class="btn btn-g" onclick="showPage(\'jobs\')">' + t('btn_find_jobs') + '</button></div></div>';
     speak((isAR ? 'مبروك! أفضل وظيفة لك هي ' + bestJob.nameAr + '! حصلت على ' + pct + ' بالمئة.' : 'Congratulations! Your best job match is ' + bestJob.name + '! You scored ' + pct + ' percent.'), null);
     var rw = document.getElementById('result-wrap');
     if (rw) rw.scrollIntoView({ behavior: 'smooth' });
@@ -812,12 +1339,12 @@ function buildTrainingPage() {
         '</div>' +
         '<div class="training-jobs-grid" id="training-jobs-grid">' +
         TRAINING_JOBS.map(function (job) {
-            return '<div class="training-job-card card" onclick="selectTrainingJob(\'' + job.id + '\')" role="button" tabindex="0" aria-label="' + job.titleEn + '" style="--job-clr:' + job.color + '">' +
+            return '<div class="training-job-card card" onclick="selectTrainingJob(\'' + job.id + '\')" role="button" tabindex="0" aria-label="' + (isAR ? job.titleAr : job.titleEn) + '" style="--job-clr:' + job.color + '">' +
                 `<img src="${job.icon}" class="training-job-img" style="--job-clr: ${job.color}">` +
                 '<div style="font-size:.95rem;font-weight:900;margin-bottom:4px;color:var(--txt)">' + (isAR ? job.titleAr : job.titleEn) + '</div>' +
                 '<div style="font-size:.8rem;color:var(--txt2);font-family:var(--fa)">' + (isAR ? job.titleEn : job.titleAr) + '</div>' +
                 '<div style="margin-top:10px;padding:4px 12px;border-radius:50px;background:' + job.color + '22;color:' + job.color + ';font-size:.72rem;font-weight:800;display:inline-block">' +
-                job.questions.length + (isAR ? ' أسئلة' : ' Questions') + '</div></div>';
+                job.questions.length + ' ' + t('questions_label') + '</div></div>';
         }).join('') +
         '</div>' +
         '<div id="training-quiz-area"></div></div>';
@@ -869,7 +1396,7 @@ function renderTrainingJob(job) {
         // Progress bar
         '<div style="padding:20px 32px 0">' +
         '<div style="display:flex;justify-content:space-between;font-size:.78rem;font-weight:800;color:var(--txt2);margin-bottom:6px">' +
-        '<span>' + (isAR ? 'السؤال ' : 'Question ') + (trainingState.qIdx + 1) + ' ' + t('q_of') + ' ' + job.questions.length + '</span>' +
+        '<span>' + t('iv_prog_q') + ' ' + (trainingState.qIdx + 1) + ' ' + t('q_of') + ' ' + job.questions.length + '</span>' +
         '<span>' + t('score_label') + ': <strong style="color:var(--jade)">' + trainingState.score + '/' + job.questions.length + '</strong></span>' +
         '</div>' +
         '<div style="height:8px;background:var(--bg2);border-radius:50px;margin-bottom:20px;overflow:hidden">' +
@@ -1000,34 +1527,28 @@ function showTrainingResult(job) {
 function buildCVLearnPage() {
     var pg = document.getElementById('page-cvlearn');
     pg.innerHTML =
-        '<div class="phdr"><button class="backbtn" onclick="showPage(\'home\')" aria-label="Back">←</button><h2>📖 ' + (isAR ? 'تعلم بناء السيرة الذاتية' : 'Learn to Build an ATS CV') + '</h2><span class="step-badge" style="background:var(--jade)">Step 2 of 5</span></div>' +
+        '<div class="phdr"><button class="backbtn" onclick="showPage(\'home\')" aria-label="Back">←</button><h2>📖 ' + t('nav_cvlearn') + '</h2><span class="step-badge" style="background:var(--jade)">' + t('cv_step_preview') + '</span></div>' +
         '<div style="padding:32px;max-width:960px;margin:0 auto">' +
         '<div style="background:linear-gradient(135deg,#1A1A2E,#0F3460);border-radius:var(--rlg);overflow:hidden;margin-bottom:28px;aspect-ratio:16/9;position:relative;" id="cv-vid-wrap">' +
         '<video id="cv-video" src="./images/cv.mp4" autoplay loop controls style="width:100%;height:100%;object-fit:contain;display:block" preload="metadata"></video>' +
         '</div>' +
         '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:32px">' +
-        [['👤', '1. Contact Info', 'Name, email, phone, location at the top'], ['✍️', '2. Summary', '2-3 sentences about your strengths'], ['💼', '3. Experience', 'Any job, volunteering or school activity'], ['🎓', '4. Education', 'School name and graduation year'], ['🏆', '5. Certifications', 'Courses, awards, training'], ['🧩', '6. Skills', 'Teamwork, computer basics, communication']].map(function (item) {
+        [
+            ['👤', t('cv_sec_summary'), isAR ? 'الاسم، البريد، الهاتف، والموقع في الأعلى' : 'Name, email, phone, location at the top'],
+            ['✍️', t('cv_sec_summary'), isAR ? '2-3 جمل عن نقاط قوتك' : '2-3 sentences about your strengths'],
+            ['💼', t('cv_sec_exp'), isAR ? 'أي وظيفة أو عمل تطوعي أو نشاط مدرسي' : 'Any job, volunteering or school activity'],
+            ['🎓', t('cv_sec_edu'), isAR ? 'اسم المدرسة وسنة التخرج' : 'School name and graduation year'],
+            ['🏆', t('cv_sec_certs'), isAR ? 'الدورات، الجوائز، والتدريبات' : 'Courses, awards, training'],
+            ['🧩', t('cv_sec_skills'), isAR ? 'العمل الجماعي، أساسيات الكمبيوتر، والتواصل' : 'Teamwork, computer basics, communication']
+        ].map(function (item) {
             return '<div style="background:var(--surf);border:2px solid var(--bdr);border-radius:var(--r);padding:24px 20px;transition:all .25s">' +
                 '<div style="font-size:1.9rem;margin-bottom:10px">' + item[0] + '</div><h3 style="font-size:.9rem;font-weight:800;margin-bottom:5px">' + item[1] + '</h3>' +
                 '<p style="font-size:.78rem;color:var(--txt2);line-height:1.5">' + item[2] + '</p></div>';
         }).join('') + '</div>' +
         '<div style="text-align:center"><button class="btn btn-o" onclick="showPage(\'cvbuild\')">' + t('cv_guide_btn') + '</button></div></div>';
-
     // cvVidIdx = 0; cvVidPlaying = false;
-
     // var video = document.getElementById('cv-video');
     // document.getElementById('cv-vid-wrap').onclick = toggleCVVideo;
-
-    // video.addEventListener('timeupdate', function () {
-    //     if (video.duration) {
-    //         document.getElementById('cv-prog').style.width = (video.currentTime / video.duration * 100) + '%';
-    //     }
-    // });
-
-    // video.addEventListener('ended', function () {
-    //     document.getElementById('cv-play-btn').textContent = '▶ Play';
-    //     cvVidPlaying = false;
-    // });
 }
 
 function toggleCVVideo() {
@@ -1121,10 +1642,10 @@ function renderCVForm() {
             inputHtml + recHtml + '</div>';
     }).join('');
     html += '<div style="display:flex;gap:9px;margin-top:6px;flex-wrap:wrap">' +
-        '<button class="btn btn-o" onclick="saveCV();showToast(\'💾 ' + (isAR ? 'تم الحفظ!' : 'CV saved!') + '\')">💾 ' + (isAR ? 'حفظ' : 'Save') + '</button>' +
+        '<button class="btn btn-o" onclick="saveCV();showToast(\'💾 ' + t('cv_save_toast') + '\')">💾 ' + (isAR ? 'حفظ' : 'Save') + '</button>' +
         '<button class="btn btn-t" onclick="exportCV(\'pdf\')">📥 PDF</button>' +
         '<button class="btn btn-g" onclick="exportCV(\'docx\')">📝 DOCX</button>' +
-        '<button class="btn btn-g" onclick="showPage(\'games\')">🧩 ' + (isAR ? 'التالي: الألعاب →' : 'Next: Games →') + '</button></div>';
+        '<button class="btn btn-g" onclick="showPage(\'games\')">🧩 ' + t('cv_next_games') + '</button></div>';
     el.innerHTML = html;
     updateCVPrev();
 }
@@ -1361,17 +1882,17 @@ function loadJsPDF(cb) {
 function buildGamesPage() {
     var pg = document.getElementById('page-games');
     pg.innerHTML =
-        '<div class="phdr"><button class="backbtn" onclick="showPage(\'home\')" aria-label="Back">←</button><h2>🧩 ' + (isAR ? 'ألعاب المهارات' : 'Skill Games · ألعاب المهارات') + '</h2></div>' +
+        '<div class="phdr"><button class="backbtn" onclick="showPage(\'home\')" aria-label="Back">←</button><h2>🧩 ' + t('nav_games') + '</h2></div>' +
         '<div style="padding:32px;max-width:1100px;margin:0 auto">' +
         '<div style="margin-bottom:24px"><h3 style="font-family:var(--fd);font-size:1.25rem;font-weight:900;margin-bottom:5px">' + (isAR ? 'العب لتبني مهارات حقيقية! 🎯' : 'Play Games to Build Real Skills! 🎯') + '</h3>' +
         '<p style="color:var(--txt2);font-size:.86rem">' + (isAR ? 'كل لعبة تساعدك على تطوير الذاكرة والتركيز وحل المشكلات.' : 'Every game helps you practice memory, focus, and problem-solving for the workplace.') + '</p></div>' +
         '<div class="games-grid">' +
         GAMES.map(function (g) {
-            return '<div class="card game-card" onclick="startGame(\'' + g.id + '\')" role="button" tabindex="0" aria-label="' + g.title + '">' +
+            return '<div class="card game-card" onclick="startGame(\'' + g.id + '\')" role="button" tabindex="0" aria-label="' + (isAR ? g.titleAr : g.title) + '">' +
                 '<div class="g-ico">' + g.icon + '</div>' +
                 '<h3>' + (isAR ? g.titleAr : g.title) + '</h3>' +
                 '<div style="font-family:var(--fa);font-size:.72rem;color:var(--txt2);margin-bottom:5px">' + (isAR ? g.title : g.titleAr) + '</div>' +
-                '<p>' + g.desc + '</p>' +
+                '<p>' + (isAR ? g.descAr || g.desc : g.desc) + '</p>' +
                 '<span class="g-playtag" style="background:' + g.color + '">' + (isAR ? '▶ العب' : '▶ Play') + '</span></div>';
         }).join('') + '</div>' +
         '<div class="game-arena" id="game-arena"></div></div>';
@@ -1411,11 +1932,11 @@ function buildMemory() {
     clearInterval(memT);
     inn.innerHTML =
         '<div class="scorebar">' +
-        '<div class="sitem"><div class="snum" id="mem-moves">0</div><div class="slbl">' + (isAR ? 'حركات' : 'Moves') + '</div></div>' +
-        '<div class="sitem"><div class="snum" id="mem-pairs">0/' + EMOJIS.length + '</div><div class="slbl">' + (isAR ? 'أزواج' : 'Pairs Found') + '</div></div>' +
-        '<div class="sitem"><div class="snum" id="mem-time">0s</div><div class="slbl">' + (isAR ? 'وقت' : 'Time') + '</div></div></div>' +
+        '<div class="sitem"><div class="snum" id="mem-moves">0</div><div class="slbl">' + t('game_moves') + '</div></div>' +
+        '<div class="sitem"><div class="snum" id="mem-pairs">0/' + EMOJIS.length + '</div><div class="slbl">' + t('game_pairs') + '</div></div>' +
+        '<div class="sitem"><div class="snum" id="mem-time">0s</div><div class="slbl">' + t('game_time') + '</div></div></div>' +
         '<div class="mem-board" id="mem-board"></div>' +
-        '<div style="text-align:center;margin-top:16px"><button class="btn btn-o btn-sm" onclick="buildMemory()">🔄 ' + (isAR ? 'لعبة جديدة' : 'New Game') + '</button></div>';
+        '<div style="text-align:center;margin-top:16px"><button class="btn btn-o btn-sm" onclick="buildMemory()">🔄 ' + t('game_new') + '</button></div>';
     var board = document.getElementById('mem-board');
     cards.forEach(function (emoji, i) {
         var c = document.createElement('div'); c.className = 'mc';
@@ -1456,8 +1977,8 @@ function buildPattern() {
     var inn = document.getElementById('game-inner');
     patScore = 0; patLevel = 1;
     inn.innerHTML =
-        '<div class="scorebar"><div class="sitem"><div class="snum" id="pat-score">0</div><div class="slbl">Score</div></div>' +
-        '<div class="sitem"><div class="snum" id="pat-level">1</div><div class="slbl">Level</div></div></div>' +
+        '<div class="scorebar"><div class="sitem"><div class="snum" id="pat-score">0</div><div class="slbl">' + t('game_score') + '</div></div>' +
+        '<div class="sitem"><div class="snum" id="pat-level">1</div><div class="slbl">' + t('game_level') + '</div></div></div>' +
         '<div id="pat-inner"></div>';
     nextPattern();
 }
@@ -1480,7 +2001,7 @@ function nextPattern() {
 function checkPat(chosen, correct, el) {
     if (chosen === correct) {
         patScore += 10; patLevel++;
-        speak(isAR ? 'إجابة صحيحة! أحسنت!' : 'Correct! Well done!', null); showToast('✅ Correct!');
+        speak(isAR ? 'إجابة صحيحة! أحسنت!' : 'Correct! Well done!', null); showToast('✅ ' + t('correct_msg'));
         el.style.background = 'rgba(16,185,129,.2)'; el.style.borderColor = 'var(--jade)';
         var sc = document.getElementById('pat-score'); if (sc) sc.textContent = patScore;
         var lv = document.getElementById('pat-level'); if (lv) lv.textContent = patLevel;
@@ -1488,7 +2009,7 @@ function checkPat(chosen, correct, el) {
     } else {
         speak(isAR ? 'ليس صحيحاً! انظر إلى النمط مرة أخرى.' : 'Not quite! Look at the pattern again.', null);
         el.style.background = 'rgba(244,63,94,.15)'; el.style.borderColor = 'var(--rose)';
-        showToast('🤔 ' + (isAR ? 'حاول مرة أخرى!' : 'Not quite — look at the pattern!'));
+        showToast('🤔 ' + t('game_try_again'));
     }
 }
 
@@ -1496,8 +2017,8 @@ function buildMath() {
     mathScore = 0; mathLevel = 1;
     var inn = document.getElementById('game-inner');
     inn.innerHTML =
-        '<div class="scorebar"><div class="sitem"><div class="snum" id="math-score">0</div><div class="slbl">Score</div></div>' +
-        '<div class="sitem"><div class="snum" id="math-level">1</div><div class="slbl">Level</div></div></div>' +
+        '<div class="scorebar"><div class="sitem"><div class="snum" id="math-score">0</div><div class="slbl">' + t('game_score') + '</div></div>' +
+        '<div class="sitem"><div class="snum" id="math-level">1</div><div class="slbl">' + t('game_level') + '</div></div></div>' +
         '<div id="math-inner"></div>';
     nextMath();
 }
@@ -1524,22 +2045,22 @@ function checkMath(chosen, correct, el) {
     document.querySelectorAll('.math-opt').forEach(function (b) { b.onclick = null; });
     if (chosen === correct) {
         mathScore += 10; mathLevel++; el.classList.add('ok');
-        speak(isAR ? 'إجابة صحيحة!' : 'Correct! Great work!', null); showToast('✅ Correct!');
+        speak(isAR ? 'إجابة صحيحة!' : 'Correct! Great work!', null); showToast('✅ ' + t('correct_msg'));
         var sc = document.getElementById('math-score'); if (sc) sc.textContent = mathScore;
         var lv = document.getElementById('math-level'); if (lv) lv.textContent = mathLevel;
         updateStat('pts', 10); setTimeout(nextMath, 900);
     } else {
         el.classList.add('no');
-        speak(isAR ? 'ليس صحيحاً! حاول مرة أخرى.' : 'Not quite! Try again.', null); showToast('🤔 Try again!');
+        speak(isAR ? 'ليس صحيحاً! حاول مرة أخرى.' : 'Not quite! Try again.', null); showToast('🤔 ' + t('game_try_again'));
         setTimeout(function () { el.classList.remove('no'); document.querySelectorAll('.math-opt').forEach(function (b) { b.onclick = function () { checkMath(parseInt(b.textContent), correct, b); }; }); }, 800);
     }
 }
 
 var SORT_DATA = {
-    colors: { items: ['Red', 'Blue', 'Green', 'Yellow'], category: 'Colours' },
-    shapes: { items: ['Circle', 'Square', 'Triangle', 'Star'], category: 'Shapes' },
-    food: { items: ['Apple', 'Pizza', 'Banana', 'Salad'], category: 'Food' },
-    jobs: { items: ['Library', 'Garden', 'Café', 'Office'], category: 'Workplaces' }
+    colors: { items: ['Red', 'Blue', 'Green', 'Yellow'], itemsAr: ['أحمر', 'أزرق', 'أخضر', 'أصفر'], category: 'Colours', categoryAr: 'ألوان' },
+    shapes: { items: ['Circle', 'Square', 'Triangle', 'Star'], itemsAr: ['دائرة', 'مربع', 'مثلث', 'نجمة'], category: 'Shapes', categoryAr: 'أشكال' },
+    food: { items: ['Apple', 'Pizza', 'Banana', 'Salad'], itemsAr: ['تفاح', 'بيتزا', 'موز', 'سلطة'], category: 'Food', categoryAr: 'طعام' },
+    jobs: { items: ['Library', 'Garden', 'Café', 'Office'], itemsAr: ['مكتبة', 'حديقة', 'مقهى', 'مكتب'], category: 'Workplaces', categoryAr: 'أماكن عمل' }
 };
 
 function buildSort() {
@@ -1547,13 +2068,17 @@ function buildSort() {
     sortScore = 0;
     var cats = Object.values(SORT_DATA);
     var all = [];
-    cats.forEach(function (c) { c.items.forEach(function (item) { all.push({ item: item, cat: c.category }); }); });
+    cats.forEach(function (c) {
+        var items = isAR ? c.itemsAr : c.items;
+        var cat = isAR ? c.categoryAr : c.category;
+        items.forEach(function (item) { all.push({ item: item, cat: cat }); });
+    });
     all.sort(function () { return Math.random() - .5; });
-    var bins = cats.map(function (c) { return c.category; });
+    var bins = cats.map(function (c) { return isAR ? c.categoryAr : c.category; });
     inn.innerHTML =
-        '<div class="scorebar"><div class="sitem"><div class="snum" id="sort-score">0</div><div class="slbl">Score</div></div>' +
-        '<div class="sitem"><div class="snum" id="sort-left">' + all.length + '</div><div class="slbl">Left</div></div></div>' +
-        '<p style="font-weight:800;margin-bottom:8px">' + (isAR ? 'اسحب كل عنصر إلى الصندوق الصحيح!' : 'Drag each item into the correct box! · اسحب كل عنصر إلى الصندوق الصحيح!') + '</p>' +
+        '<div class="scorebar"><div class="sitem"><div class="snum" id="sort-score">0</div><div class="slbl">' + t('game_score') + '</div></div>' +
+        '<div class="sitem"><div class="snum" id="sort-left">' + all.length + '</div><div class="slbl">' + t('game_left') + '</div></div></div>' +
+        '<p style="font-weight:800;margin-bottom:8px">' + t('game_sort_prompt') + '</p>' +
         '<div class="sort-pool" id="sort-pool">' + all.map(function (x, i) {
             return '<div class="sort-item" draggable="true" data-cat="' + x.cat + '" id="si-' + i + '">' + x.item + '</div>';
         }).join('') + '</div>' +
@@ -1575,10 +2100,10 @@ function dropSort(ev, cat, bin) {
         var sc = document.getElementById('sort-score'); if (sc) sc.textContent = sortScore;
         var rem = document.querySelectorAll('.sort-pool .sort-item').length;
         var lt = document.getElementById('sort-left'); if (lt) lt.textContent = rem;
-        showToast('✅ ' + (isAR ? 'مكان صحيح!' : 'Correct place!')); updateStat('pts', 10);
+        showToast('✅ ' + t('correct_msg')); updateStat('pts', 10);
         if (rem === 0) { speak(isAR ? 'رائع! رتبت كل شيء بشكل صحيح!' : 'Amazing! You sorted everything correctly!', null); showToast('🎉 ' + (isAR ? 'كل شيء مرتب!' : 'All sorted! Great job!')); }
     } else {
-        showToast('🤔 ' + (isAR ? 'فئة خاطئة، حاول مرة أخرى!' : 'Wrong category, try again!'));
+        showToast('🤔 ' + t('game_wrong_cat'));
         speak(isAR ? 'ليس صحيحاً! جرب صندوقاً آخر.' : 'Not quite! Try a different box.', null);
     }
     sortDragEl = null;
@@ -1591,12 +2116,12 @@ function buildFocus() {
     if (focusFocusTimer) clearTimeout(focusFocusTimer);
     var inn = document.getElementById('game-inner');
     inn.innerHTML =
-        '<div class="scorebar"><div class="sitem"><div class="snum" id="foc-score">0</div><div class="slbl">Score</div></div>' +
-        '<div class="sitem"><div class="snum" id="foc-speed">700ms</div><div class="slbl">Speed</div></div></div>' +
+        '<div class="scorebar"><div class="sitem"><div class="snum" id="foc-score">0</div><div class="slbl">' + t('game_score') + '</div></div>' +
+        '<div class="sitem"><div class="snum" id="foc-speed">700ms</div><div class="slbl">' + t('game_speed') + '</div></div></div>' +
         '<div class="focus-board" id="foc-board">' + Array.from({ length: 25 }, function (_, i) {
             return '<div class="focus-cell" id="foc-' + i + '" role="button" tabindex="0" onclick="hitFocus(' + i + ')">' + FOCUS_EMOJIS[i] + '</div>';
         }).join('') + '</div>' +
-        '<div style="text-align:center;margin-top:14px"><button class="btn btn-o btn-sm" onclick="buildFocus()">🔄 ' + (isAR ? 'لعبة جديدة' : 'New Game') + '</button></div>';
+        '<div style="text-align:center;margin-top:14px"><button class="btn btn-o btn-sm" onclick="buildFocus()">🔄 ' + t('game_new') + '</button></div>';
     nextFocusCell();
 }
 
@@ -1631,12 +2156,12 @@ function hitFocus(i) {
 function buildLearnPage() {
     var pg = document.getElementById('page-learn');
     pg.innerHTML =
-        '<div class="phdr"><button class="backbtn" onclick="showPage(\'home\')" aria-label="Back">←</button><h2>📚 ' + (isAR ? 'موضوعات التعلم' : 'Learning Topics · موضوعات التعلم') + '</h2></div>' +
+        '<div class="phdr"><button class="backbtn" onclick="showPage(\'home\')" aria-label="Back">←</button><h2>📚 ' + t('nav_learn') + '</h2></div>' +
         '<div style="padding:32px;max-width:1100px;margin:0 auto">' +
         '<div style="margin-bottom:24px"><h3 style="font-family:var(--fd);font-size:1.25rem;font-weight:900;margin-bottom:5px">' + (isAR ? 'تعلم مهارات العمل! 📖' : 'Learn Workplace Skills! 📖') + '</h3>' +
         '<p style="color:var(--txt2);font-size:.86rem">' + (isAR ? '7 موضوعات لمساعدتك على النجاح في العمل. كل موضوع يحتوي على صوت وشرح واختبار!' : '7 topics to help you succeed at work. Each topic has audio, explanations, and a quiz!') + '</p></div>' +
         '<div class="topics-grid">' + TOPICS.map(function (tp) {
-            return '<div class="card topic-card" onclick="openTopic(\'' + tp.id + '\')" role="button" tabindex="0" aria-label="' + tp.title + '">' +
+            return '<div class="card topic-card" onclick="openTopic(\'' + tp.id + '\')" role="button" tabindex="0" aria-label="' + (isAR ? tp.titleAr || tp.title : tp.title) + '">' +
                 '<div class="topic-ico">' + tp.icon + '</div>' +
                 '<h3>' + (isAR ? tp.titleAr || tp.title : tp.title) + '</h3>' +
                 '<p>' + tp.content[0][isAR ? 'ar' : 'en'].slice(0, 80) + '…</p>' +
@@ -1661,7 +2186,7 @@ function openTopic(id) {
             return '';
         }).join('') +
         '<div style="display:flex;gap:10px;margin-top:24px;flex-wrap:wrap">' +
-        '<button class="btn btn-o btn-sm" onclick="readTopicAloud(\'' + tp.id + '\')">🔊 ' + (isAR ? 'اقرأ بصوت عالٍ' : 'Read Aloud') + '</button>' +
+        '<button class="btn btn-o btn-sm" onclick="readTopicAloud(\'' + tp.id + '\')">🔊 ' + t('cmd_read') + '</button>' +
         '<button class="btn btn-g btn-sm" onclick="closeModal()">✓ ' + (isAR ? 'تم' : 'Done') + '</button></div>';
     var mb = document.getElementById('modal-bg'); if (mb) mb.classList.add('on');
 }
@@ -1687,13 +2212,14 @@ function closeModal() { var mb = document.getElementById('modal-bg'); if (mb) mb
 function buildJobsPage() {
     var pg = document.getElementById('page-jobs');
     pg.innerHTML =
-        '<div class="phdr"><button class="backbtn" onclick="showPage(\'home\')" aria-label="Back">←</button><h2>💼 ' + (isAR ? 'البحث عن وظيفة' : 'Job Search · البحث عن وظيفة') + '</h2></div>' +
+        '<div class="phdr"><button class="backbtn" onclick="showPage(\'home\')" aria-label="Back">←</button><h2>💼 ' + t('nav_jobs') + '</h2></div>' +
         '<div style="padding:32px;max-width:1100px;margin:0 auto">' +
-        '<div style="margin-bottom:22px"><h3 style="font-family:var(--fd);font-size:1.25rem;font-weight:900;margin-bottom:5px">' + (isAR ? 'وظائف شاملة 🌟' : 'Inclusive Job Listings 🌟') + '</h3>' +
-        '<p style="color:var(--txt2);font-size:.86rem">' + (isAR ? 'كل الوظائف من أصحاب عمل شاملين يحتفلون بكل موهبة!' : 'All jobs are from inclusive employers who celebrate every talent!') + '</p></div>' +
+        '<div style="margin-bottom:22px"><h3 style="font-family:var(--fd);font-size:1.25rem;font-weight:900;margin-bottom:5px">' + t('jobs_inclusive') + '</h3>' +
+        '<p style="color:var(--txt2);font-size:.86rem">' + t('jobs_employers') + '</p></div>' +
         '<div class="job-filters" id="job-filters">' +
         ['All', 'Retail', 'Food & Beverage', 'Education', 'Outdoors', 'Office', 'Creative'].map(function (f) {
-            return '<button class="jfbtn ' + (jobFilter === f ? 'on' : '') + '" onclick="filterJobs(\'' + f + '\')">' + f + '</button>';
+            var fKey = 'jobs_filter_' + f.toLowerCase().replace(' & beverage', '');
+            return '<button class="jfbtn ' + (jobFilter === f ? 'on' : '') + '" onclick="filterJobs(\'' + f + '\')">' + t(fKey) + '</button>';
         }).join('') + '</div>' +
         '<div class="jobs-grid" id="jobs-grid"></div></div>';
     renderJobs();
@@ -1711,15 +2237,15 @@ function renderJobs() {
     grid.innerHTML = shown.map(function (j) {
         return '<div class="card job-card">' +
             '<div class="job-icon">' + j.icon + '</div>' +
-            '<h3>' + j.title + '</h3>' +
-            '<div class="job-co">🏢 ' + j.company + ' · 📍 ' + j.location + '</div>' +
-            '<div class="job-tags">' + j.tags.map(function (t) { return '<span class="job-tag">' + t + '</span>'; }).join('') + '</div>' +
-            '<p style="font-size:.8rem;color:var(--txt2);margin-bottom:14px;line-height:1.5">' + j.desc + '</p>' +
+            '<h3>' + (isAR ? j.titleAr : j.title) + '</h3>' +
+            '<div class="job-co">🏢 ' + (isAR ? j.companyAr : j.company) + ' · 📍 ' + (isAR ? j.locationAr : j.location) + '</div>' +
+            '<div class="job-tags">' + (isAR ? j.tagsAr : j.tags).map(function (t) { return '<span class="job-tag">' + t + '</span>'; }).join('') + '</div>' +
+            '<p style="font-size:.8rem;color:var(--txt2);margin-bottom:14px;line-height:1.5">' + (isAR ? j.descAr : j.desc) + '</p>' +
             '<div class="job-foot">' +
-            '<div><div class="job-match">' + j.match + '%</div><div style="font-size:.66rem;color:var(--txt2);font-weight:700">' + (isAR ? 'تطابق' : 'Match') + '</div></div>' +
-            '<div style="display:flex;gap:7px"><button class="voicebtn nb" onclick="speak(\'' + j.title + '. ' + j.desc + '\',null)" aria-label="Listen">🔊</button>' +
-            '<button class="int-btn ' + (jobInterests.includes(j.id) ? 'sent' : '') + '" id="intbtn-' + j.id + '" onclick="expressInterest(' + j.id + ',\'' + j.title + '\')">' +
-            (jobInterests.includes(j.id) ? '✅ ' + (isAR ? 'مهتم!' : 'Interested!') : '👋 ' + (isAR ? 'أبدِ اهتمامك' : 'Express Interest')) + '</button></div></div></div>';
+            '<div><div class="job-match">' + j.match + '%</div><div style="font-size:.66rem;color:var(--txt2);font-weight:700">' + t('jobs_match') + '</div></div>' +
+            '<div style="display:flex;gap:7px"><button class="voicebtn nb" onclick="speak(\'' + (isAR ? j.titleAr : j.title) + '. ' + (isAR ? j.descAr : j.desc) + '\',null)" aria-label="Listen">🔊</button>' +
+            '<button class="int-btn ' + (jobInterests.includes(j.id) ? 'sent' : '') + '" id="intbtn-' + j.id + '" onclick="expressInterest(' + j.id + ',\'' + (isAR ? j.titleAr : j.title) + '\')">' +
+            (jobInterests.includes(j.id) ? '✅ ' + t('jobs_interested') : '👋 ' + t('jobs_interest')) + '</button></div></div></div>';
     }).join('');
 }
 
@@ -1735,22 +2261,22 @@ function expressInterest(id, title) {
 function buildInterviewPage() {
     var pg = document.getElementById('page-interview');
     pg.innerHTML =
-        '<div class="phdr"><button class="backbtn" onclick="showPage(\'home\')" aria-label="Back">←</button><h2>🎤 ' + (isAR ? 'تدريب على المقابلة' : 'AI Interview Practice · تدريب على المقابلة') + '</h2><span class="step-badge" style="background:var(--jade)">Step 5 of 5</span></div>' +
-        '<div style="background:var(--jade);color:#fff;padding:12px 32px;font-size:.84rem;font-weight:800">🌟 ' + (isAR ? 'الخطوة 5 — التدريب يصنع الإتقان! انقر على السؤال التالي للبدء.' : 'Step 5 — Practice makes perfect! Click Next Question to begin.') + '</div>' +
+        '<div class="phdr"><button class="backbtn" onclick="showPage(\'home\')" aria-label="Back">←</button><h2>🎤 ' + t('nav_interview') + '</h2><span class="step-badge" style="background:var(--jade)">' + t('iv_step_badge') + '</span></div>' +
+        '<div style="background:var(--jade);color:#fff;padding:12px 32px;font-size:.84rem;font-weight:800">🌟 ' + t('iv_step_desc') + '</div>' +
         '<div class="ivwrap">' +
         '<div style="display:flex;flex-direction:column;gap:16px">' +
         '<div class="iv-bot" id="iv-bot" role="img" aria-label="AI Coach">🤖</div>' +
-        '<div class="iv-talk-lbl" id="iv-tlbl">🔊 ' + (isAR ? 'المساعد يتحدث…' : 'AI is speaking…') + '</div>' +
-        '<div class="sbox"><div id="iv-q">' + (isAR ? 'مرحباً! أنا مدرب المقابلات الخاص بك. انقر على "السؤال التالي" للبدء! 😊' : "Hi! I'm your interview coach. Click \"Next Question\" to begin! 😊") + '</div></div>' +
-        '<div><label style="font-size:.9rem;font-weight:800;display:block;margin-bottom:8px">✍️ ' + (isAR ? 'إجابتك:' : 'Your Answer:') + '</label>' +
-        '<textarea class="ivtarea" id="iv-ans" placeholder="' + (isAR ? 'انقر على ابدأ وتحدث، أو اكتب هنا…' : 'Click Start Answer and speak, or type here…') + '"></textarea>' +
+        '<div class="iv-talk-lbl" id="iv-tlbl">🔊 ' + t('iv_speaking') + '</div>' +
+        '<div class="sbox"><div id="iv-q">' + t('iv_greeting') + '</div></div>' +
+        '<div><label style="font-size:.9rem;font-weight:800;display:block;margin-bottom:8px">✍️ ' + t('iv_ans_label') + '</label>' +
+        '<textarea class="ivtarea" id="iv-ans" placeholder="' + t('iv_ans_ph') + '"></textarea>' +
         '<div class="ivcontrols">' +
-        '<button class="ivrecbtn" id="iv-rec" onclick="toggleIVRec()" aria-label="Record voice">🎤 ' + (isAR ? 'ابدأ الإجابة' : 'Start Answer') + '</button>' +
-        '<button class="btn btn-t btn-sm" onclick="submitIV()">✅ ' + (isAR ? 'إرسال الإجابة' : 'Submit Answer') + '</button>' +
-        '<button class="btn btn-o btn-sm" onclick="nextIV()">➡️ ' + (isAR ? 'السؤال التالي' : 'Next Question') + '</button></div>' +
-        '<p style="font-size:.78rem;color:var(--txt2);margin-top:8px;line-height:1.5">💡 ' + (isAR ? 'انقر على ابدأ وتحدث — يتم تحويل صوتك إلى نص تلقائياً!' : 'Click Start Answer and speak — your voice is automatically converted to text!') + '</p></div>' +
-        '<div class="ivfb" id="iv-fb"><div style="font-size:1.3rem;margin-bottom:7px">🌟 ' + (isAR ? 'جهد رائع!' : 'Great effort!') + '</div><div class="ivfb-stars" id="iv-stars">⭐⭐⭐⭐⭐</div><p id="iv-fb-txt" style="font-size:.88rem;color:var(--txt2);line-height:1.65"></p></div>' +
-        '<div class="ivprog"><div class="ivprog-lbl"><span>' + (isAR ? 'تقدم المقابلة' : 'Interview Progress') + '</span><span id="iv-plbl">Q 1 of 8</span></div><div class="ivprog-bar"><div class="ivprog-fill" id="iv-pfill" style="width:12%"></div></div></div>' +
+        '<button class="ivrecbtn" id="iv-rec" onclick="toggleIVRec()" aria-label="Record voice">🎤 ' + t('iv_start_ans') + '</button>' +
+        '<button class="btn btn-t btn-sm" onclick="submitIV()">✅ ' + t('iv_submit') + '</button>' +
+        '<button class="btn btn-o btn-sm" onclick="nextIV()">➡️ ' + t('iv_next') + '</button></div>' +
+        '<p style="font-size:.78rem;color:var(--txt2);margin-top:8px;line-height:1.5">💡 ' + t('iv_hint') + '</p></div>' +
+        '<div class="ivfb" id="iv-fb"><div style="font-size:1.3rem;margin-bottom:7px">🌟 ' + t('iv_effort') + '</div><div class="ivfb-stars" id="iv-stars">⭐⭐⭐⭐⭐</div><p id="iv-fb-txt" style="font-size:.88rem;color:var(--txt2);line-height:1.65"></p></div>' +
+        '<div class="ivprog"><div class="ivprog-lbl"><span>' + t('iv_prog_title') + '</span><span id="iv-plbl">Q 1 of 8</span></div><div class="ivprog-bar"><div class="ivprog-fill" id="iv-pfill" style="width:12%"></div></div></div>' +
         '</div></div>';
     ivIdx = 0;
 }
@@ -1803,8 +2329,8 @@ function toggleIVRec() {
 
 // ── DASHBOARD PAGE ────────────────────────────────────────────────────
 var SP = [
-    { n: 'Communication', v: 65, c: '#FF6B35' }, { n: 'Organisation', v: 72, c: '#1DB9A8' },
-    { n: 'Teamwork', v: 78, c: '#10B981' }, { n: 'Problem Solving', v: 55, c: '#7C3AED' }, { n: 'Punctuality', v: 82, c: '#FFB830' }
+    { n: 'sk_comm', v: 65, c: '#FF6B35' }, { n: 'sk_org', v: 72, c: '#1DB9A8' },
+    { n: 'sk_team', v: 78, c: '#10B981' }, { n: 'sk_prob', v: 55, c: '#7C3AED' }, { n: 'sk_punc', v: 82, c: '#FFB830' }
 ];
 
 function updateStat(k, n) { dStats[k] = (dStats[k] || 0) + n; try { localStorage.setItem('bp_stats', JSON.stringify(dStats)); } catch (e) { } }
@@ -1812,27 +2338,27 @@ function addAct(ico, name, detail, pts) { actLog.unshift({ ico: ico, name: name,
 
 function buildDashPage() {
     try { dStats = JSON.parse(localStorage.getItem('bp_stats') || '{}'); } catch (e) { }
-    var dpName = 'Ablex User';
+    var dpName = t('dash_member');
     try { var cv2 = JSON.parse(localStorage.getItem('bp_cv') || '{}'); if (cv2.name) dpName = cv2.name; } catch (e) { }
     var pg = document.getElementById('page-dashboard');
     pg.innerHTML =
-        '<div class="phdr"><button class="backbtn" onclick="showPage(\'home\')" aria-label="Back">←</button><h2>📊 ' + (isAR ? 'لوحة التقدم' : 'Progress Dashboard · لوحة التقدم') + '</h2></div>' +
+        '<div class="phdr"><button class="backbtn" onclick="showPage(\'home\')" aria-label="Back">←</button><h2>📊 ' + t('dash_title') + '</h2></div>' +
         '<div class="dashwrap"><div class="dashgrid">' +
         '<div style="display:flex;flex-direction:column;gap:16px">' +
-        '<div class="card dp-card"><div class="dp-ava">😊</div><div class="dp-name">' + dpName + '</div><div class="dp-tag">Ablex Member ⭐</div>' +
+        '<div class="card dp-card"><div class="dp-ava">😊</div><div class="dp-name">' + dpName + '</div><div class="dp-tag">' + t('dash_member') + ' ⭐</div>' +
         '<div class="badges" style="margin-top:12px"><div class="bdg" style="background:rgba(255,107,53,.15)">🏆</div><div class="bdg" style="background:rgba(29,185,168,.15)">📄</div><div class="bdg" style="background:rgba(16,185,129,.15)">🎤</div><div class="bdg" style="background:rgba(124,58,237,.15)">🧩</div><div class="bdg" style="background:rgba(255,184,48,.15)">📚</div></div></div>' +
-        '<div class="card" style="padding:18px"><div style="font-size:.82rem;font-weight:900;margin-bottom:10px">🗺️ ' + (isAR ? 'تقدم الرحلة' : 'Journey Progress') + '</div>' +
-        [['Assessment', 'tests'], ['CV Built', 'cvs'], ['Interview', 'ivs']].map(function (s) { return '<div style="display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--bdr);font-size:.79rem;font-weight:700"><span>' + (dStats[s[1]] > 0 ? '✅' : '⭕') + '</span><span>' + s[0] + '</span></div>'; }).join('') + '</div></div>' +
+        '<div class="card" style="padding:18px"><div style="font-size:.82rem;font-weight:900;margin-bottom:10px">🗺️ ' + t('dash_journey') + '</div>' +
+        [[t('j_step_1'), 'tests'], [t('j_step_4'), 'cvs'], [t('j_step_6'), 'ivs']].map(function (s) { return '<div style="display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--bdr);font-size:.79rem;font-weight:700"><span>' + (dStats[s[1]] > 0 ? '✅' : '⭕') + '</span><span>' + s[0] + '</span></div>'; }).join('') + '</div></div>' +
         '<div style="display:flex;flex-direction:column;gap:18px">' +
         '<div class="stats-row">' +
-        [['📋', 'tests', 'Tests'], ['📄', 'cvs', 'CVs'], ['🎤', 'ivs', 'Interviews'], ['⭐', 'pts', 'Points']].map(function (s) {
+        [['📋', 'tests', t('dash_tests')], ['📄', 'cvs', t('dash_cvs')], ['🎤', 'ivs', t('dash_ivs')], ['⭐', 'pts', t('dash_points')]].map(function (s) {
             return '<div class="card scard"><div class="sc-ico">' + s[0] + '</div><div class="sc-val">' + (dStats[s[1]] || 0) + '</div><div class="sc-lbl">' + s[2] + '</div></div>';
         }).join('') + '</div>' +
-        '<div class="card dc"><h3>📋 ' + (isAR ? 'النشاط الأخير' : 'Recent Activity') + '</h3>' + (actLog.length ? actLog.map(function (a) {
+        '<div class="card dc"><h3>📋 ' + t('dash_activity') + '</h3>' + (actLog.length ? actLog.map(function (a) {
             return '<div class="act-item"><div class="ai-ico">' + a.ico + '</div><div class="ai-info"><strong>' + a.name + '</strong><span>' + a.detail + ' · ' + a.time + '</span></div><div class="ai-pts">' + a.pts + '</div></div>';
-        }).join('') : '<p style="font-size:.82rem;color:var(--txt2)">' + (isAR ? 'لا أنشطة بعد. ابدأ رحلتك!' : 'No activities yet. Start your journey!') + '</p>') + '</div>' +
-        '<div class="card dc"><h3>📈 ' + (isAR ? 'تقدم المهارات' : 'Skill Progress') + '</h3>' + SP.map(function (s) {
-            return '<div class="skp"><div class="skp-top"><span>' + s.n + '</span><span>' + s.v + '%</span></div><div class="skp-bar"><div class="skp-fill" style="width:' + s.v + '%;background:' + s.c + '"></div></div></div>';
+        }).join('') : '<p style="font-size:.82rem;color:var(--txt2)">' + t('dash_no_act') + '</p>') + '</div>' +
+        '<div class="card dc"><h3>📈 ' + t('dash_skills') + '</h3>' + SP.map(function (s) {
+            return '<div class="skp"><div class="skp-top"><span>' + t(s.n) + '</span><span>' + s.v + '%</span></div><div class="skp-bar"><div class="skp-fill" style="width:' + s.v + '%;background:' + s.c + '"></div></div></div>';
         }).join('') + '</div></div></div></div>';
 }
 
@@ -1865,29 +2391,281 @@ function buildAboutPage() {
 }
 
 // ── LANGUAGE TOGGLE ───────────────────────────────────────────────────
-function toggleLang() {
-    isAR = !isAR;
-    var lang = isAR ? 'ar' : 'en';
-    document.documentElement.setAttribute('lang', lang);
-    document.documentElement.setAttribute('data-lang', lang);
+var LANG_LABELS = { en: '🌐 English', ar: '🌐 العربية', fr: '🌐 Français', es: '🌐 Español' };
+
+function setLang(langCode) {
+    if (!langCode || !LANG_LABELS[langCode]) return;
+    currentLang = langCode;
+    isAR = (currentLang === 'ar');
+
+    document.documentElement.setAttribute('lang', currentLang);
+    document.documentElement.setAttribute('data-lang', currentLang);
     document.documentElement.setAttribute('dir', isAR ? 'rtl' : 'ltr');
-    try { localStorage.setItem('bp_lang', lang); } catch (e) { }
+    try { localStorage.setItem('bp_lang', currentLang); } catch (e) { }
 
-    var lb = document.getElementById('lang-btn'); if (lb) lb.textContent = isAR ? '🌐 EN' : '🌐 AR';
+    // Sync dropdowns
+    var lb = document.getElementById('lang-btn'); if (lb) lb.value = currentLang;
+    var mmLb = document.getElementById('mm-lang-btn'); if (mmLb) mmLb.value = currentLang;
 
-    // Update all static nav text
+    // Update all nav text (Desktop + Mobile)
     updateNavText();
 
-    // Update reading bar text
-    var rbTxt = document.getElementById('rb-txt'); if (rbTxt) rbTxt.textContent = t('reading_bar_txt');
+    // Update static content in index.html
+    updateStaticContent();
 
-    showToast(isAR ? '🌐 العربية' : '🌐 English');
+    showToast(LANG_LABELS[currentLang]);
 
-    // Re-render current active page
+    // Re-render current active page (if dynamic)
     var activePage = document.querySelector('.page.act');
     if (activePage) {
         var pageId = activePage.id.replace('page-', '');
-        if (pageId !== 'home') showPage(pageId);
+        if (pageId !== 'home') {
+            showPage(pageId);
+        } else {
+            // If home, we just updated static content, but might need to refresh lists
+            renderHomeLists();
+        }
+    }
+}
+
+function updateStaticContent() {
+    // Reading Bar
+    var rbTxt = document.getElementById('rb-txt'); if (rbTxt) rbTxt.textContent = t('reading_bar_txt');
+    var rbStop = document.getElementById('rb-stop'); if (rbStop) rbStop.textContent = '✕ ' + t('stop_btn').replace('⏹ ', '');
+
+    // Voice Overlay
+    var voTitle = document.getElementById('vo-title'); if (voTitle) voTitle.textContent = t('vo_title');
+    var voRes = document.getElementById('v-result'); if (voRes) voRes.textContent = t('vo_result');
+    var voGuide = document.getElementById('vo-guide-btn'); if (voGuide) voGuide.innerHTML = t('vo_guide_btn');
+    var voCan = document.getElementById('vo-cancel-btn'); if (voCan) voCan.innerHTML = t('vo_cancel_btn');
+
+    // Voice Guides Items
+    var voCmds = document.getElementById('vo-cmds');
+    if (voCmds) {
+        voCmds.innerHTML = 
+            '<div class="v-cmd-item">🏠 ' + t('cmd_home') + '</div>' +
+            '<div class="v-cmd-item">💼 ' + t('cmd_jobs') + '</div>' +
+            '<div class="v-cmd-item">📄 ' + t('cmd_cv') + '</div>' +
+            '<div class="v-cmd-item">🎤 ' + t('cmd_inter') + '</div>' +
+            '<div class="v-cmd-item">🔊 ' + t('cmd_read') + '</div>' +
+            '<div class="v-cmd-item">🌙 ' + t('cmd_dark') + '</div>' +
+            '<div class="v-cmd-item">🔠 ' + t('cmd_big') + '</div>' +
+            '<button class="btn btn-t btn-sm" onclick="stopVoiceCmd()">' + t('cmd_stop') + '</button>';
+    }
+
+    // Voice Guide Modal
+    var vcgT = document.getElementById('vcg-title'); if (vcgT) vcgT.textContent = t('vcg_title');
+    var vcgS = document.getElementById('vcg-subtitle'); if (vcgS) vcgS.textContent = t('vcg_subtitle');
+    var vcgD = document.getElementById('vcg-desc'); if (vcgD) vcgD.textContent = t('vcg_desc');
+    var vcgH1 = document.getElementById('vcg-h-nav'); if (vcgH1) vcgH1.innerHTML = '🧭 ' + t('vcg_h_nav');
+    var vcgH2 = document.getElementById('vcg-h-a11y'); if (vcgH2) vcgH2.innerHTML = '♿ ' + t('vcg_h_a11y');
+    var vcgSt = document.getElementById('vcg-start-btn'); if (vcgSt) vcgSt.innerHTML = '🎙️ ' + t('vcg_start_btn');
+
+    // Accessibility Bar
+    var abMap = {
+        'ab-fplus': 'cmd_big', 'ab-fminus': 'cmd_small', 'ab-theme': 'cmd_dark',
+        'ab-contrast': 'cmd_hc', 'ab-read': 'cmd_read', 'ab-stop': 'cmd_stop', 'ab-guide': 'btn_voice_guide'
+    };
+    Object.keys(abMap).forEach(id => {
+        var el = document.getElementById(id);
+        if (el) {
+            el.setAttribute('title', t(abMap[id]).replace(/"/g, ''));
+            el.setAttribute('aria-label', t(abMap[id]).replace(/"/g, ''));
+        }
+    });
+
+    // Hero Section
+    var hb = document.getElementById('hero-badge'); if (hb) hb.textContent = t('hero_badge');
+    var ht = document.getElementById('hero-title'); if (ht) ht.innerHTML = t('hero_title');
+    var hd = document.getElementById('hero-desc'); if (hd) hd.textContent = t('hero_desc');
+    var hbA = document.getElementById('h-btn-assess'); if (hbA) hbA.textContent = t('h_btn_assess');
+    var hbV = document.getElementById('h-btn-voice'); if (hbV) hbV.textContent = t('h_btn_voice');
+    var hbG = document.getElementById('h-btn-guide'); if (hbG) hbG.textContent = t('h_btn_guide');
+
+    // Hero Stats
+    var sU = document.getElementById('s-users'); if (sU) sU.textContent = t('s_users');
+    var sC = document.getElementById('s-cvs'); if (sC) sC.textContent = t('s_cvs');
+    var sJ = document.getElementById('s-jobs'); if (sJ) sJ.textContent = t('s_jobs');
+
+    // Journey
+    var jt = document.getElementById('journey-title'); if (jt) jt.innerHTML = '🗺️ ' + t('journey_title');
+
+    // Toolkit / How it Works / A11y
+    var tkSt = document.getElementById('tk-stag'); if (tkSt) tkSt.textContent = t('tk_stag');
+    var tkTi = document.getElementById('tk-title'); if (tkTi) tkTi.textContent = t('tk_title');
+    var tkDe = document.getElementById('tk-desc'); if (tkDe) tkDe.textContent = t('tk_desc');
+
+    var hwSt = document.getElementById('hw-stag'); if (hwSt) hwSt.textContent = t('hw_stag');
+    var hwTi = document.getElementById('hw-title'); if (hwTi) hwTi.textContent = t('hw_title');
+    var hwDe = document.getElementById('hw-desc'); if (hwDe) hwDe.textContent = t('hw_desc');
+
+    var aySt = document.getElementById('a11y-stag'); if (aySt) aySt.textContent = t('a11y_stag');
+    var ayTi = document.getElementById('a11y-title'); if (ayTi) ayTi.textContent = t('a11y_title');
+    var ayDe = document.getElementById('a11y-desc'); if (ayDe) ayDe.textContent = t('a11y_desc');
+
+    // Testimonials
+    var tsSt = document.getElementById('testi-stag'); if (tsSt) tsSt.textContent = t('testi_stag');
+    var tsTi = document.getElementById('testi-title'); if (tsTi) tsTi.textContent = t('testi_title');
+
+    // CTA
+    var ctSt = document.getElementById('cta-stag'); if (ctSt) ctSt.textContent = t('cta_stag');
+    var ctTi = document.getElementById('cta-title'); if (ctTi) ctTi.textContent = t('cta_title');
+    var ctDe = document.getElementById('cta-desc'); if (ctDe) ctDe.textContent = t('cta_desc');
+    var ctBa = document.getElementById('cta-btn-assess'); if (ctBa) ctBa.textContent = t('cta_btn_assess');
+    var ctBt = document.getElementById('cta-btn-training'); if (ctBt) ctBt.textContent = t('cta_btn_training');
+    var ctBc = document.getElementById('cta-btn-cv'); if (ctBc) ctBc.textContent = t('cta_btn_cv');
+
+    // Footer
+    var fc = document.getElementById('footer-copy'); if (fc) fc.textContent = t('footer_copy');
+    var fa = document.getElementById('f-about'); if (fa) fa.textContent = t('f_about');
+    var fd = document.getElementById('f-dashboard'); if (fd) fd.textContent = t('f_dashboard');
+
+    // AI Coach
+    var chi = document.getElementById('coach-hi'); if (chi) chi.textContent = t('coach_hi');
+    var ctx = document.getElementById('coach-txt'); if (ctx) ctx.textContent = t('coach_txt');
+    var cok = document.getElementById('coach-btn-ok'); if (cok) cok.textContent = t('coach_btn_ok');
+    
+    // Render the dynamic lists
+    renderHomeLists();
+}
+
+function renderHomeLists() {
+    // 1. Journey Cards
+    var jGrid = document.getElementById('jcards-grid');
+    if (jGrid) {
+        var steps = [
+            { id: 'assess', icon: '📋', color: 'rgba(255,107,53,.1)', key: 'j_step_1' },
+            { id: 'training', icon: '🏋️', color: 'rgba(16,185,129,.1)', key: 'j_step_2' },
+            { id: 'cvlearn', icon: '📖', color: 'rgba(29,185,168,.1)', key: 'j_step_3' },
+            { id: 'cvbuild', icon: '📄', color: 'rgba(255,184,48,.1)', key: 'j_step_4' },
+            { id: 'interview', icon: '🎤', color: 'rgba(124,58,237,.1)', key: 'j_step_5' }
+        ];
+        jGrid.innerHTML = steps.map(s => `
+            <div class="jcard" onclick="showPage('${s.id}')" role="button" tabindex="0">
+                <div class="jcard-ico" style="background:${s.color}">${s.icon}</div>
+                <div>
+                    <h4>${t(s.key + '_t')}</h4>
+                    <p>${t(s.key + '_p')}</p>
+                </div>
+                <div class="jcard-arr">${isAR ? '←' : '→'}</div>
+            </div>
+        `).join('');
+    }
+
+    // 2. Toolkit
+    var tkGrid = document.getElementById('tk-grid');
+    if (tkGrid) {
+        var feats = [
+            { id: 'assess', icon: '📋', color: '#FF6B35', bg: 'rgba(255,107,53,.1)', key: 'tk_feat_1' },
+            { id: 'training', icon: '🏋️', color: '#10B981', bg: 'rgba(16,185,129,.1)', key: 'tk_feat_2' },
+            { id: 'cvbuild', icon: '📄', color: '#1DB9A8', bg: 'rgba(29,185,168,.1)', key: 'tk_feat_3' },
+            { id: 'games', icon: '🧩', color: '#FFB830', bg: 'rgba(255,184,48,.1)', key: 'tk_feat_4' },
+            { id: 'learn', icon: '📚', color: '#7C3AED', bg: 'rgba(124,58,237,.1)', key: 'tk_feat_5' },
+            { id: 'interview', icon: '🎤', color: '#3B82F6', bg: 'rgba(59,130,246,.1)', key: 'tk_feat_6' }
+        ];
+        tkGrid.innerHTML = feats.map(f => `
+            <div class="feat-card card" style="--ca:${f.color}" onclick="showPage('${f.id}')" role="button" tabindex="0">
+                <div class="feat-icon" style="background:${f.bg}">${f.icon}</div>
+                <h3>${t(f.key + '_t')}</h3>
+                <p>${t(f.key + '_p')}</p>
+                <button class="feat-go">${t(f.key + '_b')}</button>
+            </div>
+        `).join('');
+    }
+
+    // 3. How it Works
+    var hwGrid = document.getElementById('hw-grid');
+    if (hwGrid) {
+        hwGrid.innerHTML = [1, 2, 3].map(n => `
+            <div class="how-step">
+                <div class="how-num">${n}</div>
+                <h3 style="font-size:1rem;font-weight:800;margin-bottom:10px">${t('hw_step_' + n + '_t')}</h3>
+                <p style="font-size:.83rem;color:var(--txt2);line-height:1.65">${t('hw_step_' + n + '_p')}</p>
+            </div>
+        `).join('');
+    }
+
+    // 4. Accessibility Grid
+    var ayGrid = document.getElementById('a11y-grid');
+    if (ayGrid) {
+        var aIcons = ['🎙️', '🔊', '🔠', '🌙', '🌐', '⌨️', '🖱️', '💡'];
+        ayGrid.innerHTML = aIcons.map((ico, idx) => `
+            <div class="a11y-card"><span class="a11y-ico">${ico}</span>
+                <h3 style="font-size:.9rem;font-weight:800;margin-bottom:6px">${t('a11y_feat_' + (idx + 1) + '_t')}</h3>
+                <p style="font-size:.78rem;color:var(--txt2)">${t('a11y_feat_' + (idx + 1) + '_p')}</p>
+            </div>
+        `).join('');
+    }
+
+    // 5. Testimonials
+    var tTrack = document.getElementById('ttrack');
+    if (tTrack) {
+        var avas = ['😊', '👩', '😄', '😃', '👨‍🏫'];
+        var colors = ['rgba(255,107,53,.15)', 'rgba(29,185,168,.15)', 'rgba(124,58,237,.15)', 'rgba(16,185,129,.15)', 'rgba(59,130,246,.15)'];
+        tTrack.innerHTML = [1, 2, 3, 4, 5].map((n, i) => `
+            <div class="tcard">
+                <div class="tq">"</div>
+                <div class="tstars">⭐⭐⭐⭐⭐</div>
+                <p class="ttext">${t('testi_' + n + '_t')}</p>
+                <div class="tauth">
+                    <div class="tava" style="background:${colors[i]}">${avas[i]}</div>
+                    <div>
+                        <div class="tname">${t('testi_' + n + '_n')}</div>
+                        <div class="trole">${t('testi_' + n + '_r')}</div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // 6. Voice Guide Grid (Navigation)
+    var vcgNav = document.getElementById('vcg-grid-nav');
+    if (vcgNav) {
+        var vItems = [
+            { ico: '🏠', key: 'cmd_home' }, { ico: '📋', key: 'cmd_test' },
+            { ico: '🏋️', key: 'cmd_train' }, { ico: '📄', key: 'cmd_cv' },
+            { ico: '💼', key: 'cmd_jobs' }, { ico: '🎤', key: 'cmd_inter' },
+            { ico: '🧩', key: 'cmd_games' }, { ico: '📚', key: 'cmd_learn' }
+        ];
+        vcgNav.innerHTML = vItems.map(v => `
+            <div class="vcg-item"><span class="ico">${v.ico}</span>
+                <div>
+                    <div class="cmd">${t(v.key)}</div>
+                    <div class="desc">${t(v.key + '_d')}</div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // 7. Voice Guide Grid (A11y)
+    var vcgA11y = document.getElementById('vcg-grid-a11y');
+    if (vcgA11y) {
+        var aItems = [
+            { ico: '🔊', key: 'cmd_read' }, { ico: '⏹', key: 'cmd_stop' },
+            { ico: '🌙', key: 'cmd_dark' }, { ico: '◑', key: 'cmd_hc' },
+            { ico: '🔠', key: 'cmd_big' }, { ico: '🔡', key: 'cmd_small' }
+        ];
+        vcgA11y.innerHTML = aItems.map(a => `
+            <div class="vcg-item"><span class="ico">${a.ico}</span>
+                <div>
+                    <div class="cmd">${t(a.key)}</div>
+                    <div class="desc">${t(a.key + '_d')}</div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // 8. CTA Badges
+    var ctaBadges = document.getElementById('cta-badges');
+    if (ctaBadges) {
+        var badgeMap = {
+            en: ['🆓 Completely Free', '🔒 Safe & Private', '🌐 Multilingual', '♿ Fully Accessible'],
+            ar: ['🆓 مجاني تمامًا', '🔒 آمن وخاص', '🌐 متعدد اللغات', '♿ متاح للجميع'],
+            fr: ['🆓 Totalement gratuit', '🔒 Sûr et privé', '🌐 Multilingue', '♿ Entièrement accessible'],
+            es: ['🆓 Completamente gratis', '🔒 Seguro y privado', '🌐 Multilingüe', '♿ Totalmente accesible']
+        };
+        var bTexts = badgeMap[currentLang] || badgeMap.en;
+        ctaBadges.innerHTML = bTexts.map(bt => `<div class="cta-badge">${bt}</div>`).join('');
     }
 }
 
@@ -1896,12 +2674,23 @@ function updateNavText() {
         'nl-home': 'nav_home', 'nl-assess': 'nav_assess', 'nl-training': 'nav_training',
         'nl-cvlearn': 'nav_cvlearn', 'nl-cvbuild': 'nav_cvbuild', 'nl-games': 'nav_games',
         'nl-learn': 'nav_learn', 'nl-jobs': 'nav_jobs', 'nl-interview': 'nav_interview',
-        'nl-dashboard': 'nav_dashboard', 'nl-about': 'nav_about'
+        'nl-dashboard': 'nav_dashboard', 'nl-about': 'nav_about',
+        // Mobile menu
+        'mm-home': 'nav_home', 'mm-assess': 'nav_assess', 'mm-training': 'nav_training',
+        'mm-cvlearn': 'nav_cvlearn', 'mm-cvbuild': 'nav_cvbuild', 'mm-games': 'nav_games',
+        'mm-learn': 'nav_learn', 'mm-jobs': 'nav_jobs', 'mm-interview': 'nav_interview',
+        'mm-dashboard': 'nav_dashboard', 'mm-about': 'nav_about'
     };
     Object.keys(navMap).forEach(function (id) {
         var el = document.getElementById(id);
         if (el) el.textContent = t(navMap[id]);
     });
+
+    // Mobile buttons
+    var mmLang = document.getElementById('mm-lang-btn'); if (mmLang) mmLang.textContent = t('lang_btn');
+    var mmTheme = document.getElementById('mm-theme-btn'); if (mmTheme) mmTheme.innerHTML = '🌙 ' + t('cmd_dark').replace(/"/g, '');
+    var mmRead = document.getElementById('mm-read-btn'); if (mmRead) mmRead.innerHTML = '🔊 ' + t('cmd_read').replace(/"/g, '');
+    var mmGuide = document.getElementById('mm-guide-btn'); if (mmGuide) mmGuide.innerHTML = '📖 ' + t('btn_voice_guide');
 }
 
 // ── THEME / FONT ──────────────────────────────────────────────────────
@@ -2070,15 +2859,23 @@ document.addEventListener('DOMContentLoaded', function () {
     // Restore language preference
     try {
         var savedLang = localStorage.getItem('bp_lang');
-        if (savedLang === 'ar') {
-            isAR = true;
-            document.documentElement.setAttribute('lang', 'ar');
-            document.documentElement.setAttribute('data-lang', 'ar');
-            document.documentElement.setAttribute('dir', 'rtl');
-            var lb = document.getElementById('lang-btn'); if (lb) lb.textContent = '🌐 EN';
-            updateNavText();
+        if (savedLang && ['en', 'ar', 'fr', 'es'].indexOf(savedLang) !== -1) {
+            currentLang = savedLang;
+            isAR = (currentLang === 'ar');
         }
     } catch (e) { }
+
+    // Apply language attributes
+    var lang = currentLang;
+    document.documentElement.setAttribute('lang', lang);
+    document.documentElement.setAttribute('data-lang', lang);
+    document.documentElement.setAttribute('dir', isAR ? 'rtl' : 'ltr');
+    var lb = document.getElementById('lang-btn'); if (lb) lb.value = currentLang;
+    var mmLb = document.getElementById('mm-lang-btn'); if (mmLb) mmLb.value = currentLang;
+
+    // Update all nav and static content
+    updateNavText();
+    updateStaticContent();
 
     // Lightweight init — Three.js and GSAP load after main content
     setTimeout(function () {

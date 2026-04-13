@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>Ablex ✨ ابليكس</title>
+    <title>Equal Opportunities - فرص متساوية</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&family=Cairo:wght@400;600;700;800;900&display=swap"
@@ -22,7 +22,7 @@
     <div class="reading-bar" id="reading-bar" role="status" aria-live="polite">
         <div class="rb-dot"></div>
         <span id="rb-txt">Reading page aloud…</span>
-        <button onclick="stopAll()"
+        <button id="rb-stop" onclick="stopAll()"
             style="background:rgba(255,255,255,.2);border:none;color:#fff;font-size:.7rem;font-weight:800;padding:2px 9px;border-radius:50px;cursor:pointer;margin-left:8px"
             aria-label="Stop reading">✕ Stop</button>
     </div>
@@ -30,7 +30,7 @@
     <!-- VOICE OVERLAY -->
     <div class="v-over" id="v-over" role="dialog" aria-label="Voice Commands" aria-modal="true">
         <div class="v-orb" aria-hidden="true">🎙️</div>
-        <h3 style="color:#fff;font-size:1.5rem;font-weight:900">Listening… / جاري الاستماع</h3>
+        <h3 id="vo-title" style="color:#fff;font-size:1.5rem;font-weight:900">Listening…</h3>
         <div class="mic-waves" aria-hidden="true">
             <div class="mic-wave"></div>
             <div class="mic-wave"></div>
@@ -40,22 +40,22 @@
             <div class="mic-wave"></div>
             <div class="mic-wave"></div>
         </div>
-        <div class="v-result" id="v-result" aria-live="polite">Waiting for your voice… / في انتظار صوتك</div>
-        <div class="v-cmds" aria-label="Available commands">
-            <div class="v-cmd-item">🏠 "Go home" / "الرئيسية"</div>
-            <div class="v-cmd-item">💼 "Show jobs" / "اعرض الوظائف"</div>
-            <div class="v-cmd-item">📄 "Open CV" / "افتح السيرة"</div>
-            <div class="v-cmd-item">🎤 "Start interview" / "ابدأ المقابلة"</div>
-            <div class="v-cmd-item">🔊 "Read page" / "اقرأ الصفحة"</div>
-            <div class="v-cmd-item">🌙 "Dark mode" / "وضع مظلم"</div>
-            <div class="v-cmd-item">🔠 "Bigger text" / "نص أكبر"</div>
-            <div class="v-cmd-item">⏹ "Stop voice" / "توقف"</div>
+        <div class="v-result" id="v-result" aria-live="polite">Waiting for your voice…</div>
+        <div class="v-cmds" aria-label="Available commands" id="vo-cmds">
+            <div class="v-cmd-item">🏠 "Go home"</div>
+            <div class="v-cmd-item">💼 "Show jobs"</div>
+            <div class="v-cmd-item">📄 "Open CV"</div>
+            <div class="v-cmd-item">🎤 "Start interview"</div>
+            <div class="v-cmd-item">🔊 "Read page"</div>
+            <div class="v-cmd-item">🌙 "Dark mode"</div>
+            <div class="v-cmd-item">🔠 "Bigger text"</div>
+            <div class="v-cmd-item">⏹ "Stop voice"</div>
         </div>
         <div style="display:flex;gap:9px">
-            <button class="btn btn-g btn-sm" onclick="openVoiceGuide()"
+            <button id="vo-guide-btn" class="btn btn-g btn-sm" onclick="openVoiceGuide()"
                 style="color:#fff;border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.1)">📖 Commands
                 Guide</button>
-            <button class="btn btn-g btn-sm" onclick="stopVoiceCmd()"
+            <button id="vo-cancel-btn" class="btn btn-g btn-sm" onclick="stopVoiceCmd()"
                 style="color:#fff;border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.1)">✕ Cancel</button>
         </div>
     </div>
@@ -68,16 +68,16 @@
                 <div style="width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--violet),var(--sky));display:flex;align-items:center;justify-content:center;font-size:1.5rem"
                     aria-hidden="true">🎙️</div>
                 <div>
-                    <h2 style="font-family:var(--fd);font-weight:900;font-size:1.3rem">Voice Commands Guide</h2>
-                    <p style="font-family:var(--fa);font-size:.85rem;color:var(--txt2)">دليل الأوامر الصوتية</p>
+                    <h2 id="vcg-title" style="font-family:var(--fd);font-weight:900;font-size:1.3rem">Voice Commands Guide</h2>
+                    <p id="vcg-subtitle" style="font-family:var(--fa);font-size:.85rem;color:var(--txt2)">دليل الأوامر الصوتية</p>
                 </div>
             </div>
-            <p style="font-size:.86rem;color:var(--txt2);margin-bottom:16px;line-height:1.6">Click the microphone button
+            <p id="vcg-desc" style="font-size:.86rem;color:var(--txt2);margin-bottom:16px;line-height:1.6">Click the microphone button
                 🎙️ and say any of these commands. Speak clearly in English or Arabic!</p>
-            <h4
+            <h4 id="vcg-h-nav"
                 style="font-size:.8rem;font-weight:900;color:var(--sun);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">
                 🧭 Navigation</h4>
-            <div class="vcg-grid">
+            <div class="vcg-grid" id="vcg-grid-nav">
                 <div class="vcg-item"><span class="ico">🏠</span>
                     <div>
                         <div class="cmd">"Go home"</div>
@@ -127,10 +127,10 @@
                     </div>
                 </div>
             </div>
-            <h4
+            <h4 id="vcg-h-a11y"
                 style="font-size:.8rem;font-weight:900;color:var(--sky);text-transform:uppercase;letter-spacing:.8px;margin:16px 0 10px">
                 ♿ Accessibility</h4>
-            <div class="vcg-grid">
+            <div class="vcg-grid" id="vcg-grid-a11y">
                 <div class="vcg-item"><span class="ico">🔊</span>
                     <div>
                         <div class="cmd">"Read page"</div>
@@ -169,7 +169,7 @@
                 </div>
             </div>
             <div style="margin-top:20px;text-align:center">
-                <button class="btn btn-o btn-sm" onclick="startVoiceCmd();closeVoiceGuide()">🎙️ Start Voice
+                <button id="vcg-start-btn" class="btn btn-o btn-sm" onclick="startVoiceCmd();closeVoiceGuide()">🎙️ Start Voice
                     Commands</button>
             </div>
         </div>
@@ -189,16 +189,16 @@
 
     <!-- ACCESSIBILITY TOOLBAR -->
     <div class="a11y-bar" id="a11y-bar" aria-label="Accessibility controls" role="toolbar">
-        <button class="a11y-btn" onclick="changeFontSize(1)" aria-label="Increase text size"
+        <button id="ab-fplus" class="a11y-btn" onclick="changeFontSize(1)" aria-label="Increase text size"
             title="Bigger text">A+</button>
-        <button class="a11y-btn" onclick="changeFontSize(-1)" aria-label="Decrease text size" title="Smaller text"
+        <button id="ab-fminus" class="a11y-btn" onclick="changeFontSize(-1)" aria-label="Decrease text size" title="Smaller text"
             style="font-size:.8rem">A−</button>
-        <button class="a11y-btn" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Dark mode"
+        <button id="ab-theme" class="a11y-btn" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Dark mode"
             id="theme-icon">🌙</button>
-        <button class="a11y-btn" onclick="toggleContrast()" aria-label="High contrast" title="High contrast">◑</button>
-        <button class="a11y-btn" onclick="readPage()" aria-label="Read page aloud" title="Read aloud">🔊</button>
-        <button class="a11y-btn" onclick="stopAll()" aria-label="Stop reading" title="Stop voice">⏹</button>
-        <button class="a11y-btn" onclick="openVoiceGuide()" aria-label="Voice guide" title="Voice guide">📖</button>
+        <button id="ab-contrast" class="a11y-btn" onclick="toggleContrast()" aria-label="High contrast" title="High contrast">◑</button>
+        <button id="ab-read" class="a11y-btn" onclick="readPage()" aria-label="Read page aloud" title="Read aloud">🔊</button>
+        <button id="ab-stop" class="a11y-btn" onclick="stopAll()" aria-label="Stop reading" title="Stop voice">⏹</button>
+        <button id="ab-guide" class="a11y-btn" onclick="openVoiceGuide()" aria-label="Voice guide" title="Voice guide">📖</button>
     </div>
 
     <!-- NAV -->
@@ -206,11 +206,11 @@
         <div class="nav-logo" onclick="showPage('home')" role="button" tabindex="0" aria-label="Ablex Home">
             <div class="nav-logo-icon" aria-hidden="true">
                 <figure class="ablex-logo">
-                    <img src="./images/logo/Ablex.jpeg" alt="Ablex Logo ابليكس لوجو">
+                    <img src="./images/logo/logo.png" alt="Equal Opportunity">
                 </figure>
             </div>
             <div>
-                <div class="nav-logo-text">Ablex</div><span class="nav-logo-ar">ابليكس</span>
+                <div class="nav-logo-text" style="font-size:1.2rem">Equal Opportunities</div><span class="nav-logo-ar">فرص متساوية</span>
             </div>
         </div>
         <ul class="nav-links" id="nav-links" style="list-style:none" role="menubar">
@@ -242,7 +242,12 @@
             <button class="nb" onclick="startVoiceCmd()" title="Voice Commands"
                 aria-label="Start voice commands">🎙️</button>
             <button class="nb" onclick="readPage()" title="Read page" aria-label="Read page aloud">🔊</button>
-            <button class="langbtn" id="lang-btn" onclick="toggleLang()" aria-label="Switch language">🌐 AR</button>
+            <select class="langbtn" id="lang-btn" onchange="setLang(this.value)" aria-label="Switch language">
+                <option value="en">🌐 English</option>
+                <option value="ar">🌐 العربية</option>
+                <option value="fr">🌐 Français</option>
+                <option value="es">🌐 Español</option>
+            </select>
             <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu"
                 aria-expanded="false">
                 <div class="hb-line"></div>
@@ -254,22 +259,27 @@
 
     <!-- MOBILE MENU -->
     <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
-        <a href="#" onclick="showPage('home');closeMenu();return false">🏠 Home / الرئيسية</a>
-        <a href="#" onclick="showPage('assess');closeMenu();return false">📋 Assessment / الاختبار</a>
-        <a href="#" onclick="showPage('training');closeMenu();return false">🏋️ Training / تدريب</a>
-        <a href="#" onclick="showPage('cvlearn');closeMenu();return false">📖 CV Guide / دليل السيرة</a>
-        <a href="#" onclick="showPage('cvbuild');closeMenu();return false">📄 Build CV / ابنِ السيرة</a>
-        <a href="#" onclick="showPage('games');closeMenu();return false">🧩 Games / الألعاب</a>
-        <a href="#" onclick="showPage('learn');closeMenu();return false">📚 Learn / تعلم</a>
-        <a href="#" onclick="showPage('jobs');closeMenu();return false">💼 Jobs / وظائف</a>
-        <a href="#" onclick="showPage('interview');closeMenu();return false">🎤 Interview / مقابلة</a>
-        <a href="#" onclick="showPage('dashboard');closeMenu();return false">📊 Progress / لوحة</a>
-        <a href="#" onclick="showPage('about');closeMenu();return false">👥 About / عن المنصة</a>
+        <a href="#" id="mm-home" onclick="showPage('home');closeMenu();return false">🏠 Home</a>
+        <a href="#" id="mm-assess" onclick="showPage('assess');closeMenu();return false">📋 Assessment</a>
+        <a href="#" id="mm-training" onclick="showPage('training');closeMenu();return false">🏋️ Training</a>
+        <a href="#" id="mm-cvlearn" onclick="showPage('cvlearn');closeMenu();return false">📖 CV Guide</a>
+        <a href="#" id="mm-cvbuild" onclick="showPage('cvbuild');closeMenu();return false">📄 Build CV</a>
+        <a href="#" id="mm-games" onclick="showPage('games');closeMenu();return false">🧩 Games</a>
+        <a href="#" id="mm-learn" onclick="showPage('learn');closeMenu();return false">📚 Learn</a>
+        <a href="#" id="mm-jobs" onclick="showPage('jobs');closeMenu();return false">💼 Jobs</a>
+        <a href="#" id="mm-interview" onclick="showPage('interview');closeMenu();return false">🎤 Interview</a>
+        <a href="#" id="mm-dashboard" onclick="showPage('dashboard');closeMenu();return false">📊 Progress</a>
+        <a href="#" id="mm-about" onclick="showPage('about');closeMenu();return false">👥 About</a>
         <div style="display:flex;gap:9px;padding-top:6px;flex-wrap:wrap">
-            <button class="btn btn-o btn-sm" onclick="toggleLang();closeMenu()">🌐 AR/EN</button>
-            <button class="btn btn-g btn-sm" onclick="toggleTheme();closeMenu()">🌙 Theme</button>
-            <button class="btn btn-t btn-sm" onclick="readPage();closeMenu()">🔊 Read Page</button>
-            <button class="btn btn-g btn-sm" onclick="openVoiceGuide();closeMenu()">📖 Voice Guide</button>
+            <select id="mm-lang-btn" class="btn btn-o btn-sm" onchange="setLang(this.value);closeMenu()" aria-label="Switch language">
+                <option value="en">🌐 EN</option>
+                <option value="ar">🌐 AR</option>
+                <option value="fr">🌐 FR</option>
+                <option value="es">🌐 ES</option>
+            </select>
+            <button id="mm-theme-btn" class="btn btn-g btn-sm" onclick="toggleTheme();closeMenu()">🌙 Theme</button>
+            <button id="mm-read-btn" class="btn btn-t btn-sm" onclick="readPage();closeMenu()">🔊 Read Page</button>
+            <button id="mm-guide-btn" class="btn btn-g btn-sm" onclick="openVoiceGuide();closeMenu()">📖 Voice Guide</button>
         </div>
     </nav>
 
@@ -289,36 +299,36 @@
                     aria-hidden="true"></canvas>
                 <div class="hero" style="position:relative;z-index:1">
                     <div>
-                        <div class="hero-badge">✨ AI-Powered Career Platform</div>
-                        <h1><span class="gtext">Your Journey to</span><br>Work Starts Here! 🚀</h1>
-                        <p>Ablex guides you step by step — from discovering your best job, to building your CV, to
+                        <div class="hero-badge" id="hero-badge">✨ AI-Powered Career Platform</div>
+                        <h1 id="hero-title"><span class="gtext">Your Journey to</span><br>Work Starts Here! 🚀</h1>
+                        <p id="hero-desc">Ablex guides you step by step — from discovering your best job, to building your CV, to
                             acing your interview. With friendly AI voice support every step of the way!</p>
                         <div class="hero-btns">
-                            <button class="btn btn-o" onclick="showPage('assess')">📋 Start Assessment</button>
-                            <button class="btn btn-g" onclick="startVoiceCmd()">🎙️ Use Voice</button>
-                            <button class="btn btn-t btn-sm" onclick="openVoiceGuide()">📖 Voice Guide</button>
+                            <button id="h-btn-assess" class="btn btn-o" onclick="showPage('assess')">📋 Start Assessment</button>
+                            <button id="h-btn-voice" class="btn btn-g" onclick="startVoiceCmd()">🎙️ Use Voice</button>
+                            <button id="h-btn-guide" class="btn btn-t btn-sm" onclick="openVoiceGuide()">📖 Voice Guide</button>
                         </div>
                         <div class="hero-stats">
                             <div>
                                 <div class="stn" id="c1">0</div>
-                                <div class="stl">Users Helped</div>
+                                <div class="stl" id="s-users">Users Helped</div>
                             </div>
                             <div>
                                 <div class="stn" id="c2">0</div>
-                                <div class="stl">CVs Built</div>
+                                <div class="stl" id="s-cvs">CVs Built</div>
                             </div>
                             <div>
                                 <div class="stn" id="c3">0</div>
-                                <div class="stl">Jobs Found</div>
+                                <div class="stl" id="s-jobs">Jobs Found</div>
                             </div>
                         </div>
                     </div>
                     <div>
                         <div
                             style="background:var(--surf);border:2px solid var(--bdr);border-radius:var(--rlg);padding:26px;box-shadow:var(--shd)">
-                            <h3 style="font-family:var(--fd);font-weight:900;margin-bottom:18px;font-size:.98rem">🗺️
+                            <h3 id="journey-title" style="font-family:var(--fd);font-weight:900;margin-bottom:18px;font-size:.98rem">🗺️
                                 Your 5-Step Career Journey</h3>
-                            <div class="jcards">
+                            <div class="jcards" id="jcards-grid">
                                 <div class="jcard" onclick="showPage('assess')" role="button" tabindex="0">
                                     <div class="jcard-ico" style="background:rgba(255,107,53,.1)">📋</div>
                                     <div>
@@ -369,12 +379,12 @@
             <section class="sec-alt sec" style="max-width:100%">
                 <div style="max-width:1160px;margin:0 auto">
                     <div class="center" style="margin-bottom:48px">
-                        <div class="stag">Everything You Need</div>
-                        <h2 class="stitle">Your Complete Career Toolkit 🎯</h2>
-                        <p class="ssub">Seven powerful tools designed just for you. Each step is guided and encouraging.
+                        <div class="stag" id="tk-stag">Everything You Need</div>
+                        <h2 class="stitle" id="tk-title">Your Complete Career Toolkit 🎯</h2>
+                        <p class="ssub" id="tk-desc">Seven powerful tools designed just for you. Each step is guided and encouraging.
                         </p>
                     </div>
-                    <div class="feat-grid">
+                    <div class="feat-grid" id="tk-grid">
                         <div class="feat-card card" style="--ca:#FF6B35" onclick="showPage('assess')" role="button"
                             tabindex="0">
                             <div class="feat-icon" style="background:rgba(255,107,53,.1)">📋</div>
@@ -424,11 +434,11 @@
             <!-- HOW IT WORKS -->
             <section class="sec">
                 <div class="center" style="margin-bottom:48px">
-                    <div class="stag">Simple Steps</div>
-                    <h2 class="stitle">How It Works ✨</h2>
-                    <p class="ssub">Just three easy steps to start your amazing career journey!</p>
+                    <div class="stag" id="hw-stag">Simple Steps</div>
+                    <h2 class="stitle" id="hw-title">How It Works ✨</h2>
+                    <p class="ssub" id="hw-desc">Just three easy steps to start your amazing career journey!</p>
                 </div>
-                <div class="how-grid">
+                <div class="how-grid" id="hw-grid">
                     <div class="how-step">
                         <div class="how-num">1</div>
                         <h3 style="font-size:1rem;font-weight:800;margin-bottom:10px">Create Your Profile</h3>
@@ -454,12 +464,12 @@
             <section class="sec-alt sec" style="max-width:100%;margin-top:0">
                 <div style="max-width:1160px;margin:0 auto">
                     <div class="center" style="margin-bottom:46px">
-                        <div class="stag">Accessibility First</div>
-                        <h2 class="stitle">Designed for Everyone 💙</h2>
-                        <p class="ssub">Every part of Ablex is built with cognitive accessibility in mind. Simple,
+                        <div class="stag" id="a11y-stag">Accessibility First</div>
+                        <h2 class="stitle" id="a11y-title">Designed for Everyone 💙</h2>
+                        <p class="ssub" id="a11y-desc">Every part of Ablex is built with cognitive accessibility in mind. Simple,
                             safe, and supportive.</p>
                     </div>
-                    <div class="a11y-grid">
+                    <div class="a11y-grid" id="a11y-grid">
                         <div class="a11y-card"><span class="a11y-ico">🎙️</span>
                             <h3 style="font-size:.9rem;font-weight:800;margin-bottom:6px">Voice Navigation</h3>
                             <p style="font-size:.78rem;color:var(--txt2)">Navigate the whole site with your voice in
@@ -507,102 +517,38 @@
             <!-- TESTIMONIALS -->
             <section class="sec">
                 <div class="center" style="margin-bottom:38px">
-                    <div class="stag">Success Stories</div>
-                    <h2 class="stitle">What People Are Saying 💬</h2>
+                    <div class="stag" id="testi-stag">Success Stories</div>
+                    <h2 class="stitle" id="testi-title">What People Are Saying 💬</h2>
                 </div>
                 <div class="testi-wrap" aria-label="Testimonials">
                     <div class="testi-track" id="ttrack">
-                        <div class="tcard">
-                            <div class="tq">"</div>
-                            <div class="tstars">⭐⭐⭐⭐⭐</div>
-                            <p class="ttext">Ablex helped me create my first CV! The AI suggestions were amazing.
-                                Now I work at the local supermarket and I love every day!</p>
-                            <div class="tauth">
-                                <div class="tava" style="background:rgba(255,107,53,.15)">😊</div>
-                                <div>
-                                    <div class="tname">Ahmed, 24</div>
-                                    <div class="trole">Store Assistant</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tcard">
-                            <div class="tq">"</div>
-                            <div class="tstars">⭐⭐⭐⭐⭐</div>
-                            <p class="ttext">My daughter used Ablex for 3 months. The interview practice gave her
-                                so much confidence. She got her first job last month!</p>
-                            <div class="tauth">
-                                <div class="tava" style="background:rgba(29,185,168,.15)">👩</div>
-                                <div>
-                                    <div class="tname">Sara's Mum</div>
-                                    <div class="trole">Parent</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tcard">
-                            <div class="tq">"</div>
-                            <div class="tstars">⭐⭐⭐⭐⭐</div>
-                            <p class="ttext">The skill games are so fun! I play them every day. My memory improved and I
-                                learned to count money for my café job!</p>
-                            <div class="tauth">
-                                <div class="tava" style="background:rgba(124,58,237,.15)">😄</div>
-                                <div>
-                                    <div class="tname">Omar, 21</div>
-                                    <div class="trole">Café Helper</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tcard">
-                            <div class="tq">"</div>
-                            <div class="tstars">⭐⭐⭐⭐⭐</div>
-                            <p class="ttext">The voice assistant makes everything easy. I talk to it and it helps me
-                                find jobs and practice my answers.</p>
-                            <div class="tauth">
-                                <div class="tava" style="background:rgba(16,185,129,.15)">😃</div>
-                                <div>
-                                    <div class="tname">Layla, 19</div>
-                                    <div class="trole">Office Helper</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tcard">
-                            <div class="tq">"</div>
-                            <div class="tstars">⭐⭐⭐⭐⭐</div>
-                            <p class="ttext">As a teacher, I recommend Ablex to all my students. The step-by-step
-                                approach makes a huge difference in building confidence.</p>
-                            <div class="tauth">
-                                <div class="tava" style="background:rgba(59,130,246,.15)">👨‍🏫</div>
-                                <div>
-                                    <div class="tname">Mr. Hassan</div>
-                                    <div class="trole">Special Education Teacher</div>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- Content will be localized via JS -->
                     </div>
                 </div>
                 <div class="tcontrols">
-                    <button class="tarr" onclick="testiPrev()" aria-label="Previous testimonial">←</button>
+                    <button class="tarr" id="testi-prev" onclick="testiPrev()" aria-label="Previous testimonial">←</button>
                     <div class="tdots" id="tdots" aria-label="Testimonial navigation"></div>
-                    <button class="tarr" onclick="testiNext()" aria-label="Next testimonial">→</button>
+                    <button class="tarr" id="testi-next" onclick="testiNext()" aria-label="Next testimonial">→</button>
                 </div>
             </section>
 
             <!-- CTA -->
             <div class="cta-sec">
-                <div class="stag" style="background:rgba(255,255,255,.25);color:#fff">Start Today</div>
-                <h2>Ready to Begin Your Journey? 🌟</h2>
-                <p>Join thousands of people building their careers with Ablex. It's free, friendly, and designed
+                <div class="stag" id="cta-stag" style="background:rgba(255,255,255,.25);color:#fff">Start Today</div>
+                <h2 id="cta-title">Ready to Begin Your Journey? 🌟</h2>
+                <p id="cta-desc">Join thousands of people building their careers with Ablex. It's free, friendly, and designed
                     just for you!</p>
                 <div class="cta-btns">
-                    <button class="btn" onclick="showPage('assess')"
+                    <button id="cta-btn-assess" class="btn" onclick="showPage('assess')"
                         style="background:rgba(255,255,255,.22);color:#fff;border:2.5px solid rgba(255,255,255,.4)">📋
                         Start Assessment</button>
-                    <button class="btn" onclick="showPage('training')"
+                    <button id="cta-btn-training" class="btn" onclick="showPage('training')"
                         style="background:rgba(255,255,255,.22);color:#fff;border:2.5px solid rgba(255,255,255,.4)">🏋️
                         Job Training</button>
-                    <button class="btn" onclick="showPage('cvbuild')"
+                    <button id="cta-btn-cv" class="btn" onclick="showPage('cvbuild')"
                         style="background:#fff;color:var(--sun);border:none">📄 Build My CV</button>
                 </div>
-                <div style="display:flex;justify-content:center;gap:11px;flex-wrap:wrap">
+                <div style="display:flex;justify-content:center;gap:11px;flex-wrap:wrap" id="cta-badges">
                     <div class="cta-badge">🆓 Completely Free</div>
                     <div class="cta-badge">🔒 Safe & Private</div>
                     <div class="cta-badge">🌐 Arabic & English</div>
@@ -615,16 +561,16 @@
                 <div style="display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:10px">
                     <div class="nav-logo-icon">🌟</div>
                     <div>
-                        <div class="nav-logo-text" style="font-size:1.4rem">Ablex</div>
-                        <div class="nav-logo-ar">ابليكس</div>
+                        <div class="nav-logo-text" style="font-size:1.1rem">Equal Opportunities</div>
+                        <div class="nav-logo-ar">فرص متساوية</div>
                     </div>
                 </div>
-                <p style="font-size:.8rem;color:var(--txt2);margin-bottom:12px">© 2025 Ablex. Made with ❤️ for
+                <p id="footer-copy" style="font-size:.8rem;color:var(--txt2);margin-bottom:12px">© 2025 Ablex. Made with ❤️ for
                     inclusive employment.</p>
                 <div style="display:flex;justify-content:center;gap:20px">
-                    <a href="#" onclick="showPage('about');return false"
+                    <a href="#" id="f-about" onclick="showPage('about');return false"
                         style="font-size:.8rem;color:var(--txt2);font-weight:700">About Team</a>
-                    <a href="#" onclick="showPage('dashboard');return false"
+                    <a href="#" id="f-dashboard" onclick="showPage('dashboard');return false"
                         style="font-size:.8rem;color:var(--txt2);font-weight:700">Dashboard</a>
                 </div>
             </footer>
@@ -647,14 +593,14 @@
     <!-- AI COACH -->
     <div class="coach" role="complementary" aria-label="AI Coach Max">
         <div class="coach-bub on" id="coach-bub">
-            <strong>👋 Hi! I'm Max!</strong><br>
-            <span style="font-size:.8rem">I'm your guide! Click 🔊 to hear this page, 🎙️ for voice commands, or 📖 for
+            <strong id="coach-hi">👋 Hi! I'm Max!</strong><br>
+            <span id="coach-txt" style="font-size:.8rem">I'm your guide! Click 🔊 to hear this page, 🎙️ for voice commands, or 📖 for
                 the voice guide.</span>
-            <br><button onclick="document.getElementById('coach-bub').classList.remove('on')"
+            <br><button id="coach-btn-ok" onclick="document.getElementById('coach-bub').classList.remove('on')"
                 style="margin-top:9px;padding:4px 12px;border-radius:16px;background:var(--sun);color:#fff;font-size:.72rem;font-weight:700;border:none;cursor:pointer"
                 aria-label="Dismiss tip">Got it! 👍</button>
         </div>
-        <button class="coach-btn" onclick="document.getElementById('coach-bub').classList.toggle('on')"
+        <button class="coach-btn" id="coach-toggle" onclick="document.getElementById('coach-bub').classList.toggle('on')"
             aria-label="Toggle AI Coach" aria-expanded="false">🤖</button>
     </div>
 
