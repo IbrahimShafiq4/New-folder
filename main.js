@@ -1,5 +1,5 @@
 // ╔══════════════════════════════════════════════════════════════════
-// Ablex · main.js  –  All features + fixes
+// Equal Opportunities · main.js  –  All features + fixes
 // ╚══════════════════════════════════════════════════════════════════
 
 // ── Global timer/state vars (declared at top to avoid ReferenceErrors) ──
@@ -77,7 +77,7 @@ var STRINGS = {
         vcg_start_btn: '🎙️ Start Voice Commands',
         hero_badge: '✨ AI-Powered Career Platform',
         hero_title: '<span class="gtext">Your Journey to</span><br>Work Starts Here! 🚀',
-        hero_desc: 'Ablex guides you step by step — from discovering your best job, to building your CV, to acing your interview. With friendly AI voice support every step of the way!',
+        hero_desc: 'Equal Opportunities guides you step by step — from discovering your best job, to building your CV, to acing your interview. With friendly AI voice support every step of the way!',
         h_btn_assess: '📋 Start Assessment',
         h_btn_voice: '🎙️ Use Voice',
         h_btn_guide: '📖 Voice Guide',
@@ -93,16 +93,16 @@ var STRINGS = {
         hw_desc: 'Just three easy steps to start your amazing career journey!',
         a11y_stag: 'Accessibility First',
         a11y_title: 'Designed for Everyone 💙',
-        a11y_desc: 'Every part of Ablex is built with cognitive accessibility in mind. Simple, safe, and supportive.',
+        a11y_desc: 'Every part of Equal Opportunities is built with cognitive accessibility in mind. Simple, safe, and supportive.',
         testi_stag: 'Success Stories',
         testi_title: 'What People Are Saying 💬',
         cta_stag: 'Start Today',
         cta_title: 'Ready to Begin Your Journey? 🌟',
-        cta_desc: 'Join thousands of people building their careers with Ablex. It\'s free, friendly, and designed just for you!',
+        cta_desc: 'Join thousands of people building their careers with Equal Opportunities. It\'s free, friendly, and designed just for you!',
         cta_btn_assess: '📋 Start Assessment',
         cta_btn_training: '🏋️ Job Training',
         cta_btn_cv: '📄 Build My CV',
-        footer_copy: '© 2025 Ablex. Made with ❤️ for inclusive employment.',
+        footer_copy: '© 2025 Equal Opportunities. Made with ❤️ for inclusive employment.',
         f_about: 'About Team',
         f_dashboard: 'Dashboard',
         coach_hi: '👋 Hi! I\'m Max!',
@@ -135,11 +135,11 @@ var STRINGS = {
         a11y_feat_7_t: 'Big Buttons', a11y_feat_7_p: 'All buttons are large, labelled, and easy to tap or click',
         a11y_feat_8_t: 'Step-by-Step', a11y_feat_8_p: 'Each task broken into tiny manageable steps — never overwhelming!',
         // Testimonials
-        testi_1_t: 'Ablex helped me create my first CV! The AI suggestions were amazing. Now I work at the local supermarket and I love every day!', testi_1_n: 'Ahmed, 24', testi_1_r: 'Store Assistant',
-        testi_2_t: 'My daughter used Ablex for 3 months. The interview practice gave her so much confidence. She got her first job last month!', testi_2_n: 'Sara\'s Mum', testi_2_r: 'Parent',
+        testi_1_t: 'Equal Opportunities helped me create my first CV! The AI suggestions were amazing. Now I work at the local supermarket and I love every day!', testi_1_n: 'Ahmed, 24', testi_1_r: 'Store Assistant',
+        testi_2_t: 'My daughter used Equal Opportunities for 3 months. The interview practice gave her so much confidence. She got her first job last month!', testi_2_n: 'Sara\'s Mum', testi_2_r: 'Parent',
         testi_3_t: 'The skill games are so fun! I play them every day. My memory improved and I learned to count money for my café job!', testi_3_n: 'Omar, 21', testi_3_r: 'Café Helper',
         testi_4_t: 'The voice assistant makes everything easy. I talk to it and it helps me find jobs and practice my answers.', testi_4_n: 'Layla, 19', testi_4_r: 'Office Helper',
-        testi_5_t: 'As a teacher, I recommend Ablex to all my students. The step-by-step approach makes a huge difference in building confidence.', testi_5_n: 'Mr. Hassan', testi_5_r: 'Special Education Teacher',
+        testi_5_t: 'As a teacher, I recommend Equal Opportunities to all my students. The step-by-step approach makes a huge difference in building confidence.', testi_5_n: 'Mr. Hassan', testi_5_r: 'Special Education Teacher',
         // Commands
         cmd_home: '"Go home"', cmd_home_d: 'Go to home page',
         cmd_test: '"Start test"', cmd_test_d: 'Open job assessment',
@@ -157,7 +157,7 @@ var STRINGS = {
         cmd_small: '"Smaller text"', cmd_small_d: 'Decrease font size',
         // Dashboard
         dash_title: 'Progress Dashboard', dash_journey: 'Journey Progress', dash_activity: 'Recent Activity', dash_skills: 'Skill Progress',
-        dash_member: 'Ablex Member', dash_points: 'Points', dash_tests: 'Tests', dash_cvs: 'CVs', dash_ivs: 'Interviews',
+        dash_member: 'Equal Opportunities Member', dash_points: 'Points', dash_tests: 'Tests', dash_cvs: 'CVs', dash_ivs: 'Interviews',
         dash_no_act: 'No activities yet. Start your journey!',
         sk_comm: 'Communication', sk_org: 'Organisation', sk_team: 'Teamwork', sk_prob: 'Problem Solving', sk_punc: 'Punctuality',
         // Jobs
@@ -177,8 +177,8 @@ var STRINGS = {
         cv_sec_certs: 'Certifications', cv_sec_skills: 'Skills', cv_sec_hobbies: 'Hobbies & Interests',
         cv_save_toast: 'CV saved!', cv_next_games: 'Next: Games →',
         // About
-        about_title: 'About Ablex', about_mission: 'An AI-powered career platform designed with love for people with Down Syndrome. Empowering every person to find their perfect career path.',
-        about_team_title: 'Meet Our Amazing Team', about_team_desc: 'The passionate people who built Ablex to make employment more inclusive.',
+        about_title: 'About Equal Opportunities', about_mission: 'An AI-powered career platform designed with love for people with Down Syndrome. Empowering every person to find their perfect career path.',
+        about_team_title: 'Meet Our Amazing Team', about_team_desc: 'The passionate people who built Equal Opportunities to make employment more inclusive.',
         // Interview
         iv_step_badge: 'Step 5 of 5', iv_step_desc: 'Step 5 — Practice makes perfect! Click Next Question to begin.',
         iv_speaking: 'AI is speaking...', iv_greeting: 'Hi! I\'m your interview coach. Click "Next Question" to begin! 😊',
@@ -208,7 +208,7 @@ var STRINGS = {
         vcg_start_btn: '🎙️ ابدأ الأوامر الصوتية',
         hero_badge: '✨ منصة مهنية بالذكاء الاصطناعي',
         hero_title: '<span class="gtext">رحلتك نحو</span><br>العمل تبدأ هنا! 🚀',
-        hero_desc: 'ابليكس يرشدك خطوة بخطوة — من اكتشاف وظيفتك المثالية إلى بناء سيرتك الذاتية حتى إجراء المقابلة. مع دعم صوتي ودود في كل خطوة!',
+        hero_desc: 'فرص متساوية يرشدك خطوة بخطوة — من اكتشاف وظيفتك المثالية إلى بناء سيرتك الذاتية حتى إجراء المقابلة. مع دعم صوتي ودود في كل خطوة!',
         h_btn_assess: '📋 ابدأ الاختبار',
         h_btn_voice: '🎙️ استخدم صوتك',
         h_btn_guide: '📖 دليل الأوامر',
@@ -224,16 +224,16 @@ var STRINGS = {
         hw_desc: 'ثلاث خطوات سهلة فقط لتبدأ رحلتك المهنية المذهلة!',
         a11y_stag: 'سهولة الوصول أولاً',
         a11y_title: 'مصمم للجميع 💙',
-        a11y_desc: 'كل جزء في ابليكس تم بناؤه مع مراعاة سهولة الاستخدام المعرفي. بسيط، آمن، وداعم.',
+        a11y_desc: 'كل جزء في فرص متساوية تم بناؤه مع مراعاة سهولة الاستخدام المعرفي. بسيط، آمن، وداعم.',
         testi_stag: 'قصص نجاح',
         testi_title: 'ماذا يقول الناس 💬',
         cta_stag: 'ابدأ اليوم',
         cta_title: 'هل أنت مستعد لبدء رحلتك؟ 🌟',
-        cta_desc: 'انضم إلى آلاف الأشخاص الذين يبنون حياتهم المهنية مع ابليكس. إنه مجاني، ودود، ومصمم خصيصًا لك!',
+        cta_desc: 'انضم إلى آلاف الأشخاص الذين يبنون حياتهم المهنية مع فرص متساوية. إنه مجاني، ودود، ومصمم خصيصًا لك!',
         cta_btn_assess: '📋 ابدأ الاختبار',
         cta_btn_training: '🏋️ تدريب الوظائف',
         cta_btn_cv: '📄 ابنِ سيرتي الذاتية',
-        footer_copy: '© 2025 ابليكس. صنع بكل ❤️ من أجل توظيف شامل.',
+        footer_copy: '© 2025 فرص متساوية. صنع بكل ❤️ من أجل توظيف شامل.',
         f_about: 'عن الفريق',
         f_dashboard: 'لوحة التحكم',
         coach_hi: '👋 مرحبًا! أنا ماكس!',
@@ -266,11 +266,11 @@ var STRINGS = {
         a11y_feat_7_t: 'أزرار كبيرة', a11y_feat_7_p: 'جميع الأزرار كبيرة، واضحة، وسهلة النقر',
         a11y_feat_8_t: 'خطوة بخطوة', a11y_feat_8_p: 'كل مهمة مقسمة إلى خطوات صغيرة يمكن التحكم فيها — لا إرهاق أبدًا!',
         // Testimonials
-        testi_1_t: 'ساعدني ابليكس في إنشاء أول سيرة ذاتية لي! كانت اقتراحات الذكاء الاصطناعي مذهلة. الآن أعمل في السوبر ماركت المحلي وأحب كل يوم!', testi_1_n: 'أحمد، 24', testi_1_r: 'مساعد متجر',
-        testi_2_t: 'استخدمت ابنتي ابليكس لمدة 3 أشهر. ممارسة المقابلة أعطتها الكثير من الثقة. حصلت على أول وظيفة لها الشهر الماضي!', testi_2_n: 'والدة سارة', testi_2_r: 'ولي أمر',
+        testi_1_t: 'ساعدني فرص متساوية في إنشاء أول سيرة ذاتية لي! كانت اقتراحات الذكاء الاصطناعي مذهلة. الآن أعمل في السوبر ماركت المحلي وأحب كل يوم!', testi_1_n: 'أحمد، 24', testi_1_r: 'مساعد متجر',
+        testi_2_t: 'استخدمت ابنتي فرص متساوية لمدة 3 أشهر. ممارسة المقابلة أعطتها الكثير من الثقة. حصلت على أول وظيفة لها الشهر الماضي!', testi_2_n: 'والدة سارة', testi_2_r: 'ولي أمر',
         testi_3_t: 'ألعاب المهارات ممتعة للغاية! ألعبها كل يوم. تحسنت ذاكرتي وتعلمت عد النقود لوظيفتي في المقهى!', testi_3_n: 'عمر، 21', testi_3_r: 'مساعد مقهى',
         testi_4_t: 'المساعد الصوتي يجعل كل شيء سهلاً. أتحدث معه ويساعدني في العثور على وظائف والتدرب على إجابات في المقابلة.', testi_4_n: 'ليلى، 19', testi_4_r: 'مساعدة مكتبية',
-        testi_5_t: 'كمعلم، أوصي بـ ابليكس لجميع طلابي. النهج المتدرج خطوة بخطوة يصنع فرقًا كبيرًا في بناء الثقة.', testi_5_n: 'أستاذ حسن', testi_5_r: 'معلم تربية خاصة',
+        testi_5_t: 'كمعلم، أوصي بـ فرص متساوية لجميع طلابي. النهج المتدرج خطوة بخطوة يصنع فرقًا كبيرًا في بناء الثقة.', testi_5_n: 'أستاذ حسن', testi_5_r: 'معلم تربية خاصة',
         // Commands
         cmd_home: '"الرئيسية"', cmd_home_d: 'العودة للصفحة الرئيسية',
         cmd_test: '"ابدأ الاختبار"', cmd_test_d: 'فتح اختبار الوظائف',
@@ -288,7 +288,7 @@ var STRINGS = {
         cmd_small: '"تصغير الخط"', cmd_small_d: 'تقليل حجم الخط',
         // Dashboard
         dash_title: 'لوحة التقدم', dash_journey: 'تقدم الرحلة', dash_activity: 'النشاط الأخير', dash_skills: 'تقدم المهارات',
-        dash_member: 'عضو ابليكس', dash_points: 'نقاط', dash_tests: 'اختبارات', dash_cvs: 'سير ذاتية', dash_ivs: 'مقابلات',
+        dash_member: 'عضو فرص متساوية', dash_points: 'نقاط', dash_tests: 'اختبارات', dash_cvs: 'سير ذاتية', dash_ivs: 'مقابلات',
         dash_no_act: 'لا توجد أنشطة بعد. ابدأ رحلتك الآن!',
         sk_comm: 'التواصل', sk_org: 'التنظيم', sk_team: 'العمل الجماعي', sk_prob: 'حل المشكلات', sk_punc: 'الالتزام بالمواعيد',
         // Jobs
@@ -308,8 +308,8 @@ var STRINGS = {
         cv_sec_certs: 'الشهادات', cv_sec_skills: 'المهارات', cv_sec_hobbies: 'الهوايات والاهتمامات',
         cv_save_toast: 'تم حفظ السيرة!', cv_next_games: 'التالي: الألعاب ←',
         // About
-        about_title: 'عن ابليكس', about_mission: 'منصة مهنية مدعومة بالذكاء الاصطناعي مصممة بحب للأشخاص من ذوي متلازمة داون. تمكين الجميع من إيجاد مسارهم المهني المثالي.',
-        about_team_title: 'تعرف على فريقنا الرائع', about_team_desc: 'الأشخاص الشغوفون الذين بنوا ابليكس لجعل التوظيف أكثر شمولاً.',
+        about_title: 'عن فرص متساوية', about_mission: 'منصة مهنية مدعومة بالذكاء الاصطناعي مصممة بحب للأشخاص من ذوي متلازمة داون. تمكين الجميع من إيجاد مسارهم المهني المثالي.',
+        about_team_title: 'تعرف على فريقنا الرائع', about_team_desc: 'الأشخاص الشغوفون الذين بنوا فرص متساوية لجعل التوظيف أكثر شمولاً.',
         // Interview
         iv_step_badge: 'الخطوة 5 من 5', iv_step_desc: 'الخطوة 5 — التدريب يؤدي للكمال! انقر على السؤال التالي للبدء.',
         iv_speaking: 'المساعد يتحدث...', iv_greeting: 'مرحبًا! أنا مدرب المقابلات الخاص بك. انقر على "السؤال التالي" للبدء! 😊',
@@ -339,7 +339,7 @@ var STRINGS = {
         vcg_start_btn: '🎙️ Démarrer les commandes',
         hero_badge: '✨ Plateforme de carrière IA',
         hero_title: '<span class="gtext">Votre voyage vers</span><br>le travail commence ici ! 🚀',
-        hero_desc: 'Ablex vous guide étape par étape — de la découverte de votre métier idéal à la réussite de votre entretien. Avec un coach vocal bienveillant !',
+        hero_desc: 'Equal Opportunities vous guide étape par étape — de la découverte de votre métier idéal à la réussite de votre entretien. Avec un coach vocal bienveillant !',
         h_btn_assess: '📋 Débuter l\'évaluation',
         h_btn_voice: '🎙️ Utiliser la voix',
         h_btn_guide: '📖 Guide vocal',
@@ -355,16 +355,16 @@ var STRINGS = {
         hw_desc: 'Trois étapes faciles pour commencer votre incroyable parcours professionnel !',
         a11y_stag: 'Accessibilité d\'abord',
         a11y_title: 'Conçu pour tous 💙',
-        a11y_desc: 'Chaque partie d\'Ablex est construite pour l\'accessibilité cognitive. Simple, sûr et bienveillant.',
+        a11y_desc: 'Chaque partie d\'Equal Opportunities est construite pour l\'accessibilité cognitive. Simple, sûr et bienveillant.',
         testi_stag: 'Histoires de succès',
         testi_title: 'Ce que disent les gens 💬',
         cta_stag: 'Commencez aujourd\'hui',
         cta_title: 'Prêt à commencer votre aventure ? 🌟',
-        cta_desc: 'Rejoignez des milliers de personnes qui construisent leur carrière avec Ablex. C\'est gratuit, convivial et conçu pour vous !',
+        cta_desc: 'Rejoignez des milliers de personnes qui construisent leur carrière avec Equal Opportunities. C\'est gratuit, convivial et conçu pour vous !',
         cta_btn_assess: '📋 Évaluation',
         cta_btn_training: '🏋️ Formation',
         cta_btn_cv: '📄 Créer mon CV',
-        footer_copy: '© 2025 Ablex. Créé avec ❤️ pour l\'emploi inclusif.',
+        footer_copy: '© 2025 Equal Opportunities. Créé avec ❤️ pour l\'emploi inclusif.',
         f_about: 'À propos',
         f_dashboard: 'Tableau de bord',
         coach_hi: '👋 Salut ! Je suis Max !',
@@ -397,11 +397,11 @@ var STRINGS = {
         a11y_feat_7_t: 'Gros boutons', a11y_feat_7_p: 'Tous les boutons sont grands, bien étiquetés et faciles à cliquer',
         a11y_feat_8_t: 'Pas à pas', a11y_feat_8_p: 'Chaque tâche est découpée en petites étapes gérables — jamais de surcharge !',
         // Testimonials
-        testi_1_t: 'Ablex m\'a aidé à créer mon premier CV ! Les suggestions IA étaient formidables. Maintenant je travaille au supermarché et j\'adore chaque jour !', testi_1_n: 'Léa, 24 ans', testi_1_r: 'Assistante de magasin',
-        testi_2_t: 'Ma fille a utilisé Ablex pendant 3 mois. La préparation à l\'entretien lui a donné tellement confiance. Elle a obtenu son premier emploi le mois dernier !', testi_2_n: 'La maman de Sara', testi_2_r: 'Parent',
+        testi_1_t: 'Equal Opportunities m\'a aidé à créer mon premier CV ! Les suggestions IA étaient formidables. Maintenant je travaille au supermarché et j\'adore chaque jour !', testi_1_n: 'Léa, 24 ans', testi_1_r: 'Assistante de magasin',
+        testi_2_t: 'Ma fille a utilisé Equal Opportunities pendant 3 mois. La préparation à l\'entretien lui a donné tellement confiance. Elle a obtenu son premier emploi le mois dernier !', testi_2_n: 'La maman de Sara', testi_2_r: 'Parent',
         testi_3_t: 'Les jeux de compétences sont trop fun ! J\'y joue tous les jours. Ma mémoire s\'est améliorée et j\'ai appris à compter la monnaie pour mon travail au café !', testi_3_n: 'Omar, 21 ans', testi_3_r: 'Aide de café',
         testi_4_t: 'L\'assistant vocal rend tout facile. Je lui parle et il m\'aide à trouver des emplois et à pratiquer mes réponses.', testi_4_n: 'Layla, 19 ans', testi_4_r: 'Aide de bureau',
-        testi_5_t: 'En tant qu\'enseignant, je recommande Ablex à tous mes élèves. L\'approche étape par étape fait une énorme différence dans la construction de la confiance.', testi_5_n: 'M. Hassan', testi_5_r: 'Enseignant spécialisé',
+        testi_5_t: 'En tant qu\'enseignant, je recommande Equal Opportunities à tous mes élèves. L\'approche étape par étape fait une énorme différence dans la construction de la confiance.', testi_5_n: 'M. Hassan', testi_5_r: 'Enseignant spécialisé',
         // Commands
         cmd_home: '"Aller à l\'accueil"', cmd_home_d: 'Retour à la page d\'accueil',
         cmd_test: '"Démarrer le test"', cmd_test_d: 'Ouvrir l\'évaluation',
@@ -419,7 +419,7 @@ var STRINGS = {
         cmd_small: '"Texte plus petit"', cmd_small_d: 'Diminuer la taille de police',
         // Dashboard
         dash_title: 'Tableau de bord', dash_journey: 'Progression du parcours', dash_activity: 'Activité récente', dash_skills: 'Progression des compétences',
-        dash_member: 'Membre Ablex', dash_points: 'Points', dash_tests: 'Tests', dash_cvs: 'CV', dash_ivs: 'Entretiens',
+        dash_member: 'Membre Equal Opportunities', dash_points: 'Points', dash_tests: 'Tests', dash_cvs: 'CV', dash_ivs: 'Entretiens',
         dash_no_act: 'Pas encore d\'activités. Commencez votre parcours !',
         sk_comm: 'Communication', sk_org: 'Organisation', sk_team: 'Travail d\'équipe', sk_prob: 'Résolution de problèmes', sk_punc: 'Ponctualité',
         // Jobs
@@ -439,8 +439,8 @@ var STRINGS = {
         cv_sec_certs: 'Certifications', cv_sec_skills: 'Compétences', cv_sec_hobbies: 'Loisirs et intérêts',
         cv_save_toast: 'CV enregistré !', cv_next_games: 'Suivant : Jeux →',
         // About
-        about_title: 'À propos d\'Ablex', about_mission: 'Une plateforme de carrière alimentée par l\'IA, conçue avec amour pour les personnes atteintes du syndrome de Down. Permettre à chacun de trouver son chemin professionnel idéal.',
-        about_team_title: 'Découvrez notre équipe formidable', about_team_desc: 'Les passionnés qui ont construit Ablex pour rendre l\'emploi plus inclusif.',
+        about_title: 'À propos d\'Equal Opportunities', about_mission: 'Une plateforme de carrière alimentée par l\'IA, conçue avec amour pour les personnes atteintes du syndrome de Down. Permettre à chacun de trouver son chemin professionnel idéal.',
+        about_team_title: 'Découvrez notre équipe formidable', about_team_desc: 'Les passionnés qui ont construit Equal Opportunities pour rendre l\'emploi plus inclusif.',
         // Interview
         iv_step_badge: 'Étape 5 sur 5', iv_step_desc: 'Étape 5 — La pratique mène à la perfection ! Cliquez sur Question suivante pour commencer.',
         iv_speaking: 'L\'IA parle...', iv_greeting: 'Bonjour ! Je suis votre coach d\'entretien. Cliquez sur "Question suivante" pour commencer ! 😊',
@@ -470,7 +470,7 @@ var STRINGS = {
         vcg_start_btn: '🎙️ Iniciar comandos',
         hero_badge: '✨ Plataforma de carrera con IA',
         hero_title: '<span class="gtext">Tu viaje hacia</span><br>el trabajo empieza aquí! 🚀',
-        hero_desc: 'Ablex te guía paso a paso — desde descubrir tu trabajo ideal, crear tu CV, hasta triunfar en tu entrevista. ¡Con asistente de voz amigable en cada paso!',
+        hero_desc: 'Equal Opportunities te guía paso a paso — desde descubrir tu trabajo ideal, crear tu CV, hasta triunfar en tu entrevista. ¡Con asistente de voz amigable en cada paso!',
         h_btn_assess: '📋 Iniciar evaluación',
         h_btn_voice: '🎙️ Usar voz',
         h_btn_guide: '📖 Guía de voz',
@@ -486,16 +486,16 @@ var STRINGS = {
         hw_desc: '¡Solo tres pasos fáciles para comenzar tu increíble carrera profesional!',
         a11y_stag: 'Accesibilidad primero',
         a11y_title: 'Diseñado para todos 💙',
-        a11y_desc: 'Cada parte de Ablex está construida pensando en la accesibilidad cognitiva. Simple, seguro y de apoyo.',
+        a11y_desc: 'Cada parte de Equal Opportunities está construida pensando en la accesibilidad cognitiva. Simple, seguro y de apoyo.',
         testi_stag: 'Historias de éxito',
         testi_title: 'Lo que dice la gente 💬',
         cta_stag: 'Empieza hoy',
         cta_title: '¿Listo para comenzar tu aventura? 🌟',
-        cta_desc: 'Únete a miles de personas que construyen su carrera con Ablex. ¡Es gratis, amigable y diseñado especialmente para ti!',
+        cta_desc: 'Únete a miles de personas que construyen su carrera con Equal Opportunities. ¡Es gratis, amigable y diseñado especialmente para ti!',
         cta_btn_assess: '📋 Evaluación',
         cta_btn_training: '🏋️ Entrenamiento',
         cta_btn_cv: '📄 Crear mi CV',
-        footer_copy: '© 2025 Ablex. Hecho con ❤️ para el empleo inclusivo.',
+        footer_copy: '© 2025 Equal Opportunities. Hecho con ❤️ para el empleo inclusivo.',
         f_about: 'Sobre el equipo',
         f_dashboard: 'Panel de control',
         coach_hi: '👋 ¡Hola! ¡Soy Max!',
@@ -528,11 +528,11 @@ var STRINGS = {
         a11y_feat_7_t: 'Botones grandes', a11y_feat_7_p: 'Todos los botones son grandes, etiquetados y fáciles de tocar o hacer clic',
         a11y_feat_8_t: 'Paso a paso', a11y_feat_8_p: 'Cada tarea dividida en pequeños pasos manejables — ¡nunca abrumador!',
         // Testimonials
-        testi_1_t: '¡Ablex me ayudó a crear mi primer CV! Las sugerencias de IA fueron increíbles. ¡Ahora trabajo en el supermercado local y amo cada día!', testi_1_n: 'Carlos, 24 años', testi_1_r: 'Asistente de tienda',
-        testi_2_t: 'Mi hija usó Ablex durante 3 meses. La práctica de entrevista le dio mucha confianza. ¡Consiguió su primer trabajo el mes pasado!', testi_2_n: 'La mamá de Sara', testi_2_r: 'Madre',
+        testi_1_t: '¡Equal Opportunities me ayudó a crear mi primer CV! Las sugerencias de IA fueron increíbles. ¡Ahora trabajo en el supermercado local y amo cada día!', testi_1_n: 'Carlos, 24 años', testi_1_r: 'Asistente de tienda',
+        testi_2_t: 'Mi hija usó Equal Opportunities durante 3 meses. La práctica de entrevista le dio mucha confianza. ¡Consiguió su primer trabajo el mes pasado!', testi_2_n: 'La mamá de Sara', testi_2_r: 'Madre',
         testi_3_t: '¡Los juegos de habilidades son muy divertidos! Juego todos los días. Mi memoria mejoró y ¡aprendí a contar dinero para mi trabajo en la cafetería!', testi_3_n: 'Omar, 21 años', testi_3_r: 'Ayudante de cafetería',
         testi_4_t: 'El asistente de voz hace todo fácil. Le hablo y me ayuda a encontrar trabajos y practicar mis respuestas.', testi_4_n: 'Layla, 19 años', testi_4_r: 'Ayudante de oficina',
-        testi_5_t: 'Como profesor, recomiendo Ablex a todos mis estudiantes. El enfoque paso a paso hace una gran diferencia en la construcción de confianza.', testi_5_n: 'Sr. Hassan', testi_5_r: 'Profesor de educación especial',
+        testi_5_t: 'Como profesor, recomiendo Equal Opportunities a todos mis estudiantes. El enfoque paso a paso hace una gran diferencia en la construcción de confianza.', testi_5_n: 'Sr. Hassan', testi_5_r: 'Profesor de educación especial',
         // Commands
         cmd_home: '"Ir al inicio"', cmd_home_d: 'Ir a la página de inicio',
         cmd_test: '"Iniciar test"', cmd_test_d: 'Abrir evaluación laboral',
@@ -550,7 +550,7 @@ var STRINGS = {
         cmd_small: '"Texto más pequeño"', cmd_small_d: 'Disminuir tamaño de fuente',
         // Dashboard
         dash_title: 'Panel de progreso', dash_journey: 'Progreso del viaje', dash_activity: 'Actividad reciente', dash_skills: 'Progreso de habilidades',
-        dash_member: 'Miembro de Ablex', dash_points: 'Puntos', dash_tests: 'Tests', dash_cvs: 'CVs', dash_ivs: 'Entrevistas',
+        dash_member: 'Miembro de Equal Opportunities', dash_points: 'Puntos', dash_tests: 'Tests', dash_cvs: 'CVs', dash_ivs: 'Entrevistas',
         dash_no_act: '¡Aún no hay actividades. Comienza tu viaje!',
         sk_comm: 'Comunicación', sk_org: 'Organización', sk_team: 'Trabajo en equipo', sk_prob: 'Resolución de problemas', sk_punc: 'Puntualidad',
         // Jobs
@@ -570,8 +570,8 @@ var STRINGS = {
         cv_sec_certs: 'Certificaciones', cv_sec_skills: 'Habilidades', cv_sec_hobbies: 'Aficiones e intereses',
         cv_save_toast: '¡CV guardado!', cv_next_games: 'Siguiente: Juegos →',
         // About
-        about_title: 'Sobre Ablex', about_mission: 'Una plataforma de carrera impulsada por IA diseñada con amor para personas con síndrome de Down. Empoderando a cada persona para encontrar su camino profesional perfecto.',
-        about_team_title: 'Conoce a nuestro increíble equipo', about_team_desc: 'Las personas apasionadas que construyeron Ablex para hacer el empleo más inclusivo.',
+        about_title: 'Sobre Equal Opportunities', about_mission: 'Una plataforma de carrera impulsada por IA diseñada con amor para personas con síndrome de Down. Empoderando a cada persona para encontrar su camino profesional perfecto.',
+        about_team_title: 'Conoce a nuestro increíble equipo', about_team_desc: 'Las personas apasionadas que construyeron Equal Opportunities para hacer el empleo más inclusivo.',
         // Interview
         iv_step_badge: 'Paso 5 de 5', iv_step_desc: 'Paso 5 — ¡La práctica hace al maestro! Haz clic en Siguiente Pregunta para comenzar.',
         iv_speaking: 'La IA está hablando...', iv_greeting: '¡Hola! Soy tu coach de entrevistas. ¡Haz clic en "Siguiente Pregunta" para comenzar! 😊',
@@ -979,8 +979,8 @@ var IV_FB = [
 var TEAM = [
     {
         e: './images/about/ahmad_yasser.jpeg', n: 'Ahmad Yasser', nAr: 'أحمد ياسر', r: 'Frontend Developer – Angular', rAr: 'مطور واجهات - أنجولار',
-        desc: 'Led the development of Ablex, building all Angular components and ensuring the platform is fast and accessible.',
-        descAr: 'قاد تطوير ابليكس، حيث بنى جميع مكونات الواجهة وضمن سرعة وسهولة استخدام المنصة.',
+        desc: 'Led the development of Equal Opportunities, building all Angular components and ensuring the platform is fast and accessible.',
+        descAr: 'قاد تطوير فرص متساوية، حيث بنى جميع مكونات الواجهة وضمن سرعة وسهولة استخدام المنصة.',
         PLink: 'https://www.instagram.com/1_0ahmedd1_0?igsh=ZG1vdGg4OHk5a3A2'
     },
     {
@@ -1718,7 +1718,7 @@ function exportCV(type) {
         ];
         var blob = new Blob([lines.join('\n')], { type: 'text/plain' });
         var a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-        a.download = (d.name || 'MyCV').replace(/\s+/g, '_') + '_Ablex_ATS.txt'; a.click();
+        a.download = (d.name || 'MyCV').replace(/\s+/g, '_') + '_Equal Opportunities_ATS.txt'; a.click();
         showToast('📝 ATS text downloaded!');
     } else if (type === 'docx') {
         exportCVDocx(d);
@@ -1750,7 +1750,7 @@ function exportCV(type) {
             if (d.cert) sec('Certifications', d.cert);
             if (d.skills && d.skills.length) sec('Skills', d.skills.join(' • '));
             sec('Hobbies & Interests', d.hobbies);
-            doc.save((d.name || 'MyCV').replace(/\s+/g, '_') + '_Ablex.pdf');
+            doc.save((d.name || 'MyCV').replace(/\s+/g, '_') + '_Equal Opportunities.pdf');
             showToast('📥 PDF downloaded!');
         });
     }
@@ -1840,9 +1840,9 @@ function exportCVDocx(d) {
             }
 
             var doc2 = new docx.Document({
-                creator: 'Ablex',
+                creator: 'Equal Opportunities',
                 title: name + ' - CV',
-                description: 'ATS-friendly CV generated by Ablex',
+                description: 'ATS-friendly CV generated by Equal Opportunities',
                 styles: {
                     default: {
                         document: { run: { font: 'Calibri', size: 22 } }
@@ -1855,7 +1855,7 @@ function exportCVDocx(d) {
                 var url = URL.createObjectURL(blob);
                 var a = document.createElement('a');
                 a.href = url;
-                a.download = (name).replace(/\s+/g, '_') + '_Ablex_CV.docx';
+                a.download = (name).replace(/\s+/g, '_') + '_Equal Opportunities_CV.docx';
                 a.click();
                 URL.revokeObjectURL(url);
                 showToast('📝 DOCX CV downloaded!');
@@ -2366,18 +2366,18 @@ function buildDashPage() {
 function buildAboutPage() {
     var pg = document.getElementById('page-about');
     pg.innerHTML =
-        '<div class="phdr"><button class="backbtn" onclick="showPage(\'home\')" aria-label="Back">←</button><h2>👥 ' + (isAR ? 'عن ابليكس' : 'About Ablex · عن ابليكس') + '</h2></div>' +
+        '<div class="phdr"><button class="backbtn" onclick="showPage(\'home\')" aria-label="Back">←</button><h2>👥 ' + (isAR ? 'عن فرص متساوية' : 'About Equal Opportunities · عن فرص متساوية') + '</h2></div>' +
         '<div style="padding:32px;max-width:1100px;margin:0 auto">' +
         '<div style="background:linear-gradient(135deg,var(--sun),var(--gold));border-radius:var(--rlg);padding:44px;text-align:center;color:#fff;margin-bottom:40px">' +
         '<div style="font-size:3.5rem;margin-bottom:12px">🌟</div>' +
-        '<div style="font-family:var(--fd);font-size:2.6rem;font-weight:900;margin-bottom:5px">Ablex</div>' +
+        '<div style="font-family:var(--fd);font-size:2.6rem;font-weight:900;margin-bottom:5px">Equal Opportunities</div>' +
         '<p style="opacity:.9;max-width:500px;margin:0 auto;line-height:1.7;font-size:.9rem">' + (isAR ? 'منصة مهنية بالذكاء الاصطناعي مصممة بحب لأشخاص متلازمة داون. تمكين كل شخص من إيجاد مساره المهني المثالي.' : 'An AI-powered career platform designed with love for people with Down Syndrome. Empowering every person to find their perfect career path.') + '</p></div>' +
         '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:18px;margin-bottom:44px">' +
         [['📋', 'Take the Test', 'Answer 5 questions to find your perfect job!'], ['📄', 'Build Your CV', 'Use voice or typing to create your professional CV.'], ['🧩', 'Play Games', 'Fun games that build memory, focus, and maths skills!'], ['🎤', 'Practice Interview', 'Talk to our AI coach and get feedback on your answers!']].map(function (item) {
             return '<div style="background:var(--surf);border:2px solid var(--bdr);border-radius:var(--r);padding:26px 18px;text-align:center"><div style="font-size:2rem;margin-bottom:10px">' + item[0] + '</div><h3 style="font-size:.88rem;font-weight:800;margin-bottom:7px">' + item[1] + '</h3><p style="font-size:.76rem;color:var(--txt2);line-height:1.5">' + item[2] + '</p></div>';
         }).join('') + '</div>' +
         '<div class="stag">' + (isAR ? 'فريقنا' : 'Our Team · فريقنا') + '</div>' +
-        '<h2 class="stitle" style="margin-bottom:24px">' + (isAR ? 'الفريق خلف ابليكس 💛' : 'The People Behind Ablex 💛') + '</h2>' +
+        '<h2 class="stitle" style="margin-bottom:24px">' + (isAR ? 'الفريق خلف فرص متساوية 💛' : 'The People Behind Equal Opportunities 💛') + '</h2>' +
         '<div class="team-grid">' + TEAM.map(function (tm) {
             return '<div class="card tmc">' +
                 '<div class="tm-ava">' + `<img src="${tm.e}" />` + '</div>' +
