@@ -3149,3 +3149,187 @@ video {
     cursor: pointer;
     color: #666;
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   Equal Opportunities — style_additions.css
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── EGYPT INCLUSIVE ORGS GRID ─────────────────────────────────── */
+.egypt-orgs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.egypt-org-card {
+    padding: 20px;
+    border-top: 4px solid var(--oc, var(--sun));
+    transition: all .25s;
+}
+
+.egypt-org-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, .12);
+}
+
+.org-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 13px;
+    border-radius: 50px;
+    font-size: .73rem;
+    font-weight: 800;
+    border: 1.5px solid;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all .2s;
+}
+
+.org-link-btn:hover {
+    opacity: .85;
+    transform: translateY(-1px);
+}
+
+/* ── WORD SCRAMBLE GAME ─────────────────────────────────────────── */
+.scr-letter {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    border: 2.5px solid var(--sun);
+    background: var(--surf);
+    font-size: 1.3rem;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all .2s;
+    user-select: none;
+}
+
+.scr-letter:hover {
+    transform: scale(1.1);
+    background: rgba(255, 107, 53, .08);
+}
+
+.scr-letter.used {
+    opacity: .3;
+    cursor: default;
+    transform: none;
+}
+
+.scr-letter.placed {
+    border-color: var(--jade);
+    background: rgba(16, 185, 129, .1);
+    cursor: pointer;
+}
+
+/* ── COLOUR MATCH GAME ─────────────────────────────────────────── */
+.colour-swatch {
+    height: 90px;
+    border-radius: var(--r);
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all .18s;
+}
+
+.colour-swatch:hover {
+    transform: scale(1.06);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .22);
+}
+
+/* ── CLOCK READING GAME ─────────────────────────────────────────── */
+.clock-opt {
+    padding: 14px 10px;
+    border-radius: var(--rsm);
+    font-family: var(--fd);
+    font-size: 1.1rem;
+    font-weight: 900;
+    background: var(--surf);
+    border: 2.5px solid var(--bdr);
+    cursor: pointer;
+    transition: all .2s;
+    color: var(--txt);
+}
+
+.clock-opt:hover {
+    transform: scale(1.05);
+    border-color: var(--sky);
+}
+
+/* ── BALLOON POP GAME ───────────────────────────────────────────── */
+.balloon-field {
+    position: relative;
+    height: 280px;
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+    border: 2px solid var(--bdr);
+    border-radius: var(--rlg);
+    overflow: hidden;
+}
+
+.balloon {
+    position: absolute;
+    width: 58px;
+    height: 72px;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    color: #fff;
+    font-family: var(--fd);
+    font-size: 1.3rem;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    animation: floatBalloon 3s ease-in-out infinite;
+    box-shadow: inset -6px -8px 0 rgba(0, 0, 0, .12);
+    user-select: none;
+    transition: transform .15s;
+}
+
+.balloon:hover {
+    transform: scale(1.1);
+}
+
+@keyframes floatBalloon {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-8px); }
+}
+
+.balloon.popped {
+    animation: balloonPop .35s ease forwards;
+    pointer-events: none;
+}
+
+@keyframes balloonPop {
+    0%   { transform: scale(1);   opacity: 1; }
+    50%  { transform: scale(1.5); opacity: .5; }
+    100% { transform: scale(0);   opacity: 0; }
+}
+
+.balloon.wrong-pop {
+    animation: balloonShake .4s ease;
+}
+
+@keyframes balloonShake {
+    0%, 100% { transform: translateX(0); }
+    25%       { transform: translateX(-8px); }
+    75%       { transform: translateX(8px); }
+}
+
+/* ── RESPONSIVE ADDITIONS ───────────────────────────────────────── */
+@media (max-width: 640px) {
+    .egypt-orgs-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .balloon-field {
+        height: 220px;
+    }
+
+    .balloon {
+        width: 48px;
+        height: 60px;
+        font-size: 1.1rem;
+    }
+}

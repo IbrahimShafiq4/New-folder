@@ -859,6 +859,182 @@ var JOBS_LISTINGS = [
     { id: 9, title: 'Animal Care Helper', titleAr: 'مساعد رعاية حيوانات', titleFr: 'Assistant de soins animaliers', titleEs: 'Ayudante de cuidado animal', company: 'Happy Paws Centre', companyAr: 'مركز هابي بوز', companyFr: 'Centre Happy Paws', companyEs: 'Centro Happy Paws', icon: '🐾', type: 'Animals', typeAr: 'رعاية حيوانات', typeFr: 'Animaux', typeEs: 'Cuidado Animal', location: 'Cairo', locationAr: 'القاهرة', locationFr: 'Le Caire', locationEs: 'El Cairo', match: 84, desc: 'Feed and care for animals, clean enclosures, and welcome visitors.', descAr: 'أطعم الحيوانات واعتنِ بها ونظف الحظائر ورحب بالزوار.', descFr: 'Nourrissez les animaux, nettoyez les enclos et accueillez les visiteurs.', descEs: 'Alimenta a los animales, limpia jaulas y recibe a los visitantes.', tags: ['Animals', 'Active', 'Rewarding'], tagsAr: ['حيوانات', 'نشيط', 'مجزي'], tagsFr: ['Animaux', 'Actif', 'Gratifiant'], tagsEs: ['Animales', 'Activo', 'Gratificante'] }
 ];
 
+// ══════════════════════════════════════════════════════════════════
+// BLOCK 1 — Paste AFTER the closing ]; of JOBS_LISTINGS
+// ══════════════════════════════════════════════════════════════════
+
+var EGYPT_INCLUSIVE_ORGS = [
+    {
+        id: 'helm',
+        icon: '🤝',
+        color: '#3B82F6',
+        name: 'Helm Egypt · حلم',
+        nameAr: 'حلم - مصر',
+        nameFr: 'Helm Égypte',
+        nameEs: 'Helm Egipto',
+        type: 'Support Org',
+        typeAr: 'منظمة دعم',
+        location: 'القاهرة · Cairo',
+        locationAr: 'القاهرة',
+        mapUrl: 'https://maps.app.goo.gl/UNMhQZFZB5kANpnJ6',
+        siteUrl: 'https://www.helmegypt.org',
+        fbUrl: 'https://www.facebook.com/Helmegypt',
+        careerUrl: 'https://khatwa.helmegypt.org',
+        desc: 'Egypt\'s leading disability inclusion organization. Helm connects people with disabilities to jobs, runs the Khatwa Career Fair, and audits workplaces for accessibility.',
+        descAr: 'أكبر منظمة مصرية لدمج ذوي الإعاقة في سوق العمل. تربط حلم الأشخاص ذوي الإعاقة بالوظائف وتنظم معرض خطوة للتوظيف.',
+        descFr: 'La principale organisation égyptienne pour l\'inclusion des personnes handicapées. Helm connecte les personnes handicapées aux emplois.',
+        descEs: 'La principal organización de inclusión de discapacidades en Egipto. Helm conecta a personas con discapacidades con empleos.',
+        tags: ['Inclusive Jobs', 'Career Fair', 'Cairo'],
+        tagsAr: ['وظائف شاملة', 'معرض وظيفي', 'القاهرة'],
+        match: 98
+    },
+    {
+        id: 'edsa',
+        icon: '💛',
+        color: '#FFB830',
+        name: 'Egyptian Down Syndrome Association · EDSA',
+        nameAr: 'المؤسسة المصرية لمتلازمة داون',
+        nameFr: 'Association Égyptienne de la Trisomie 21',
+        nameEs: 'Asociación Egipcia del Síndrome de Down',
+        type: 'Support Org',
+        typeAr: 'منظمة دعم',
+        location: 'القاهرة · Cairo',
+        locationAr: 'القاهرة',
+        mapUrl: 'https://maps.app.goo.gl/BqBMaU73ZmV7HZXS7',
+        siteUrl: 'https://www.facebook.com/100070962695157',
+        fbUrl: 'https://www.facebook.com/100070962695157',
+        careerUrl: 'https://www.facebook.com/100070962695157',
+        desc: 'Egypt\'s first specialized institution for healthcare, early intervention, and vocational training for people with Down Syndrome. Member of the World Down Syndrome Network.',
+        descAr: 'أول مؤسسة متخصصة في الرعاية الصحية والتدخل المبكر والتدريب المهني لمتلازمة داون في مصر. عضو الشبكة العالمية لمتلازمة داون.',
+        descFr: 'Première institution spécialisée en soins de santé, intervention précoce et formation professionnelle pour les personnes atteintes de trisomie 21 en Égypte.',
+        descEs: 'Primera institución especializada en atención médica, intervención temprana y formación profesional para personas con síndrome de Down en Egipto.',
+        tags: ['Down Syndrome', 'Vocational Training', 'Cairo'],
+        tagsAr: ['متلازمة داون', 'تدريب مهني', 'القاهرة'],
+        match: 99
+    },
+    {
+        id: 'caritas',
+        icon: '❤️',
+        color: '#F43F5E',
+        name: 'Caritas Egypt · كاريتاس مصر',
+        nameAr: 'كاريتاس مصر',
+        nameFr: 'Caritas Égypte',
+        nameEs: 'Cáritas Egipto',
+        type: 'Rehab Center',
+        typeAr: 'مركز تأهيل',
+        location: 'شبرا - القاهرة · Shubra, Cairo',
+        locationAr: 'شبرا، القاهرة',
+        mapUrl: 'https://maps.app.goo.gl/MbX8DLzS3CBFZLEF9',
+        siteUrl: 'http://www.seti-center.com/dawn.html',
+        fbUrl: 'https://www.facebook.com/CaritasEgypt',
+        careerUrl: 'http://www.seti-center.com/dawn.html',
+        desc: 'Caritas Egypt\'s SETI Center runs the Down Syndrome social rehabilitation program — training young adults for vocational skills and real employment, with job placement support.',
+        descAr: 'مركز سيتى بكاريتاس مصر يدير برنامج التأهيل الاجتماعي لمتلازمة داون — تدريب الشباب على المهارات المهنية والتوظيف الفعلي.',
+        descFr: 'Le centre SETI de Caritas Égypte gère un programme de réhabilitation sociale pour les personnes atteintes de trisomie 21 avec formation professionnelle.',
+        descEs: 'El centro SETI de Cáritas Egipto dirige el programa de rehabilitación social del síndrome de Down con formación profesional y colocación laboral.',
+        tags: ['Vocational Training', 'Shubra', 'Rehab'],
+        tagsAr: ['تدريب مهني', 'شبرا', 'تأهيل'],
+        match: 96
+    },
+    {
+        id: 'nccpd',
+        icon: '🏛️',
+        color: '#7C3AED',
+        name: 'National Council for Persons with Disabilities',
+        nameAr: 'المجلس القومي للأشخاص ذوي الإعاقة',
+        nameFr: 'Conseil National des Personnes Handicapées',
+        nameEs: 'Consejo Nacional de Personas con Discapacidad',
+        type: 'Government',
+        typeAr: 'حكومي',
+        location: 'القاهرة · Cairo',
+        locationAr: 'القاهرة',
+        mapUrl: 'https://maps.app.goo.gl/nNxC3p3e3RWr2Sov6',
+        siteUrl: 'https://www.nccpd.gov.eg',
+        fbUrl: 'https://www.facebook.com/NCCPDEgypt',
+        careerUrl: 'https://www.nccpd.gov.eg',
+        desc: 'The official government body overseeing rights and employment programs for people with disabilities in Egypt. Offers job referrals, training, and legal protection programs.',
+        descAr: 'الجهة الحكومية الرسمية التي تشرف على حقوق وبرامج توظيف الأشخاص ذوي الإعاقة في مصر. تقدم إحالات وظيفية وتدريباً وحماية قانونية.',
+        descFr: 'L\'organe gouvernemental officiel supervisant les droits et programmes d\'emploi pour les personnes handicapées en Égypte.',
+        descEs: 'El organismo gubernamental oficial que supervisa los derechos y programas de empleo para personas con discapacidades en Egipto.',
+        tags: ['Government', 'Legal Rights', 'Cairo'],
+        tagsAr: ['حكومي', 'حقوق قانونية', 'القاهرة'],
+        match: 90
+    },
+    {
+        id: 'cic',
+        icon: '🎓',
+        color: '#10B981',
+        name: 'Canadian International College · CIC',
+        nameAr: 'الجامعة الكندية الدولية',
+        nameFr: 'Collège International Canadien',
+        nameEs: 'Colegio Internacional Canadiense',
+        type: 'Education',
+        typeAr: 'تعليم',
+        location: 'الشيخ زايد - الجيزة',
+        locationAr: 'الشيخ زايد، الجيزة',
+        mapUrl: 'https://maps.app.goo.gl/gCGY3eJ2TK5PXhts7',
+        siteUrl: 'https://www.cic.edu.eg',
+        fbUrl: 'https://www.facebook.com/CICEgypt',
+        careerUrl: 'https://www.cic.edu.eg',
+        desc: 'CIC employed Ibrahim El-Kholy — Egypt\'s first Down Syndrome academic assistant — celebrated by President El-Sisi. The university actively supports inclusive employment on campus.',
+        descAr: 'الجامعة الكندية وظّفت إبراهيم الخولي — أول معيد بمتلازمة داون في مصر — وكرّمه الرئيس السيسي. تدعم الجامعة التوظيف الشامل بنشاط.',
+        descFr: 'CIC a employé Ibrahim El-Kholy — premier assistant académique atteint de trisomie 21 en Égypte — célébré par le président El-Sisi.',
+        descEs: 'CIC empleó a Ibrahim El-Kholy — el primer asistente académico con síndrome de Down en Egipto — celebrado por el presidente El-Sisi.',
+        tags: ['Education', 'Giza', 'Inclusive Campus'],
+        tagsAr: ['تعليم', 'الجيزة', 'حرم جامعي شامل'],
+        match: 88
+    },
+    {
+        id: 'mars',
+        icon: '🍬',
+        color: '#FF6B35',
+        name: 'Mars Egypt (via Helm)',
+        nameAr: 'مارس مصر (عبر حلم)',
+        nameFr: 'Mars Égypte (via Helm)',
+        nameEs: 'Mars Egipto (vía Helm)',
+        type: 'Factory / Food',
+        typeAr: 'مصنع / غذاء',
+        location: '6 أكتوبر - الجيزة',
+        locationAr: '6 أكتوبر، الجيزة',
+        mapUrl: 'https://maps.app.goo.gl/TvFfFnpN8oXMqXjn9',
+        siteUrl: 'https://www.mars.com/egypt',
+        fbUrl: 'https://www.facebook.com/MarsEgypt',
+        careerUrl: 'https://khatwa.helmegypt.org',
+        desc: 'Mars Egypt partnered with Helm to hire 20 factory operators with disabilities — a model inclusive employment program in Egypt\'s private sector.',
+        descAr: 'تعاونت مارس مصر مع حلم لتوظيف 20 عامل مصنع من ذوي الإعاقة — نموذج مثالي للتوظيف الشامل في القطاع الخاص المصري.',
+        descFr: 'Mars Égypte s\'est associée à Helm pour recruter 20 opérateurs d\'usine handicapés — un modèle d\'emploi inclusif dans le secteur privé.',
+        descEs: 'Mars Egipto se asoció con Helm para contratar 20 operadores de fábrica con discapacidades — un modelo de empleo inclusivo en el sector privado.',
+        tags: ['Factory', '6th October', 'Private Sector'],
+        tagsAr: ['مصنع', '6 أكتوبر', 'قطاع خاص'],
+        match: 85
+    },
+    {
+        id: 'vodafone',
+        icon: '📱',
+        color: '#E11D48',
+        name: 'Vodafone Egypt Foundation',
+        nameAr: 'مؤسسة فودافون مصر',
+        nameFr: 'Fondation Vodafone Égypte',
+        nameEs: 'Fundación Vodafone Egipto',
+        type: 'Corporate CSR',
+        typeAr: 'شركة - مسؤولية اجتماعية',
+        location: 'القاهرة · Cairo',
+        locationAr: 'القاهرة',
+        mapUrl: 'https://maps.app.goo.gl/TH8xALEjYAcvAqax7',
+        siteUrl: 'https://www.vodafonefoundation.com.eg',
+        fbUrl: 'https://www.facebook.com/VodafoneEgyptFoundation',
+        careerUrl: 'https://www.vodafonefoundation.com.eg',
+        desc: 'Vodafone Egypt Foundation co-launched "Entaleq" with Helm — Egypt\'s accessibility app — and funds programs integrating people with disabilities into the workforce.',
+        descAr: 'مؤسسة فودافون مصر أطلقت تطبيق "انطلق" مع حلم وتمول برامج دمج ذوي الإعاقة في سوق العمل.',
+        descFr: 'La Fondation Vodafone Égypte a co-lancé l\'application Entaleq avec Helm et finance des programmes d\'intégration professionnelle.',
+        descEs: 'La Fundación Vodafone Egipto co-lanzó la aplicación Entaleq con Helm y financia programas de integración laboral.',
+        tags: ['Corporate', 'CSR', 'Cairo'],
+        tagsAr: ['شركة', 'مسؤولية اجتماعية', 'القاهرة'],
+        match: 82
+    }
+];
+
+
 var TOPICS = [
     {
         id: 'intro', icon: '👋', title: 'How to Introduce Yourself', titleAr: 'كيف تقدم نفسك', titleFr: 'Comment se présenter', titleEs: 'Cómo presentarse', time: '10 min', color: '#FF6B35',
@@ -1043,12 +1219,17 @@ var TEAM = [
     }
 ];
 
+// ── GAMES ARRAY (BLOCK 3 — replaced) ─────────────────────────────
 var GAMES = [
-    { id: 'memory', icon: '🧠', title: 'Memory Game', titleAr: 'لعبة الذاكرة', color: '#FF6B35', desc: 'Match all pairs of cards!', instEn: 'Flip cards to find matching pairs. Try to remember where each one is!', instAr: 'اقلب البطاقات للعثور على الأزواج المتطابقة!' },
-    { id: 'pattern', icon: '🔷', title: 'Pattern Game', titleAr: 'لعبة الأنماط', color: '#1DB9A8', desc: 'Complete the pattern sequence!', instEn: 'Look at the pattern and click the shape that comes next!', instAr: 'انظر إلى النمط وانقر على الشكل التالي!' },
-    { id: 'math', icon: '🔢', title: 'Maths Game', titleAr: 'لعبة الرياضيات', color: '#FFB830', desc: 'Solve simple maths problems!', instEn: 'Solve the maths question and tap the correct answer!', instAr: 'احل مسألة الرياضيات وانقر على الإجابة الصحيحة!' },
-    { id: 'sort', icon: '📦', title: 'Sorting Game', titleAr: 'لعبة التصنيف', color: '#7C3AED', desc: 'Sort items into right categories!', instEn: 'Drag each word into the correct category box!', instAr: 'اسحب كل كلمة إلى صندوق الفئة الصحيحة!' },
-    { id: 'focus', icon: '👁️', title: 'Focus Game', titleAr: 'لعبة التركيز', color: '#10B981', desc: 'Click glowing squares fast!', instEn: 'Click each glowing square quickly before it fades! Keep your focus!', instAr: 'انقر على كل مربع متوهج بسرعة قبل أن يتلاشى!' }
+    { id: 'memory',   icon: '🧠', title: 'Memory Game',    titleAr: 'لعبة الذاكرة',    color: '#FF6B35', desc: 'Match all pairs of cards!',              instEn: 'Flip cards to find matching pairs. Try to remember where each one is!',          instAr: 'اقلب البطاقات للعثور على الأزواج المتطابقة!' },
+    { id: 'pattern',  icon: '🔷', title: 'Pattern Game',   titleAr: 'لعبة الأنماط',    color: '#1DB9A8', desc: 'Complete the pattern sequence!',          instEn: 'Look at the pattern and click the shape that comes next!',                    instAr: 'انظر إلى النمط وانقر على الشكل التالي!' },
+    { id: 'math',     icon: '🔢', title: 'Maths Game',     titleAr: 'لعبة الرياضيات',  color: '#FFB830', desc: 'Solve simple maths problems!',             instEn: 'Solve the maths question and tap the correct answer!',                        instAr: 'احل مسألة الرياضيات وانقر على الإجابة الصحيحة!' },
+    { id: 'sort',     icon: '📦', title: 'Sorting Game',   titleAr: 'لعبة التصنيف',    color: '#7C3AED', desc: 'Sort items into right categories!',        instEn: 'Drag each word into the correct category box!',                               instAr: 'اسحب كل كلمة إلى صندوق الفئة الصحيحة!' },
+    { id: 'focus',    icon: '👁️', title: 'Focus Game',     titleAr: 'لعبة التركيز',    color: '#10B981', desc: 'Click glowing squares fast!',               instEn: 'Click each glowing square quickly before it fades! Keep your focus!',         instAr: 'انقر على كل مربع متوهج بسرعة قبل أن يتلاشى!' },
+    { id: 'scramble', icon: '🔤', title: 'Word Scramble',  titleAr: 'لعبة الكلمات',    color: '#3B82F6', desc: 'Unscramble the letters to make a word!',   instEn: 'The letters are mixed up — can you put them in the right order?',             instAr: 'الحروف مخلوطة — هل يمكنك ترتيبها بشكل صحيح؟' },
+    { id: 'colour',   icon: '🎨', title: 'Colour Match',   titleAr: 'لعبة الألوان',    color: '#F43F5E', desc: 'Match the colour to its name!',             instEn: 'Click the colour that matches the word shown. How fast can you go?',          instAr: 'انقر على اللون الذي يطابق الكلمة المعروضة!' },
+    { id: 'clock',    icon: '🕐', title: 'Clock Reading',  titleAr: 'لعبة الساعة',     color: '#8B5CF6', desc: 'Read the clock and pick the right time!',  instEn: 'Look at the clock and tap the correct time. Great for everyday life!',        instAr: 'انظر إلى الساعة واختر الوقت الصحيح!' },
+    { id: 'balloon',  icon: '🎈', title: 'Balloon Pop',    titleAr: 'فرقعة البالونات',  color: '#EC4899', desc: 'Pop balloons in the right number order!',   instEn: 'Pop the balloons from smallest number to biggest — 1, 2, 3... go!',           instAr: 'فرقع البالونات من الأصغر إلى الأكبر — 1، 2، 3!' }
 ];
 
 // ── VOICE ENGINE ─────────────────────────────────────────────────────
@@ -1919,6 +2100,10 @@ function startGame(id) {
     else if (id === 'math') buildMath();
     else if (id === 'sort') buildSort();
     else if (id === 'focus') buildFocus();
+    else if (id === 'scramble') buildScramble();
+    else if (id === 'colour')   buildColour();
+    else if (id === 'clock')    buildClock();
+    else if (id === 'balloon')  buildBalloon();
 }
 
 function closeGame() { var a = document.getElementById('game-arena'); if (a) a.classList.remove('on'); }
@@ -2152,6 +2337,402 @@ function hitFocus(i) {
     updateStat('pts', 10);
 }
 
+// ── GAME 6: WORD SCRAMBLE ─────────────────────────────────────────
+var SCRAMBLE_WORDS = [
+    { word: 'CAT',   wordAr: 'قطة',   hint: '🐱', hintAr: '🐱' },
+    { word: 'DOG',   wordAr: 'كلب',   hint: '🐶', hintAr: '🐶' },
+    { word: 'BUS',   wordAr: 'حافلة', hint: '🚌', hintAr: '🚌' },
+    { word: 'SUN',   wordAr: 'شمس',   hint: '☀️',  hintAr: '☀️'  },
+    { word: 'CUP',   wordAr: 'كوب',   hint: '☕',  hintAr: '☕'  },
+    { word: 'HAT',   wordAr: 'قبعة',  hint: '🎩', hintAr: '🎩' },
+    { word: 'MAP',   wordAr: 'خريطة', hint: '🗺️', hintAr: '🗺️' },
+    { word: 'BAG',   wordAr: 'حقيبة', hint: '👜', hintAr: '👜' },
+    { word: 'PEN',   wordAr: 'قلم',   hint: '✏️', hintAr: '✏️' },
+    { word: 'KEY',   wordAr: 'مفتاح', hint: '🔑', hintAr: '🔑' },
+    { word: 'BOOK',  wordAr: 'كتاب',  hint: '📚', hintAr: '📚' },
+    { word: 'STAR',  wordAr: 'نجمة',  hint: '⭐', hintAr: '⭐' },
+    { word: 'FISH',  wordAr: 'سمكة',  hint: '🐟', hintAr: '🐟' },
+    { word: 'BIRD',  wordAr: 'طائر',  hint: '🐦', hintAr: '🐦' },
+    { word: 'CAKE',  wordAr: 'كعكة',  hint: '🎂', hintAr: '🎂' }
+];
+
+var scrambleScore = 0;
+var scrambleLevel = 0;
+var scrambleWordList = [];
+var scrambleLetters = [];
+var scrambleAnswer  = [];
+
+function buildScramble() {
+    scrambleScore = 0; scrambleLevel = 0;
+    scrambleWordList = SCRAMBLE_WORDS.slice().sort(function() { return Math.random() - .5; });
+    var inn = document.getElementById('game-inner');
+    inn.innerHTML =
+        '<div class="scorebar">' +
+        '<div class="sitem"><div class="snum" id="scr-score">0</div><div class="slbl">' + t('game_score') + '</div></div>' +
+        '<div class="sitem"><div class="snum" id="scr-level">1</div><div class="slbl">' + (isAR ? 'الكلمة' : 'Word') + '</div></div>' +
+        '</div>' +
+        '<div id="scr-inner"></div>';
+    nextScramble();
+}
+
+function nextScramble() {
+    if (scrambleLevel >= scrambleWordList.length) { scrambleLevel = 0; scrambleWordList.sort(function(){return Math.random()-.5;}); }
+    var entry = scrambleWordList[scrambleLevel];
+    var displayWord = isAR ? entry.wordAr : entry.word;
+    // Shuffle letters
+    scrambleLetters = displayWord.split('').sort(function() { return Math.random() - .5; });
+    // Prevent identical shuffle
+    while (scrambleLetters.join('') === displayWord && displayWord.length > 1) {
+        scrambleLetters.sort(function() { return Math.random() - .5; });
+    }
+    scrambleAnswer = [];
+    var lv = document.getElementById('scr-level'); if (lv) lv.textContent = scrambleLevel + 1;
+    var inn = document.getElementById('scr-inner'); if (!inn) return;
+    inn.innerHTML =
+        '<div style="text-align:center;padding:20px 0">' +
+        '<div style="font-size:4rem;margin-bottom:6px">' + entry.hint + '</div>' +
+        '<p style="font-size:.85rem;color:var(--txt2);margin-bottom:20px">' +
+        (isAR ? 'رتّب الحروف لتكوين الكلمة الصحيحة!' : 'Arrange the letters to make the correct word!') + '</p>' +
+        '<div class="scr-answer-row" id="scr-answer-row" style="min-height:60px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:12px;background:var(--bg2);border:2px dashed var(--bdr);border-radius:var(--r);margin-bottom:16px"></div>' +
+        '<div class="scr-letters" id="scr-letters" style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:20px">' +
+        scrambleLetters.map(function(l, i) {
+            return '<div class="scr-letter" id="scrl-' + i + '" role="button" tabindex="0" onclick="pickLetter(\'' + l + '\',' + i + ')">' + l + '</div>';
+        }).join('') +
+        '</div>' +
+        '<div style="display:flex;gap:9px;justify-content:center;flex-wrap:wrap">' +
+        '<button class="btn btn-t btn-sm" onclick="checkScramble(\'' + displayWord + '\')">' + (isAR ? '✅ تحقق' : '✅ Check') + '</button>' +
+        '<button class="btn btn-g btn-sm" onclick="clearScramble()">' + (isAR ? '↩ مسح' : '↩ Clear') + '</button>' +
+        '</div>' +
+        '<div id="scr-fb" style="margin-top:14px;font-size:.9rem;font-weight:800"></div>' +
+        '</div>';
+}
+
+function pickLetter(letter, idx) {
+    var el = document.getElementById('scrl-' + idx);
+    if (!el || el.classList.contains('used')) return;
+    el.classList.add('used');
+    scrambleAnswer.push({ letter: letter, srcIdx: idx });
+    var row = document.getElementById('scr-answer-row');
+    if (row) {
+        var tile = document.createElement('div');
+        tile.className = 'scr-letter placed';
+        tile.textContent = letter;
+        tile.setAttribute('data-pos', scrambleAnswer.length - 1);
+        tile.onclick = function() { removeLetter(this); };
+        row.appendChild(tile);
+    }
+}
+
+function removeLetter(tile) {
+    var pos = parseInt(tile.getAttribute('data-pos'));
+    if (isNaN(pos)) return;
+    var entry = scrambleAnswer[pos];
+    if (entry) {
+        var src = document.getElementById('scrl-' + entry.srcIdx);
+        if (src) src.classList.remove('used');
+        scrambleAnswer.splice(pos, 1);
+        // Re-index remaining tiles
+        var row = document.getElementById('scr-answer-row');
+        if (row) {
+            var tiles = row.querySelectorAll('.scr-letter');
+            tiles.forEach(function(t, i) { t.setAttribute('data-pos', i); });
+        }
+    }
+    tile.remove();
+}
+
+function clearScramble() {
+    scrambleAnswer = [];
+    var row = document.getElementById('scr-answer-row');
+    if (row) row.innerHTML = '';
+    document.querySelectorAll('.scr-letter').forEach(function(el) { el.classList.remove('used'); });
+    var fb = document.getElementById('scr-fb'); if (fb) fb.textContent = '';
+}
+
+function checkScramble(correct) {
+    var formed = scrambleAnswer.map(function(x){return x.letter;}).join('');
+    var fb = document.getElementById('scr-fb');
+    if (formed.toUpperCase() === correct.toUpperCase()) {
+        scrambleScore += 10; scrambleLevel++;
+        var sc = document.getElementById('scr-score'); if (sc) sc.textContent = scrambleScore;
+        speak(isAR ? 'رائع! إجابة صحيحة!' : 'Excellent! Correct!', null);
+        if (fb) { fb.style.color = 'var(--jade)'; fb.textContent = '✅ ' + (isAR ? 'صحيح! +10 نقاط' : 'Correct! +10 pts'); }
+        updateStat('pts', 10);
+        setTimeout(nextScramble, 900);
+    } else {
+        speak(isAR ? 'حاول مرة أخرى!' : 'Try again!', null);
+        if (fb) { fb.style.color = 'var(--rose)'; fb.textContent = '❌ ' + (isAR ? 'ليس صحيحاً — حاول مرة أخرى!' : 'Not quite — try again!'); }
+        document.querySelectorAll('.scr-answer-row .scr-letter').forEach(function(el) {
+            el.style.borderColor = 'var(--rose)';
+            setTimeout(function(){ el.style.borderColor = ''; }, 700);
+        });
+    }
+}
+
+// ── GAME 7: COLOUR MATCH ──────────────────────────────────────────
+var COLOURS = [
+    { name: 'Red',    nameAr: 'أحمر', hex: '#EF4444' },
+    { name: 'Blue',   nameAr: 'أزرق', hex: '#3B82F6' },
+    { name: 'Green',  nameAr: 'أخضر', hex: '#22C55E' },
+    { name: 'Yellow', nameAr: 'أصفر', hex: '#EAB308' },
+    { name: 'Orange', nameAr: 'برتقالي', hex: '#F97316' },
+    { name: 'Purple', nameAr: 'بنفسجي', hex: '#A855F7' },
+    { name: 'Pink',   nameAr: 'وردي',  hex: '#EC4899' },
+    { name: 'Brown',  nameAr: 'بني',   hex: '#92400E' }
+];
+
+var colourScore = 0;
+var colourStreak = 0;
+var colourTarget = null;
+
+function buildColour() {
+    colourScore = 0; colourStreak = 0;
+    var inn = document.getElementById('game-inner');
+    inn.innerHTML =
+        '<div class="scorebar">' +
+        '<div class="sitem"><div class="snum" id="col-score">0</div><div class="slbl">' + t('game_score') + '</div></div>' +
+        '<div class="sitem"><div class="snum" id="col-streak">0</div><div class="slbl">' + (isAR ? 'تتالي' : 'Streak') + '</div></div>' +
+        '</div>' +
+        '<div id="col-inner"></div>';
+    nextColour();
+}
+
+function nextColour() {
+    var shuffled = COLOURS.slice().sort(function(){ return Math.random()-.5; });
+    colourTarget = shuffled[0];
+    var choices = shuffled.slice(0, 4).sort(function(){ return Math.random()-.5; });
+    var inn = document.getElementById('col-inner'); if (!inn) return;
+    inn.innerHTML =
+        '<div style="text-align:center;padding:16px 0">' +
+        '<p style="font-size:.82rem;color:var(--txt2);margin-bottom:10px">' +
+        (isAR ? 'انقر على اللون الصحيح!' : 'Tap the correct colour!') + '</p>' +
+        '<div style="font-size:2rem;font-weight:900;color:' + colourTarget.hex + ';margin-bottom:24px;letter-spacing:3px;text-shadow:0 2px 8px ' + colourTarget.hex + '55">' +
+        (isAR ? colourTarget.nameAr : colourTarget.name) + '</div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:320px;margin:0 auto">' +
+        choices.map(function(c) {
+            return '<div class="colour-swatch" role="button" tabindex="0" onclick="checkColour(\'' + c.hex + '\')" style="background:' + c.hex + '">' +
+                '<span style="opacity:0">.</span></div>';
+        }).join('') +
+        '</div>' +
+        '<div id="col-fb" style="margin-top:16px;font-size:.9rem;font-weight:800;min-height:24px"></div>' +
+        '</div>';
+}
+
+function checkColour(chosenHex) {
+    var fb = document.getElementById('col-fb');
+    if (chosenHex === colourTarget.hex) {
+        colourScore += 10; colourStreak++;
+        var sc = document.getElementById('col-score'); if (sc) sc.textContent = colourScore;
+        var st = document.getElementById('col-streak'); if (st) st.textContent = colourStreak;
+        if (fb) { fb.style.color='var(--jade)'; fb.textContent = '✅ ' + (isAR ? 'ممتاز!' : 'Excellent!'); }
+        speak(isAR ? 'ممتاز!' : 'Excellent!', null);
+        updateStat('pts', 10);
+        setTimeout(nextColour, 700);
+    } else {
+        colourStreak = 0;
+        var st2 = document.getElementById('col-streak'); if (st2) st2.textContent = 0;
+        if (fb) { fb.style.color='var(--rose)'; fb.textContent = '❌ ' + (isAR ? 'حاول مرة أخرى!' : 'Try again!'); }
+        speak(isAR ? 'حاول مرة أخرى!' : 'Not quite! Try again!', null);
+    }
+}
+
+// ── GAME 8: CLOCK READING ─────────────────────────────────────────
+var CLOCK_TIMES = [
+    {h:1,m:0}, {h:2,m:0}, {h:3,m:0}, {h:4,m:0}, {h:5,m:0},
+    {h:6,m:0}, {h:7,m:0}, {h:8,m:0}, {h:9,m:0}, {h:10,m:0},
+    {h:11,m:0},{h:12,m:0},{h:3,m:30},{h:6,m:30},{h:9,m:30},
+    {h:1,m:30},{h:5,m:30},{h:7,m:30},{h:2,m:15},{h:4,m:45}
+];
+var clockScore = 0;
+var clockLevel = 0;
+
+function buildClock() {
+    clockScore = 0; clockLevel = 0;
+    var inn = document.getElementById('game-inner');
+    inn.innerHTML =
+        '<div class="scorebar">' +
+        '<div class="sitem"><div class="snum" id="clk-score">0</div><div class="slbl">' + t('game_score') + '</div></div>' +
+        '<div class="sitem"><div class="snum" id="clk-level">1</div><div class="slbl">' + (isAR ? 'الجولة' : 'Round') + '</div></div>' +
+        '</div>' +
+        '<div id="clk-inner"></div>';
+    nextClock();
+}
+
+function nextClock() {
+    if (clockLevel >= CLOCK_TIMES.length) {
+        speak(isAR ? 'مبروك! أتقنت قراءة الساعة!' : 'Congratulations! You mastered clock reading!', null);
+        showToast('🕐 ' + (isAR ? 'أحسنت!' : 'Excellent work!'));
+        var inn = document.getElementById('clk-inner');
+        if (inn) inn.innerHTML = '<div style="text-align:center;padding:40px;font-size:1.1rem;font-weight:800">🎉 ' +
+            (isAR ? 'انتهيت من جميع الجولات! نتيجتك: ' : 'All rounds complete! Score: ') + clockScore + '</div>';
+        return;
+    }
+    var entry = CLOCK_TIMES[clockLevel];
+    var lv = document.getElementById('clk-level'); if (lv) lv.textContent = clockLevel + 1;
+    // Generate 3 wrong times
+    var allTimes = CLOCK_TIMES.filter(function(t){ return !(t.h===entry.h && t.m===entry.m); });
+    allTimes.sort(function(){ return Math.random()-.5; });
+    var choices = [entry].concat(allTimes.slice(0,3)).sort(function(){ return Math.random()-.5; });
+    var inn = document.getElementById('clk-inner'); if (!inn) return;
+    inn.innerHTML =
+        '<div style="text-align:center;padding:10px 0">' +
+        '<p style="font-size:.85rem;color:var(--txt2);margin-bottom:16px">' +
+        (isAR ? 'ما الوقت الذي تُظهره الساعة؟' : 'What time does the clock show?') + '</p>' +
+        '<div style="margin:0 auto 24px" id="clk-svg"></div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:340px;margin:0 auto">' +
+        choices.map(function(c) {
+            var label = pad2(c.h) + ':' + pad2(c.m);
+            return '<button class="clock-opt" onclick="checkClock(' + c.h + ',' + c.m + ',' + entry.h + ',' + entry.m + ',this)">' + label + '</button>';
+        }).join('') +
+        '</div>' +
+        '<div id="clk-fb" style="margin-top:14px;font-size:.9rem;font-weight:800;min-height:24px"></div>' +
+        '</div>';
+    drawClock(entry.h, entry.m);
+}
+
+function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+
+function drawClock(h, m) {
+    var container = document.getElementById('clk-svg'); if (!container) return;
+    var size = 160;
+    var cx = size/2, cy = size/2, r = size/2 - 8;
+    // Hour hand angle
+    var hAngle = ((h % 12) + m/60) / 12 * 360 - 90;
+    var mAngle = m / 60 * 360 - 90;
+    function toXY(angle, len) {
+        var rad = angle * Math.PI / 180;
+        return { x: cx + Math.cos(rad)*len, y: cy + Math.sin(rad)*len };
+    }
+    var hPt = toXY(hAngle, r * 0.5);
+    var mPt = toXY(mAngle, r * 0.75);
+    // Tick marks
+    var ticks = '';
+    for (var i = 0; i < 12; i++) {
+        var a = i / 12 * 360 - 90;
+        var inner = r - 8, outer = r;
+        var p1 = toXY(a, inner); var p2 = toXY(a, outer);
+        ticks += '<line x1="' + p1.x + '" y1="' + p1.y + '" x2="' + p2.x + '" y2="' + p2.y + '" stroke="var(--txt2)" stroke-width="2"/>';
+    }
+    // Hour numbers
+    var nums = '';
+    for (var j = 1; j <= 12; j++) {
+        var na = (j / 12 * 360) - 90;
+        var np = toXY(na, r - 18);
+        nums += '<text x="' + np.x + '" y="' + (np.y+4) + '" text-anchor="middle" font-size="11" fill="var(--txt)" font-weight="700">' + j + '</text>';
+    }
+    container.innerHTML = '<svg width="' + size + '" height="' + size + '" viewBox="0 0 ' + size + ' ' + size + '">' +
+        '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="var(--surf)" stroke="var(--bdr)" stroke-width="3"/>' +
+        ticks + nums +
+        '<line x1="' + cx + '" y1="' + cy + '" x2="' + hPt.x + '" y2="' + hPt.y + '" stroke="var(--txt)" stroke-width="4" stroke-linecap="round"/>' +
+        '<line x1="' + cx + '" y1="' + cy + '" x2="' + mPt.x + '" y2="' + mPt.y + '" stroke="var(--sun)" stroke-width="2.5" stroke-linecap="round"/>' +
+        '<circle cx="' + cx + '" cy="' + cy + '" r="4" fill="var(--sun)"/>' +
+        '</svg>';
+}
+
+function checkClock(ch, cm, eh, em, btn) {
+    document.querySelectorAll('.clock-opt').forEach(function(b){ b.onclick = null; });
+    var correct = (ch===eh && cm===em);
+    var fb = document.getElementById('clk-fb');
+    btn.style.background = correct ? 'rgba(16,185,129,.2)' : 'rgba(244,63,94,.15)';
+    btn.style.borderColor = correct ? 'var(--jade)' : 'var(--rose)';
+    if (!correct) {
+        document.querySelectorAll('.clock-opt').forEach(function(b) {
+            if (b.textContent === pad2(eh)+':'+pad2(em)) {
+                b.style.background='rgba(16,185,129,.2)'; b.style.borderColor='var(--jade)';
+            }
+        });
+    }
+    if (correct) {
+        clockScore += 10; clockLevel++;
+        var sc = document.getElementById('clk-score'); if (sc) sc.textContent = clockScore;
+        speak(isAR ? 'صحيح! أحسنت!' : 'Correct! Well done!', null);
+        if (fb) { fb.style.color='var(--jade)'; fb.textContent='✅ ' + (isAR ? 'إجابة صحيحة!' : 'Correct! +10 pts'); }
+        updateStat('pts', 10);
+        setTimeout(nextClock, 1000);
+    } else {
+        speak(isAR ? 'ليس تمامًا! انظر جيداً.' : 'Not quite! Look carefully.', null);
+        if (fb) { fb.style.color='var(--rose)'; fb.textContent='❌ ' + (isAR ? 'الوقت الصحيح مميّز باللون الأخضر.' : 'Correct time highlighted in green.'); }
+        setTimeout(function(){ clockLevel++; nextClock(); }, 1500);
+    }
+}
+
+// ── GAME 9: BALLOON POP ───────────────────────────────────────────
+var balloonScore  = 0;
+var balloonNext   = 1;
+var balloonTotal  = 10;
+var balloonTimer  = null;
+var balloonActive = false;
+
+function buildBalloon() {
+    balloonScore = 0; balloonNext = 1; balloonTotal = 10; balloonActive = true;
+    if (balloonTimer) clearInterval(balloonTimer);
+    var inn = document.getElementById('game-inner');
+    inn.innerHTML =
+        '<div class="scorebar">' +
+        '<div class="sitem"><div class="snum" id="bal-score">0</div><div class="slbl">' + t('game_score') + '</div></div>' +
+        '<div class="sitem"><div class="snum" id="bal-next">1</div><div class="slbl">' + (isAR ? 'انقر بعد ذلك' : 'Pop Next') + '</div></div>' +
+        '</div>' +
+        '<p style="font-size:.82rem;color:var(--txt2);margin-bottom:16px;text-align:center">' +
+        (isAR ? '🎈 انقر على البالونات بالترتيب من 1 إلى ' + balloonTotal + '!' : '🎈 Pop balloons in order 1 to ' + balloonTotal + '!') + '</p>' +
+        '<div class="balloon-field" id="balloon-field"></div>' +
+        '<div id="bal-fb" style="text-align:center;font-size:.9rem;font-weight:800;margin-top:12px;min-height:24px"></div>' +
+        '<div style="text-align:center;margin-top:14px"><button class="btn btn-o btn-sm" onclick="buildBalloon()">🔄 ' + t('game_new') + '</button></div>';
+    spawnBalloons();
+}
+
+var BALLOON_COLOURS = ['#EF4444','#3B82F6','#22C55E','#EAB308','#F97316','#A855F7','#EC4899','#14B8A6','#F59E0B','#6366F1'];
+
+function spawnBalloons() {
+    var field = document.getElementById('balloon-field'); if (!field) return;
+    field.innerHTML = '';
+    var nums = [];
+    for (var i = 1; i <= balloonTotal; i++) nums.push(i);
+    nums.sort(function(){ return Math.random()-.5; });
+    nums.forEach(function(n) {
+        var b = document.createElement('div');
+        b.className = 'balloon';
+        b.dataset.num = n;
+        b.style.background = BALLOON_COLOURS[(n-1) % BALLOON_COLOURS.length];
+        b.style.left  = (5 + Math.random() * 80) + '%';
+        b.style.top   = (5 + Math.random() * 80) + '%';
+        b.textContent = n;
+        b.setAttribute('role','button');
+        b.setAttribute('aria-label','Balloon ' + n);
+        b.onclick = function() { popBalloon(n, b); };
+        field.appendChild(b);
+    });
+}
+
+function popBalloon(num, el) {
+    if (!balloonActive) return;
+    var fb = document.getElementById('bal-fb');
+    if (num === balloonNext) {
+        balloonScore += 10; balloonNext++;
+        var sc = document.getElementById('bal-score'); if (sc) sc.textContent = balloonScore;
+        var nx = document.getElementById('bal-next');
+        el.classList.add('popped');
+        setTimeout(function(){ el.remove(); }, 350);
+        if (balloonNext > balloonTotal) {
+            balloonActive = false;
+            speak(isAR ? 'مبروك! فرقعت كل البالونات!' : 'Congratulations! You popped all balloons!', null);
+            showToast('🎉 ' + (isAR ? 'أحسنت!' : 'All balloons popped!'));
+            if (fb) { fb.style.color='var(--jade)'; fb.textContent='🎉 ' + (isAR ? 'رائع! اكتملت اللعبة!' : 'Amazing! Game complete!'); }
+            if (nx) nx.textContent = '✅';
+            updateStat('pts', 30); addAct('🎈', 'Balloon Pop', 'Completed!', '+30 pts');
+        } else {
+            if (nx) nx.textContent = balloonNext;
+            if (fb) { fb.style.color='var(--jade)'; fb.textContent='✅ ' + num + ' — ' + (isAR ? 'رائع!' : 'Great!'); }
+            updateStat('pts', 10);
+        }
+    } else {
+        el.classList.add('wrong-pop');
+        setTimeout(function(){ el.classList.remove('wrong-pop'); }, 400);
+        if (fb) { fb.style.color='var(--rose)'; fb.textContent='❌ ' + (isAR ? 'انقر على ' + balloonNext + ' أولاً!' : 'Pop ' + balloonNext + ' first!'); }
+        speak(isAR ? 'انقر على ' + balloonNext + ' أولاً!' : 'Pop ' + balloonNext + ' first!', null);
+    }
+}
+
+
 // ── LEARN PAGE ────────────────────────────────────────────────────────
 function buildLearnPage() {
     var pg = document.getElementById('page-learn');
@@ -2208,20 +2789,57 @@ function checkTopicQ(chosen, correct, n, tid) {
 
 function closeModal() { var mb = document.getElementById('modal-bg'); if (mb) mb.classList.remove('on'); stopAll(); }
 
-// ── JOBS PAGE ─────────────────────────────────────────────────────────
+// ── JOBS PAGE (BLOCK 2 — replaced buildJobsPage function)─────────────
 function buildJobsPage() {
     var pg = document.getElementById('page-jobs');
     pg.innerHTML =
         '<div class="phdr"><button class="backbtn" onclick="showPage(\'home\')" aria-label="Back">←</button><h2>💼 ' + t('nav_jobs') + '</h2></div>' +
-        '<div style="padding:32px;max-width:1100px;margin:0 auto">' +
-        '<div style="margin-bottom:22px"><h3 style="font-family:var(--fd);font-size:1.25rem;font-weight:900;margin-bottom:5px">' + t('jobs_inclusive') + '</h3>' +
-        '<p style="color:var(--txt2);font-size:.86rem">' + t('jobs_employers') + '</p></div>' +
+
+        // ── REAL EGYPT INCLUSIVE EMPLOYERS SECTION ──────────────────────
+        '<div style="padding:32px 32px 0;max-width:1100px;margin:0 auto">' +
+        '<div style="background:linear-gradient(135deg,#FFB83022,#FF6B3511);border:2px solid rgba(255,184,48,.3);border-radius:var(--rlg);padding:28px 32px;margin-bottom:36px">' +
+        '<div style="display:flex;align-items:center;gap:14px;margin-bottom:18px">' +
+        '<div style="font-size:2rem">📍</div>' +
+        '<div>' +
+        '<h3 style="font-family:var(--fd);font-weight:900;font-size:1.1rem;margin-bottom:3px">' +
+        (isAR ? 'مؤسسات حقيقية في مصر تدعم توظيف متلازمة داون 🇪🇬' : 'Real Inclusive Organizations in Egypt 🇪🇬') +
+        '</h3>' +
+        '<p style="font-size:.8rem;color:var(--txt2)">' +
+        (isAR ? 'هذه المؤسسات الحقيقية تدعم ذوي الاحتياجات الخاصة — انقر على أي بطاقة للتواصل أو رؤية الموقع على الخريطة' :
+            'These real organizations in Egypt support inclusive employment — click any card to visit their site or see them on the map') +
+        '</p></div></div>' +
+        '<div class="egypt-orgs-grid" id="egypt-orgs-grid">' +
+        EGYPT_INCLUSIVE_ORGS.map(function (org) {
+            return '<div class="card egypt-org-card" style="--oc:' + org.color + '">' +
+                '<div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px">' +
+                '<div style="font-size:2rem;width:48px;height:48px;border-radius:12px;background:' + org.color + '18;display:flex;align-items:center;justify-content:center;flex-shrink:0">' + org.icon + '</div>' +
+                '<div style="flex:1">' +
+                '<div style="font-size:.88rem;font-weight:900;margin-bottom:2px;line-height:1.3">' + (isAR ? org.nameAr : org.name) + '</div>' +
+                '<div style="font-size:.72rem;color:var(--txt2);font-weight:700">📍 ' + (isAR ? org.locationAr : org.location) + '</div>' +
+                '</div>' +
+                '<div style="padding:3px 9px;border-radius:50px;background:' + org.color + '18;color:' + org.color + ';font-size:.66rem;font-weight:800;flex-shrink:0">' + org.match + '% ✓</div>' +
+                '</div>' +
+                '<p style="font-size:.77rem;color:var(--txt2);line-height:1.55;margin-bottom:14px">' + (isAR ? org.descAr : org.desc) + '</p>' +
+                '<div style="display:flex;gap:7px;flex-wrap:wrap">' +
+                '<a href="' + org.mapUrl + '" target="_blank" rel="noopener" class="org-link-btn" style="background:' + org.color + '18;color:' + org.color + ';border-color:' + org.color + '44">📍 ' + (isAR ? 'الخريطة' : 'Map') + '</a>' +
+                '<a href="' + org.siteUrl + '" target="_blank" rel="noopener" class="org-link-btn" style="background:' + org.color + '18;color:' + org.color + ';border-color:' + org.color + '44">🌐 ' + (isAR ? 'الموقع' : 'Website') + '</a>' +
+                '<a href="' + org.careerUrl + '" target="_blank" rel="noopener" class="org-link-btn" style="background:' + org.color + ';color:#fff;border-color:' + org.color + '">💼 ' + (isAR ? 'وظائف' : 'Jobs') + '</a>' +
+                '</div></div>';
+        }).join('') +
+        '</div></div></div>' +
+
+        // ── GENERAL JOB LISTINGS ────────────────────────────────────────
+        '<div style="padding:0 32px 32px;max-width:1100px;margin:0 auto">' +
+        '<div style="display:flex;align-items:center;gap:14px;margin-bottom:22px">' +
+        '<h3 style="font-family:var(--fd);font-size:1.1rem;font-weight:900">' + t('jobs_inclusive') + '</h3>' +
+        '<p style="font-size:.8rem;color:var(--txt2)">' + t('jobs_employers') + '</p></div>' +
         '<div class="job-filters" id="job-filters">' +
         ['All', 'Retail', 'Food & Beverage', 'Education', 'Outdoors', 'Office', 'Creative'].map(function (f) {
             var fKey = 'jobs_filter_' + f.toLowerCase().replace(' & beverage', '');
             return '<button class="jfbtn ' + (jobFilter === f ? 'on' : '') + '" onclick="filterJobs(\'' + f + '\')">' + t(fKey) + '</button>';
         }).join('') + '</div>' +
         '<div class="jobs-grid" id="jobs-grid"></div></div>';
+
     renderJobs();
 }
 
